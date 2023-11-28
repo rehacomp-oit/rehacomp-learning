@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+
+build/
+dist/
+.vscode
+.pytest_cache
+production/*.service
+*.code-workspace
+*.sqlite3
+.env
+pgdata/
