@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "rehacomp-learning"
+version = "0.1.0"
+description = "learning management system for rehacomp"
+authors = ["Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+classifiers = [
+  "Private :: Do not Upload",
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
