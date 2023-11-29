@@ -12,6 +12,18 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
+django = {extras = ["argon2"], version = "^4.2.7"}
+django-split-settings = "^1.2.0"
+django-axes = "^6.1.1"
+django-csp = "^3.7"
+django-http-referrer-policy = "^1.1.1"
+django-permissions-policy = "^4.18.0"
+django-health-check = "^3.17.0"
+django-stubs-ext = "^4.2.5"
+dump-env = "^1.4.0"
+python-decouple = "^3.8"
+pytz = "^2023.3.post1"
+psycopg = {extras = ["binary"], version = "^3.1.13"}
 
 
 [build-system]
