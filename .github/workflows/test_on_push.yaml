@@ -1,0 +1,32 @@
+name: test
+on: [push]
+
+
+jobs:
+  test-application:
+    runs-on: [ubuntu-latest]
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@master
+
+
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+          architecture: 'x64'
+
+
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          installer-parallel: true
+
+
+      - name: setup project
+        run: poetry install --no-root && echo "DJANGO_SECRET_KEY=__changeme__" > .env
+
+      - name: run code quality checks
+        run: poetry run flake8 && poetry run mypy .
