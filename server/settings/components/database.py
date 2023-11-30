@@ -1,7 +1,6 @@
 '''Database configuration for the project'''
 
 from server.settings.components import BASE_DIR
-from server.settings.components import env_config
 
 
 # Default primary key field type
