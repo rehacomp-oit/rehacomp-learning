@@ -1,0 +1,14 @@
+# The humans responsible & technology colophon
+# http://humanstxt.org/
+
+
+## rehacomp
+
+Team: rehacomp_IT
+
+
+## Technologies
+
+Language: Russian
+Doctype: HTML5
+Technologies: Python, Django
