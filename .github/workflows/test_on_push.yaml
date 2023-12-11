@@ -26,10 +26,10 @@ jobs:
 
 
       - name: setup project
-        run: poetry install --no-root && echo "DJANGO_SECRET_KEY=__changeme__" > .env
+        run: poetry install --no-root && make configure
 
       - name: run code quality checks
-        run: poetry run flake8 && poetry run mypy .
+        run: make lint
 
       - name: run tests
-        run: poetry run pytest
+        run: make test
