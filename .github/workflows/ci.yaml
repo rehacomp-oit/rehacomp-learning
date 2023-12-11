@@ -1,15 +1,36 @@
-name: test
-on: [push]
+name: Continuous Integration
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
 
 
 jobs:
-  test-application:
+  build:
     runs-on: [ubuntu-latest]
+
+    services:
+      postgresql:
+        image: "postgres:15-alpine"
+        env:
+          POSTGRES_DB: rehacomp_learning
+          POSTGRES_PASSWORD: rehacomp_learning
+          POSTGRES_USER: rehacomp_learning
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+        ports:
+          - "5432:5432"
+
+
     steps:
 
       - name: Check out repository
         uses: actions/checkout@master
-
 
       - name: Set up python
         uses: actions/setup-python@v2
