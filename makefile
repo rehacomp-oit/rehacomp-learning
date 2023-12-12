@@ -14,13 +14,13 @@ configure:
 
 # target: lint - runs static checks for the source code
 lint:
-	@poetry run flake8 . && poetry run mypy .
+	@poetry run flake8 . && poetry run mypy server tests manage.py
 
 
-check_env:
+check-env:
 	@poetry run python manage.py check
 
 
 # target: test - runs all auto tests for the project
-test:
+test: check-env
 	@poetry run pytest
