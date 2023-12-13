@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rehacomp learning | {% block title %}{% endblock %}</title>
+</head>
+
+
+
+<body>
+  <header class="header">
+    <p>Будущая Шапка</p>
+  </header>
+
+
+  <nav class="navigation">
+    <p>Будущая панель навигации</p>
+  </nav>
+  <br>
+
+
+  <main>
+  {% block content %}
+  {% endblock %}
+  </main>
+
+
+  <br>
+  <footer class="footer">
+    <p>Будущий подвал</p>
+  </footer>
+</body>
+
+
+</html>
