@@ -1,4 +1,4 @@
-.PHONY = configure help lint test
+.PHONY = configure help lint run-dev test
 
 # target: help - Display callable targets
 help:
@@ -9,7 +9,7 @@ help:
 
 # target: configure - generates the file with environment variables for the project
 configure:
-	@test ! -f .env && grep "^[^#]" ./config/envvars.template > ./.env
+	@grep "^[^#]" ./config/envvars.template > ./.env
 
 
 # target: lint - runs static checks for the source code
@@ -17,6 +17,7 @@ lint:
 	@poetry run flake8 . && poetry run mypy server tests manage.py
 
 
+# target: check-env - runs checks for the project's settings 
 check-env:
 	@poetry run python manage.py check
 
@@ -24,3 +25,13 @@ check-env:
 # target: test - runs all auto tests for the project
 test: check-env
 	@poetry run pytest
+
+
+# target: shell - runs interactive python shell with prepaired django settings for the project
+shell:
+	@poetry run python manage.py shell
+
+
+# target: run-dev - runs django web server for development on port 8000
+run-dev:
+	@poetry run python manage.py runserver
