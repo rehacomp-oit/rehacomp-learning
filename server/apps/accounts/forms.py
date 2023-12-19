@@ -1,9 +1,12 @@
+from typing import final
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import CharField, EmailField
 
 
-class SignupForm(UserCreationForm[User]):
+@final
+class RegisterForm(UserCreationForm[User]):
 
     class Meta(UserCreationForm.Meta):
         fields = (
