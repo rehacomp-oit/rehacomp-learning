@@ -17,6 +17,8 @@ class RegisterForm(UserCreationForm[User]):
             'password1',
             'password2',
         )
+        field_order = fields
+
 
     first_name = CharField(
         label='Имя',
@@ -31,3 +33,9 @@ class RegisterForm(UserCreationForm[User]):
         required=True
     )
     email = EmailField(label='Адрес электронной почты', required=True)
+
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['autofocus'] = False
+        self.fields['first_name'].widget.attrs['autofocus'] = True
