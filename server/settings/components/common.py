@@ -2,6 +2,7 @@
 Common django settings for project
 '''
 
+from django.urls import reverse_lazy
 from server.settings.components import BASE_DIR, env_config
 
 
@@ -11,6 +12,7 @@ SECRET_KEY = env_config('DJANGO_SECRET_KEY')
 # Application definition
 INSTALLED_APPS: tuple[str, ...] = (
     # Internal apps go here:
+    'server.apps.accounts',
     'server.apps.main',
 
     # Default django apps:
@@ -66,6 +68,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Django authentication system
+LOGIN_URL = reverse_lazy('login')
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesBackend',
     'django.contrib.auth.backends.ModelBackend',
