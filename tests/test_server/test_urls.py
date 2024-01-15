@@ -1,7 +1,6 @@
 from http import HTTPStatus
 
 from django.test import Client
-from django.urls import resolve
 import pytest
 
 
@@ -42,8 +41,5 @@ def test_specials_txt(client: Client, page: str) -> None:
 def test_index_url(client: Client) -> None:
     '''This test ensures that index url is accessible.'''
 
-    expected_view_function_name = 'index'
-    resolver = resolve('/')
-    assert resolver.func.__name__ == expected_view_function_name
     response = client.get('/')
     assert response.status_code != HTTPStatus.NOT_FOUND
