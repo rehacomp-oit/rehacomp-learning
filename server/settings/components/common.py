@@ -68,7 +68,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Django authentication system
-LOGIN_URL = reverse_lazy('login')
+LOGIN_URL = reverse_lazy('accounts:login')
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesBackend',
     'django.contrib.auth.backends.ModelBackend',

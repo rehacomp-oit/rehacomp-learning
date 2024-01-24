@@ -26,7 +26,7 @@ __humans_view = TemplateView.as_view(
 
 
 urlpatterns = (
-    path('accounts/', include(accounts_urls)),
+    path('accounts/', include(accounts_urls, namespace='accounts')),
     path('main/', include(main_urls, namespace='main')),
     path('health/', include(health_urls)),
     path('admin/', admin.site.urls),
