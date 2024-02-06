@@ -1,14 +1,18 @@
-from typing import final
+from typing import final, TYPE_CHECKING
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.forms import CharField, EmailField
+
+if TYPE_CHECKING:
+    from django.contrib.auth.models import User  # Noqa: F401
 
 
 @final
-class RegisterForm(UserCreationForm[User]):
+class RegisterForm(UserCreationForm['User']):
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
+        model = get_user_model()
         fields = (
             'first_name',
             'last_name',
@@ -17,7 +21,6 @@ class RegisterForm(UserCreationForm[User]):
             'password1',
             'password2',
         )
-        field_order = fields
 
 
     first_name = CharField(
