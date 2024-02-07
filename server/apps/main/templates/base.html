@@ -22,7 +22,16 @@
   <br>
 
 
-  <main>
+  {% if messages %}
+  <div class="messages" role="region">
+    {% for message in messages %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+
+  <main>    
   {% block content %}
   {% endblock %}
   </main>

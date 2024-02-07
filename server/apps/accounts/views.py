@@ -1,5 +1,6 @@
 from typing import Final
 
+from django.contrib.messages import success, error
 from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -25,9 +26,11 @@ def __try_register_user(
 ) -> HttpResponse | HttpResponseRedirect:
     form = RegisterForm(request.POST)
     if form.is_valid():
-        form.save()
+        new_user = form.save()
+        success(request, f'Добро пожаловать, {new_user.first_name}')
         return redirect(REGISTER_SUCCESS_URL_NAME)
 
+    error(request, 'Некорректные данные формы')
     return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})
 
 
