@@ -1,7 +1,7 @@
 from typing import Final
 
-from django.contrib.messages import success, error
 from django.contrib.auth.views import LoginView
+from django.contrib.messages import error, success
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
