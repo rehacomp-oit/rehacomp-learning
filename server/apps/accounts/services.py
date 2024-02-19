@@ -15,11 +15,11 @@ class ServiceFailed(Exception):
 
 
 def create_new_account(
-        first_name: str,
-        last_name: str,
-        email: str,
-        username: str,
-        password: str,
+    first_name: str,
+    last_name: str,
+    email: str,
+    username: str,
+    password: str,
 ) -> str:
     '''
     Registers a new user in the system.
