@@ -1,17 +1,11 @@
-from typing import final
+# from typing import final
 
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from server.exceptions import ServiceFailed
 
 
 __User = get_user_model()
-
-
-@final
-class ServiceFailed(Exception):
-    '''Unsuccessful execution of a business scenario'''
-
-    pass
 
 
 def create_new_account(

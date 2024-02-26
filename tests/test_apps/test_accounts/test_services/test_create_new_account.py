@@ -1,5 +1,6 @@
 from pytest import mark, raises
-from server.apps.accounts.services import create_new_account, ServiceFailed
+from server.apps.accounts.services import create_new_account
+from server.exceptions import ServiceFailed
 
 
 @mark.django_db
