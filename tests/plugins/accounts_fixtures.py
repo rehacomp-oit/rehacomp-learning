@@ -15,7 +15,8 @@ def fake_login_credentials() -> dict[str, str]:
         'last_name': 'Snow',
         'email': 'js@mail.ru',
         'username': 'john-snow',
-        'password': 'p!ass$word',
+        'password1': 'p!ass$word',
+        'password2': 'p!ass$word',
     }
 
 
@@ -28,5 +29,5 @@ def fake_account(
 
     django_user_model.objects.create_user(
         username=fake_login_credentials['username'],
-        password=fake_login_credentials['password'],
+        password=fake_login_credentials['password1'],
     )
