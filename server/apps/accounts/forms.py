@@ -15,7 +15,7 @@ __password_mismatch_error_msg = _('The two password fields didn’t match.')
 @final
 class RegisterForm(Form):
     '''
-    A form for adding a new user to the system.
+    A custom form for adding a new user to the system.
     It is used only for rendering the form markup and
     validating received data.
 '''
@@ -38,6 +38,7 @@ class RegisterForm(Form):
 
     email = EmailField(
         label='Адрес электронной почты',
+        help_text='Обязательно для заполнения',
         required=True
     )
 

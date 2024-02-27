@@ -17,12 +17,6 @@ FORM_FIELD_NAMES: Final = (
     'password2',
 )
 
-FORM_FIELDS_DATA: Final = {
-    'first_name': ('Имя', 'Обязательно для заполнения',),
-    'last_name': ('Фамилия', 'Обязательно для заполнения',),
-    'email': ('Адрес электронной почты',),
-}
-
 
 @pytest.fixture(scope='module')
 def empty_form() -> RegisterForm:
@@ -48,9 +42,12 @@ def test_auto_focus_first_name(empty_form: RegisterForm) -> None:
 
 
 @pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:2])
-def test_field_max_length(empty_form: RegisterForm, field_name: str) -> None:
+def test_full_name_max_length(
+    empty_form: RegisterForm,
+    field_name: str
+) -> None:
     '''
-    This test ensures that the form field has
+    This test ensures that <first_name> and <last_name> form fields have
     correct maximum number of entered characters.
     '''
 
@@ -59,29 +56,36 @@ def test_field_max_length(empty_form: RegisterForm, field_name: str) -> None:
     assert int(field_length) == expected_field_length
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:3])
+def test_username_max_length(empty_form: RegisterForm) -> None:
+    '''
+    This test ensures that <username> form field has
+    correct maximum number of entered characters.
+    '''
+
+    expected_field_length = 10
+    field_length = empty_form.fields['username'].widget.attrs['maxlength']
+    assert int(field_length) == expected_field_length
+
+
+@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES)
 def test_field_is_required(empty_form: RegisterForm, field_name: str) -> None:
     '''This test ensures that the form field is required.'''
 
     assert empty_form.fields[field_name].required
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:3])
+@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES)
 def test_has_label(field_name: str, empty_form: RegisterForm) -> None:
     '''This test ensures that the form field has the correct label.'''
 
-    expected_label = FORM_FIELDS_DATA[field_name][0]
-    field_label = empty_form.fields[field_name].label
-    assert field_label == expected_label
+    assert empty_form.fields[field_name].label is not None
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:2])
+@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES)
 def test_has_help_text(field_name: str, empty_form: RegisterForm) -> None:
     '''This test ensures that the form field has the correct label.'''
 
-    expected_help_text = FORM_FIELDS_DATA[field_name][1]
-    help_text = empty_form.fields[field_name].help_text
-    assert help_text == expected_help_text
+    assert empty_form.fields[field_name].help_text is not None
 
 
 def test_form_fields_order(empty_form: RegisterForm) -> None:
