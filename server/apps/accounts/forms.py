@@ -79,3 +79,30 @@ class RegisterForm(Form):
             )
 
         return password2
+
+
+@final
+class LoginForm(Form):
+    '''
+    A custom form for login users.
+'''
+
+    username = UsernameField(
+        label='Имя пользователя',
+        help_text='Обязательно для заполнения',
+        max_length=10,
+        required=True,
+        strip=True,
+    )
+
+    password = CharField(
+        label=_('Password'),
+        strip=False,
+        widget=PasswordInput(attrs={'autocomplete': 'password'}),
+        help_text=password_validators_help_text_html(),
+    )
+
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['autofocus'] = True
