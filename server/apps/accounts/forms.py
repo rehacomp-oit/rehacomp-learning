@@ -9,9 +9,6 @@ from django.forms import CharField, EmailField, Form, PasswordInput
 from django.utils.translation import gettext_lazy as _
 
 
-__password_mismatch_error_msg = _('The two password fields didn’t match.')
-
-
 @final
 class RegisterForm(Form):
     '''
@@ -19,6 +16,7 @@ class RegisterForm(Form):
     It is used only for rendering the form markup and
     validating received data.
 '''
+    _password_mismatch_error_msg = _('The two password fields didn’t match.')
 
     first_name = CharField(
         label='Имя',
@@ -75,7 +73,7 @@ class RegisterForm(Form):
         password2 = self.cleaned_data.get('password2')
         if password1 and password2 and password1 != password2:
             raise ValidationError(
-                __password_mismatch_error_msg,
+                self._password_mismatch_error_msg,
                 code='password_mismatch',
             )
 
