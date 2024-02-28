@@ -1,14 +1,10 @@
-from typing import Final
-
 from django.contrib.auth import authenticate, login
 from django.contrib.messages import error
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from server.apps.accounts.forms import LoginForm
 
-
-LOGIN_SUCCESS_URL_NAME: Final = 'main:profile'
-LOGIN_PAGE_TEMPLATE_NAME: Final = 'accounts/login.html'
+from .common_constants import LOGIN_PAGE_TEMPLATE_NAME, LOGIN_SUCCESS_URL_NAME
 
 
 def __handle_get_request(request: HttpRequest) -> HttpResponse:

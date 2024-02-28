@@ -1,5 +1,3 @@
-from typing import Final
-
 from django.contrib.messages import error, success
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -7,9 +5,10 @@ from server.apps.accounts.forms import RegisterForm
 from server.apps.accounts.services import create_new_account
 from server.exceptions import ServiceFailed
 
-
-REGISTER_SUCCESS_URL_NAME: Final = 'accounts:login'
-REGISTRATION_PAGE_TEMPLATE_NAME: Final = 'accounts/register.html'
+from .common_constants import (
+    REGISTER_SUCCESS_URL_NAME,
+    REGISTRATION_PAGE_TEMPLATE_NAME
+)
 
 
 def __handle_get_request(request: HttpRequest) -> HttpResponse:
