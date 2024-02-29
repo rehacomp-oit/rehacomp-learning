@@ -4,10 +4,8 @@
 
 {% block content %}
     <h1>Вход в систему</h1>
-    {% if form.errors %}
-    <p>Неверно указано имя пользователя или пароль. Пожалуйста повторите ещё раз.</p>
-    {% endif %}
-
+    <p>если ещё нет аккаунта, самое время <a href="{% url 'accounts:register' %}">зарегистрироваться</a></p>
+    
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}

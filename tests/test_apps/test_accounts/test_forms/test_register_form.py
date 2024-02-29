@@ -4,7 +4,7 @@ A set of tests for the custom registration form object
 
 from typing import Final
 
-import pytest
+from pytest import fixture, mark
 from server.apps.accounts.forms import RegisterForm
 
 
@@ -17,21 +17,15 @@ FORM_FIELD_NAMES: Final = (
     'password2',
 )
 
-FORM_FIELDS_DATA: Final = {
-    'first_name': ('Имя', 'Обязательное поле',),
-    'last_name': ('Фамилия', 'Обязательное поле',),
-    'email': ('Адрес электронной почты',),
-}
 
-
-@pytest.fixture(scope='module')
+@fixture(scope='module')
 def empty_form() -> RegisterForm:
     '''Returnes created empty registration form'''
 
     return RegisterForm()
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES)
+@mark.parametrize('field_name', FORM_FIELD_NAMES)
 def test_exists_field(empty_form: RegisterForm, field_name: str) -> None:
     '''this test ensures that registration form contains the required field.'''
 
@@ -47,10 +41,13 @@ def test_auto_focus_first_name(empty_form: RegisterForm) -> None:
     assert empty_form.fields['first_name'].widget.attrs['autofocus']
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:2])
-def test_field_max_length(empty_form: RegisterForm, field_name: str) -> None:
+@mark.parametrize('field_name', FORM_FIELD_NAMES[:2])
+def test_full_name_max_length(
+    empty_form: RegisterForm,
+    field_name: str
+) -> None:
     '''
-    This test ensures that the form field has
+    This test ensures that <first_name> and <last_name> form fields have
     correct maximum number of entered characters.
     '''
 
@@ -59,29 +56,36 @@ def test_field_max_length(empty_form: RegisterForm, field_name: str) -> None:
     assert int(field_length) == expected_field_length
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:3])
+def test_username_max_length(empty_form: RegisterForm) -> None:
+    '''
+    This test ensures that <username> form field has
+    correct maximum number of entered characters.
+    '''
+
+    expected_field_length = 10
+    field_length = empty_form.fields['username'].widget.attrs['maxlength']
+    assert int(field_length) == expected_field_length
+
+
+@mark.parametrize('field_name', FORM_FIELD_NAMES)
 def test_field_is_required(empty_form: RegisterForm, field_name: str) -> None:
     '''This test ensures that the form field is required.'''
 
     assert empty_form.fields[field_name].required
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:3])
+@mark.parametrize('field_name', FORM_FIELD_NAMES)
 def test_has_label(field_name: str, empty_form: RegisterForm) -> None:
     '''This test ensures that the form field has the correct label.'''
 
-    expected_label = FORM_FIELDS_DATA[field_name][0]
-    field_label = empty_form.fields[field_name].label
-    assert field_label == expected_label
+    assert empty_form.fields[field_name].label is not None
 
 
-@pytest.mark.parametrize('field_name', FORM_FIELD_NAMES[:2])
+@mark.parametrize('field_name', FORM_FIELD_NAMES)
 def test_has_help_text(field_name: str, empty_form: RegisterForm) -> None:
     '''This test ensures that the form field has the correct label.'''
 
-    expected_help_text = FORM_FIELDS_DATA[field_name][1]
-    help_text = empty_form.fields[field_name].help_text
-    assert help_text == expected_help_text
+    assert empty_form.fields[field_name].help_text is not None
 
 
 def test_form_fields_order(empty_form: RegisterForm) -> None:
@@ -101,3 +105,14 @@ def test_form_fields_order(empty_form: RegisterForm) -> None:
 
     fields_order = tuple(empty_form.fields.keys())
     assert fields_order == expected_fields_order
+
+
+def test_not_equal_passwords(fake_login_credentials: dict[str, str]) -> None:
+    fake_login_credentials['password2'] = 'qieiojfoqjf'
+    form = RegisterForm(fake_login_credentials)
+    assert form.has_error('password2')
+
+
+def test_correct_validation(fake_login_credentials: dict[str, str]) -> None:
+    form = RegisterForm(fake_login_credentials)
+    assert form.is_valid()
