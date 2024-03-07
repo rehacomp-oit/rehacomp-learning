@@ -5,7 +5,7 @@ from typing import Callable
 from pytest import fixture
 
 
-@fixture
+@fixture(scope='module')
 def long_random_string() -> Callable[[int], str]:
     '''
     A factory fixture that return a function
