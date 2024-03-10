@@ -3,7 +3,7 @@ from django.db.migrations import Migration as BaseMigration
 from django.db.models import BigAutoField, CharField
 
 
-_fields = (
+_model_fields = (
     ('id', BigAutoField(
         auto_created=True,
         primary_key=True,
@@ -39,7 +39,7 @@ class Migration(BaseMigration):
     operations = (
         CreateModel(
             name='Course',
-            fields=_fields,
+            fields=_model_fields,
             options=_options,
         ),
     )
