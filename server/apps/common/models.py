@@ -14,10 +14,18 @@ from django.db.models import (
 )
 
 from .constants import (
+    COURSE_FULL_NAME_LENGTH,
+    COURSE_SHORT_NAME_LANGTH,
+    DISABILITY_GROUP_LENGTH,
     DisabilityGroups,
+    EDUCATION_INFORMATION_LENGTH,
     EMAIL_ADDRESS_PATTERN,
+    FULL_NAME_LENGTH,
+    JOB_INFORMATION_LENGTH,
+    PHONE_NUMBER_MAX_LENGTH,
     PHONE_NUMBER_PATTERN,
-    TrainingLevels
+    TrainingLevels,
+    VOS_ORGANIZATION_NAME_LENGTH
 )
 
 
@@ -31,7 +39,7 @@ class VOSOrganization(Model):
 
 
     organization_name = CharField(
-        max_length=80,
+        max_length=VOS_ORGANIZATION_NAME_LENGTH,
         db_comment='Full name of the organization',
         unique=True,
     )
@@ -51,13 +59,13 @@ class Course(Model):
 
 
     course_name = CharField(
-        max_length=80,
+        max_length=COURSE_FULL_NAME_LENGTH,
         db_comment='Full name of the training course',
         unique=True,
     )
 
     course_short_name = CharField(
-        max_length=10,
+        max_length=COURSE_SHORT_NAME_LANGTH,
         db_comment='Abbreviation of the course name',
         unique=True,
     )
@@ -99,9 +107,9 @@ class Person(Model):
         )
 
 
-    first_name = CharField(max_length=20)
-    patronymic = CharField(max_length=20)
-    last_name = CharField(max_length=20)
+    first_name = CharField(max_length=FULL_NAME_LENGTH)
+    patronymic = CharField(max_length=FULL_NAME_LENGTH)
+    last_name = CharField(max_length=FULL_NAME_LENGTH)
 
     birth_year = PositiveSmallIntegerField(
         db_comment='Year of birth of the registered person',
@@ -117,7 +125,7 @@ class Person(Model):
             'o- other disabilities;\n'
             'n- there is no disability.'
         ),
-        max_length=5,
+        max_length=DISABILITY_GROUP_LENGTH,
         db_default=DisabilityGroups.VISION_FIRST,
         default=DisabilityGroups.VISION_FIRST,
     )
@@ -127,7 +135,7 @@ class Person(Model):
         db_comment='Information about higher education',
         db_default='',
         default='',
-        max_length=80,
+        max_length=EDUCATION_INFORMATION_LENGTH,
     )
 
     work = CharField(
@@ -135,7 +143,7 @@ class Person(Model):
         db_comment='Information about the place of work',
         db_default='',
         default='',
-        max_length=80,
+        max_length=JOB_INFORMATION_LENGTH,
     )
 
     is_known_braille = BooleanField(
@@ -172,7 +180,7 @@ class Person(Model):
         ),
         db_default='',
         default='',
-        max_length=20,
+        max_length=PHONE_NUMBER_MAX_LENGTH,
         validators=(RegexValidator(regex=PHONE_NUMBER_PATTERN),),
     )
 
