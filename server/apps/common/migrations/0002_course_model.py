@@ -14,19 +14,15 @@ _fields = (
         db_comment='Full name of the training course',
         max_length=80,
         unique=True,
-        verbose_name='Полное название курса'
     )),
     ('course_short_name', CharField(
         db_comment='Abbreviation of the course name',
         max_length=10,
         unique=True,
-        verbose_name='Аббревиатура названия курса'
     )),
 )
 
 _options = {
-    'verbose_name': 'курс',
-    'verbose_name_plural': 'курсы',
     'db_table': 'courses',
     'db_table_comment': 'Training course conducted at the Institute',
 }
