@@ -13,14 +13,11 @@ _fields = (
     ('organization_name', CharField(
         db_comment='Full name of the organization',
         max_length=80,
-        verbose_name='Наиминование организации ВОС',
         unique=True,
     )),
 )
 
 _options = {
-    'verbose_name': 'организация ВОС',
-    'verbose_name_plural': 'организации ВОС',
     'db_table': 'vos_organizations',
     'db_table_comment': 'All Russia Association of the Blind',
 }
