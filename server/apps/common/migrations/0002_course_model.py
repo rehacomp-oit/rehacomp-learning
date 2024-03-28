@@ -3,7 +3,7 @@ from django.db.migrations import Migration as BaseMigration
 from django.db.models import BigAutoField, CharField
 
 
-_model_fields = (
+_fields = (
     ('id', BigAutoField(
         auto_created=True,
         primary_key=True,
@@ -35,11 +35,6 @@ _options = {
 class Migration(BaseMigration):
 
     dependencies = [('common', '0001_vos_organization_model'),]
-
     operations = (
-        CreateModel(
-            name='Course',
-            fields=_model_fields,
-            options=_options,
-        ),
+        CreateModel(name='Course', fields=_fields, options=_options,),
     )
