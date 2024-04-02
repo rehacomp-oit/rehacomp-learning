@@ -130,7 +130,7 @@ class Person(Model):
         default=DisabilityGroups.VISION_FIRST,
     )
 
-    education = CharField(
+    education_info = CharField(
         blank=True,
         db_comment='Information about higher education',
         db_default='',
@@ -138,7 +138,7 @@ class Person(Model):
         max_length=EDUCATION_INFORMATION_LENGTH,
     )
 
-    work = CharField(
+    job_info = CharField(
         blank=True,
         db_comment='Information about the place of work',
         db_default='',
