@@ -41,14 +41,14 @@ _fields = (
         default='v1',
         max_length=5,
     ),),
-    ('education', CharField(
+    ('education_info', CharField(
         blank=True,
         db_comment='Information about higher education',
         db_default='',
         default='',
         max_length=80,
     ),),
-    ('work', CharField(
+    ('job_info', CharField(
         blank=True,
         db_comment='Information about the place of work',
         db_default='',
