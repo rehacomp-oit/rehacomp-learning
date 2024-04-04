@@ -12,7 +12,7 @@ _fields = (
     )),
     ('course_name', CharField(
         db_comment='Full name of the training course',
-        max_length=80,
+        max_length=256,
         unique=True,
     )),
     ('course_short_name', CharField(
