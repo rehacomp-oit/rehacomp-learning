@@ -17,16 +17,15 @@ class CreateInitialDataDumpService:
 
     course_model: Model
     vos_organization_model: Model
-    input_file_path: Path
 
 
-    def __call__(self) -> bool:
-        with open(self.input_file_path) as file_object:
+    def __call__(self, input_file_path: Path) -> bool:
+        with open(input_file_path) as file_object:
             source_data = load(file_object)
 
         batch1 = (
             self.course_model(**course)
-            for course in source_data['course']
+            for course in source_data['courses']
         )
         batch2 = (
             self.vos_organization_model(**organization)

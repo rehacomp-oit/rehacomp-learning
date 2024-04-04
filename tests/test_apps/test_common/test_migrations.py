@@ -33,3 +33,19 @@ def test_0002_course_model(migrator: Migrator) -> None:
     )
     model = new_state.apps.get_model('common', 'Course')
     assert model.objects.create(course_name='s1', course_short_name='s2')
+
+
+def test_0004_initial_data(migrator: Migrator) -> None:
+    old_state = migrator.apply_initial_migration(
+        ('common', '0003_person_model',)
+    )
+    model1 = old_state.apps.get_model('common', 'Course')
+    model2 = old_state.apps.get_model('common', 'VOSOrganization')
+    assert not (model1.objects.exists() and model2.objects.exists())
+
+    new_state = migrator.apply_tested_migration(
+        ('common', '0004_initial_data')
+    )
+    model1 = new_state.apps.get_model('common', 'Course')
+    model2 = new_state.apps.get_model('common', 'VOSOrganization')
+    assert model1.objects.exists() and model2.objects.exists()

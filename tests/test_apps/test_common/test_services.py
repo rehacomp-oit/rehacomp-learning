@@ -45,7 +45,7 @@ def fake_input_file(tmpdir, long_random_string) -> Path:
     new_file_path = tmpdir.join('example.json')
 
     data = {
-        'course': [
+        'courses': [
             {'course_name': 'course1', 'course_short_name': 'cr1'},
             {'course_name': 'course2', 'course_short_name': 'cr2'},
             {'course_name': 'course3', 'course_short_name': 'cr3'},
@@ -74,7 +74,6 @@ def test_create_initial_data_dump_service(fake_input_file) -> None:
 
     service = CreateInitialDataDumpService(
         MockCourse,
-        MockVOSOrganization,
-        fake_input_file
+        MockVOSOrganization
     )
-    assert service()
+    assert service(fake_input_file)

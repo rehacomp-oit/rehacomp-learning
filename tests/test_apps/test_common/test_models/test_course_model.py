@@ -19,7 +19,7 @@ def invalid_model_object(long_random_string) -> Course:
     '''
 
     return Course(
-        course_name=long_random_string(81),
+        course_name=long_random_string(257),
         course_short_name=long_random_string(11),
     )
 
