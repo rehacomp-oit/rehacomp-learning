@@ -8,12 +8,17 @@ from django.db.migrations import RunPython
 from server.utils import load_from_json_file
 
 
-FILENAME: Final = 'initial_data.json'
+SOURCE_FILENAME: Final = 'initial_data.json'
+SOURCE_FILE_PATH: Final = Path(__file__).parent.joinpath(SOURCE_FILENAME)
 
-source_data = load_from_json_file(Path(__file__).parent.joinpath(FILENAME))
 
+def add_prepared_data(apps: Apps, _: BaseDatabaseSchemaEditor) -> None:
+    '''
+    Adds prepared information about courses and
+    VOS organizations to the database.
+    '''
 
-def load_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+    source_data = load_from_json_file(SOURCE_FILE_PATH)
     Course = apps.get_model('common', 'Course')
     VOSOrganization = apps.get_model('common', 'VOSOrganization')
     Course.objects.bulk_create(
@@ -24,22 +29,18 @@ def load_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     )
 
 
-def remove_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def clear_tables(apps: Apps, _: BaseDatabaseSchemaEditor) -> None:
+    '''
+    Deletes all records about courses and VOS organizations.
+    '''
+
     Course = apps.get_model('common', 'Course')
     VOSOrganization = apps.get_model('common', 'VOSOrganization')
-
-    for record in source_data['courses']:
-        Course.objects.filter(
-            course_short_name=record['course_short_name']
-        ).delete()
-
-    for record in source_data['vos']:
-        VOSOrganization.objects.filter(
-            organization_name=record['organization_name']
-        ).delete()
+    Course.objects.all().delete()
+    VOSOrganization.objects.all().delete()
 
 
 class Migration(BaseMigration):
 
     dependencies = (('common', '0003_person_model'),)
-    operations = (RunPython(load_data, remove_data),)
+    operations = (RunPython(add_prepared_data, clear_tables),)
