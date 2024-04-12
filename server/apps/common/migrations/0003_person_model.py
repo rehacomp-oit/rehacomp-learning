@@ -140,7 +140,7 @@ _email_check = CheckConstraint(
         ('email', '',),
         _connector='OR',
     ),
-    name='email_pattern'
+    name='email_address_pattern'
 )
 
 
