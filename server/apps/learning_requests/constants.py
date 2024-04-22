@@ -3,7 +3,6 @@ from typing import Final, final
 from server.common_tools.types import BaseEnum
 
 
-LEARNING_REQUEST_FILE_NAME_LENGTH: Final = 20
 LEARNING_REQUEST_STATUS_LENGTH: Final = 10
 
 
