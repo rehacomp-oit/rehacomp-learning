@@ -1,4 +1,4 @@
-.PHONY = setup configure help lint run-dev test
+.PHONY = setup help lint run-dev test
 
 # target: help - Display callable targets
 help:
@@ -9,11 +9,8 @@ help:
 # target: setup - sets up the necessary dependencies for the project, including the development environment
 setup:
 	@poetry install --no-root
-
-# target: configure - generates the file with environment variables for the project
-configure:
+	@echo -e "Generating the file with environment variables for the project:\n"
 	@grep "^[^#]" ./config/envvars.template > ./.env
-
 
 # target: lint - runs static checks for the source code
 lint:
