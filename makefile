@@ -1,11 +1,14 @@
-.PHONY = configure help lint run-dev test
+.PHONY = setup configure help lint run-dev test
 
 # target: help - Display callable targets
 help:
 	@poetry version
 	@echo -e "\n\nAvailable commands:"
-	@grep -E "^# target:" makefile | awk -F ": " '{print $$2}'
+	@grep -E "^# target:" ./makefile | awk -F ": " '{print $$2}'
 
+# target: setup - sets up the necessary dependencies for the project, including the development environment
+setup:
+	@poetry install --no-root
 
 # target: configure - generates the file with environment variables for the project
 configure:
