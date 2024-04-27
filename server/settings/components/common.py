@@ -12,6 +12,7 @@ SECRET_KEY = env_config('DJANGO_SECRET_KEY')
 # Application definition
 INSTALLED_APPS: tuple[str, ...] = (
     # Internal apps go here:
+    'server.apps.base_client_features',
     'server.apps.accounts',
     'server.apps.common',
     'server.apps.learning_requests',
