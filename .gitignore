@@ -10,3 +10,4 @@ production/*.service
 *.sqlite3
 .env
 pgdata/
+.hypothesis/
