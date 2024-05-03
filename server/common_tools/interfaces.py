@@ -1,5 +1,5 @@
 from dataclasses import Field
-from typing import Any, Protocol, TypeAlias
+from typing import Any, Iterable, Protocol, TypeAlias
 
 
 class Entity(Protocol):
@@ -7,9 +7,10 @@ class Entity(Protocol):
 
     __dataclass_fields__: dict[str, Field[Any]]
     __match_args__: tuple[str, ...]
+    __slots__: tuple[str, ...]
 
 
-_RepositoryInput: TypeAlias = Entity | dict[Any, Any]
+_RepositoryInput: TypeAlias = Entity | Iterable[Any]
 
 
 class Repository(Protocol):
@@ -19,5 +20,5 @@ class Repository(Protocol):
         ...
 
 
-def contains(self, _: _RepositoryInput) -> bool:
-    ...
+    def contains(self, _: _RepositoryInput) -> bool:
+        ...
