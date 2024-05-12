@@ -1,6 +1,6 @@
 from typing import final
 
-from .dto import RawUserCredentials
+from .dto_types import RawUserCredentials
 
 
 class SignUpFailure(Exception):
@@ -26,4 +26,4 @@ class UncorrectPassword(SignUpFailure):
 class AccountAlreadyExists(SignUpFailure):
     def __init__(self, credentials: RawUserCredentials) -> None:
         self.credentials = credentials
-        super().__init__(f'user with "{self.credentials.username} already exists!')
+        super().__init__(f'user with "{self.credentials['username']} already exists!')

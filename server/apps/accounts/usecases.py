@@ -1,21 +1,21 @@
 from dataclasses import dataclass
-from typing import Callable, cast, final
+from typing import cast, final
 
-from server.common_tools.interfaces import Repository
+from server.common_tools.interfaces import Repository, Validator
 
-from .dto import RawFormData, RawUserCredentials
+from .dto_types import RawFormData, RawUserCredentials
 from .exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
 
 
 @final
-@dataclass(slots=True)
+@dataclass(frozen=True, slots=True)
 class SignUp:
     '''Creates new account.'''
 
     # Dependencies.
 
-    storage: Repository
-    validate_password: Callable[[str], str]
+    _storage: Repository
+    _validate_password: Validator
 
 
     def __call__(self, source: RawFormData) -> None:
@@ -38,7 +38,7 @@ class SignUp:
 
     def _validate_password_strength(self, raw_password: str) -> None:
         try:
-            self.validate_password(raw_password)
+            self._validate_password(raw_password)
         except ValueError:
             raise UncorrectPassword(raw_password)
 
@@ -52,9 +52,9 @@ class SignUp:
 
 
     def _check_account_existence(self, credentials: RawUserCredentials) -> None:
-        if not self.storage.contains(credentials):
+        if not self._storage.contains(credentials):
             raise AccountAlreadyExists(credentials)
 
 
     def _persist_account(self, credentials: RawUserCredentials) -> None:
-        self.storage.save(credentials)
+        self._storage.save(credentials)

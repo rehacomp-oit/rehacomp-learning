@@ -1,5 +1,9 @@
 from dataclasses import Field
-from typing import Any, Iterable, Protocol, TypeAlias
+from typing import Any, Callable, Iterable, Protocol, TypeAlias
+
+
+RepositoryInput: TypeAlias = 'Entity' | Iterable[Any]
+Validator: TypeAlias = Callable[[str], None]
 
 
 class Entity(Protocol):
@@ -10,15 +14,12 @@ class Entity(Protocol):
     __slots__: tuple[str, ...]
 
 
-_RepositoryInput: TypeAlias = Entity | Iterable[Any]
-
-
 class Repository(Protocol):
     '''Interface describing the data warehouse'''
 
-    def save(self, _: _RepositoryInput) -> Any:
+    def save(self, _: RepositoryInput) -> Any:
         ...
 
 
-    def contains(self, _: _RepositoryInput) -> bool:
+    def contains(self, _: RepositoryInput) -> bool:
         ...
