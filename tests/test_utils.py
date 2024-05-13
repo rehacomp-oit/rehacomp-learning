@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pytest import fixture
+from pytest import fixture, mark
 from server.utils import load_from_json_file
 
 
@@ -16,6 +16,7 @@ def fake_json(tmpdir) -> tuple[list[int], Path]:
     return (example, file_path,)
 
 
+@mark.module
 def test_load_from_json_file(fake_json) -> None:
     '''
     this test insures correct deserialization of

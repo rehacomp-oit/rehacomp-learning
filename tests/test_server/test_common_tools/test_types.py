@@ -1,9 +1,10 @@
 from hypothesis import given
 from hypothesis.strategies import integers
-from pytest import raises
+from pytest import mark, raises
 from server.common_tools.types import BaseEnum, IntegerId
 
 
+@mark.module
 def test_extended_enum_behaviour() -> None:
     '''
     This test ensures that subclass of the base enumeration
@@ -20,6 +21,7 @@ def test_extended_enum_behaviour() -> None:
     assert real_result == expected_result
 
 
+@mark.module
 @given(invalid_data=integers(max_value=0))
 def test_integer_id_validation(invalid_data) -> None:
     '''
