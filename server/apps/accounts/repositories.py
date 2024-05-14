@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import final
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
 
 from .dto_types import RawUserCredentials
@@ -10,11 +10,11 @@ from .dto_types import RawUserCredentials
 
 @final
 @dataclass(frozen=True, slots=True)
-class UserCredentialsRepository:
-    __UserModel: AbstractBaseUser = field(default_factory=get_user_model)
+class DatabaseRepository:
+    __Model: AbstractUser = field(default_factory=get_user_model)
 
     def save(self, credentials: RawUserCredentials) -> None:
-        new_user = self.__UserModel(
+        new_user = self.__Model(
             first_name=credentials['first_name'],
             last_name=credentials['last_name'],
             email=credentials['email'],
@@ -27,4 +27,4 @@ class UserCredentialsRepository:
     def contains(self, credentials: RawUserCredentials) -> bool:
         username = credentials['username']
         filter_condition = Q(username=username) | Q(username__iexact=username)
-        return self.__UserModel.objects.filter(filter_condition).exists()
+        return self.__Model.objects.filter(filter_condition).exists()

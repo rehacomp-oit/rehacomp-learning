@@ -1,10 +1,9 @@
 from dataclasses import dataclass
 from typing import cast, final
 
-from server.common_tools.interfaces import Repository, Validator
-
 from .dto_types import RawFormData, RawUserCredentials
 from .exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
+from .interfaces import PasswordValidator, UserCredentialsRepository
 
 
 @final
@@ -14,8 +13,8 @@ class SignUp:
 
     # Dependencies.
 
-    _storage: Repository
-    _validate_password: Validator
+    _storage: UserCredentialsRepository
+    _validate_password: PasswordValidator
 
 
     def __call__(self, source: RawFormData) -> None:
