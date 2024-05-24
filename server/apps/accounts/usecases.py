@@ -8,7 +8,7 @@ from .interfaces import PasswordValidator, UserCredentialsRepository
 
 @final
 @dataclass(frozen=True, slots=True)
-class SignUp:
+class SignUpService:
     '''Creates new account.'''
 
     # Dependencies.
@@ -51,7 +51,7 @@ class SignUp:
 
 
     def _check_account_existence(self, credentials: RawUserCredentials) -> None:
-        if not self._storage.contains(credentials):
+        if self._storage.contains(credentials):
             raise AccountAlreadyExists(credentials)
 
 

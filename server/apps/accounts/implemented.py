@@ -3,10 +3,10 @@ from punq import Container
 from .helpers import validate_password_format
 from .interfaces import PasswordValidator, UserCredentialsRepository
 from .repositories import DatabaseRepository
-from .usecases import SignUp
+from .usecases import SignUpService
 
 
-signup_service = Container()
-signup_service.register(PasswordValidator, lambda: validate_password_format)
-signup_service.register(UserCredentialsRepository, DatabaseRepository)
-signup_service.register('service', SignUp)
+signup_implementation = Container()
+signup_implementation.register(PasswordValidator, lambda: validate_password_format)
+signup_implementation.register(UserCredentialsRepository, DatabaseRepository)
+signup_implementation.register('service', SignUpService)
