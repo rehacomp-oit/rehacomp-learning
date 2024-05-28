@@ -1,9 +1,8 @@
 from punq import Container
-
-from .helpers import validate_password_format
-from .interfaces import PasswordValidator, UserCredentialsRepository
-from .repositories import DatabaseRepository
-from .usecases import SignUpService
+from server.apps.accounts.helpers import validate_password_format
+from server.apps.accounts.interfaces import PasswordValidator, UserCredentialsRepository
+from server.apps.accounts.repositories import DatabaseRepository
+from server.apps.accounts.usecases import SignUpService
 
 
 signup_implementation = Container()
