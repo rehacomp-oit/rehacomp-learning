@@ -5,9 +5,10 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
-from server.apps.accounts.exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
-from server.apps.accounts.forms import LoginForm, RegisterForm
-from server.apps.accounts.implemented import signup_implementation
+
+from .forms import LoginForm, RegisterForm
+from .logic.exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
+from .logic.implemented import signup_implementation
 
 
 LOGIN_SUCCESS_URL_NAME: Final = 'main:profile'
