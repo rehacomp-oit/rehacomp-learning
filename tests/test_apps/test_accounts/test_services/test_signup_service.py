@@ -2,7 +2,7 @@
 from pytest import fixture, mark, raises
 from server.apps.accounts.dto_types import RawFormData, RawUserCredentials
 from server.apps.accounts.exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
-from server.apps.accounts.usecases import SignUpService
+from server.apps.accounts.services import SignUpService
 
 
 class CredentialsMockRepository:
