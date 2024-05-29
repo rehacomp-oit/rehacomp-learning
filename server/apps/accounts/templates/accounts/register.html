@@ -6,7 +6,44 @@
     <h1>Добро пожаловать</h1>
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form.non_field_errors }}
+
+      <div class="fieldWrapper">
+        {{ form.first_name.errors }}
+        <label for="id_first_name">Ваше имя:</label>
+        {{ form.first_name }}
+      </div>
+
+      <div class="fieldWrapper">
+        {{ form.last_name.errors }}
+        <label for="id_last_name">Ваше фамилия:</label>
+        {{ form.last_name }}
+      </div>
+
+      <div class="fieldWrapper">
+        {{ form.email.errors }}
+        <label for="id_email">Адрес электронной почты:</label>
+        {{ form.email }}
+      </div>
+
+      <div class="fieldWrapper">
+        {{ form.username.errors }}
+        <label for="id_username">Имя пользователя:</label>
+        {{ form.username }}
+      </div>
+
+      <div class="fieldWrapper">
+        {{ form.password1.errors }}
+        <label for="id_password1">Введите пароль:</label>
+        {{ form.password1 }}
+      </div>
+
+      <div class="fieldWrapper">
+        {{ form.password2.errors }}
+        <label for="id_password2">Повторите пароль:</label>
+        {{ form.password2 }}
+      </div>
+
       <button type="submit">Зарегистрироваться</button>
     </form>
 {% endblock %}

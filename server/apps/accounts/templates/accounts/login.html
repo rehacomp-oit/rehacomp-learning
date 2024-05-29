@@ -3,12 +3,32 @@
 
 
 {% block content %}
+  <main>
+
+
     <h1>Вход в систему</h1>
-    <p>если ещё нет аккаунта, самое время <a href="{% url 'accounts:register' %}">зарегистрироваться</a></p>
-    
+    <p>если ещё нет аккаунта, самое время
+      <br>
+      <a href="{% url 'accounts:register' %}">зарегистрироваться</a></p>
+
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form.non_field_errors }}
+
+      <div class="fieldWrapper">
+        {{ form.username.errors }}
+        <label for="id_username">Имя пользователя:</label>
+        {{ form.username }}
+      </div>
+      <div class="fieldWrapper">
+        {{ form.password.errors }}
+        <label for="id_password">Пароль:</label>
+        {{ form.password }}
+      </div>
+
       <button type="submit">Войти</button>
     </form>
+
+
+  </main>
 {% endblock %}
