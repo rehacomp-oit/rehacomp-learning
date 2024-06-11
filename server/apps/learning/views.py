@@ -10,4 +10,4 @@ def index(request: HttpRequest) -> HttpResponse:
 Main (or index) view.
     Returns rendered default page to the user.
     '''
-    return render(request, 'main/index.html')
+    return render(request, 'learning/index.html')

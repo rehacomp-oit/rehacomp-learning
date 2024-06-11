@@ -7,7 +7,7 @@ from django.urls import reverse
 
 def test_profile_unauthorized(client: Client) -> None:
     '''This test ensures that profile page requires auth.'''
-    response = client.get(reverse('main:profile'))
+    response = client.get(reverse('learning:profile'))
     assert response.status_code == HTTPStatus.FOUND
 
 
@@ -19,5 +19,5 @@ def test_profile_authorized(client: Client, django_user_model: User) -> None:
         username=username, password=password
     )
     client.force_login(test_user)
-    response = client.get(reverse('main:profile'))
+    response = client.get(reverse('learning:profile'))
     assert response.status_code == HTTPStatus.OK

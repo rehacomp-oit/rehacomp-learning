@@ -14,7 +14,7 @@ INSTALLED_APPS: tuple[str, ...] = (
     # Internal apps go here:
     'server.apps.base_client_features',
     'server.apps.accounts',
-    'server.apps.main',
+    'server.apps.learning',
 
     # Default django apps:
     'django.contrib.admin',

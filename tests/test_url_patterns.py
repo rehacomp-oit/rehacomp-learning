@@ -18,7 +18,7 @@ UrlMetadata = namedtuple(
 
 URL_PATTERN_FIXTURE: Final = {
     '/': UrlMetadata('index', 'index'),
-    '/main/profile/': UrlMetadata('profile', 'main:profile'),
+    '/learning/profile/': UrlMetadata('profile', 'learning:profile'),
     '/accounts/login/': UrlMetadata('login', 'accounts:login'),
     '/accounts/logout/': UrlMetadata('logout', 'accounts:logout'),
     '/accounts/register/': UrlMetadata('register', 'accounts:register'),
@@ -49,6 +49,6 @@ def test_resolve_index() -> None:
     refer to the same view function
     '''
 
-    profile_url_resolver = resolve('/main/profile/')
+    profile_url_resolver = resolve('/learning/profile/')
     index_url_resolver = resolve('/')
     assert index_url_resolver.func is profile_url_resolver.func
