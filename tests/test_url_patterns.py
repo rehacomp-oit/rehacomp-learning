@@ -6,7 +6,7 @@ from collections import namedtuple
 from typing import Final
 
 from django.urls import resolve
-import pytest
+from pytest import mark
 
 
 # Datastructure for storing the related information with url address
@@ -18,14 +18,14 @@ UrlMetadata = namedtuple(
 
 URL_PATTERN_FIXTURE: Final = {
     '/': UrlMetadata('index', 'index'),
-    '/learning/profile/': UrlMetadata('profile', 'learning:profile'),
+    '/learning/': UrlMetadata('profile', 'learning:profile'),
     '/accounts/login/': UrlMetadata('login', 'accounts:login'),
     '/accounts/logout/': UrlMetadata('logout', 'accounts:logout'),
     '/accounts/register/': UrlMetadata('register', 'accounts:register'),
 }
 
 
-@pytest.mark.parametrize('route', URL_PATTERN_FIXTURE.keys())
+@mark.parametrize('route', URL_PATTERN_FIXTURE.keys())
 def test_correct_url_name(route: str) -> None:
     '''this test ensures that the url is mapped to the correct url name'''
 
@@ -34,7 +34,7 @@ def test_correct_url_name(route: str) -> None:
     assert resolver.url_name == expected_url_name
 
 
-@pytest.mark.parametrize('route', URL_PATTERN_FIXTURE.keys())
+@mark.parametrize('route', URL_PATTERN_FIXTURE.keys())
 def test_correct_view_name(route: str) -> None:
     '''this test ensures that the url is mapped to the correct view name'''
 
@@ -49,6 +49,6 @@ def test_resolve_index() -> None:
     refer to the same view function
     '''
 
-    profile_url_resolver = resolve('/learning/profile/')
+    profile_url_resolver = resolve('/learning/')
     index_url_resolver = resolve('/')
     assert index_url_resolver.func is profile_url_resolver.func

@@ -7,7 +7,7 @@ from django.views.decorators.http import require_http_methods
 # fake view because this do nothing.
 @login_required
 @require_http_methods(('GET',))
-def index(request: HttpRequest) -> HttpResponse:
+def show_main_page(request: HttpRequest) -> HttpResponse:
     '''
 Main (or index) view.
     Returns rendered default page to the user.
