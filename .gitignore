@@ -11,3 +11,4 @@ production/*.service
 .env
 pgdata/
 .hypothesis/
+*.mo

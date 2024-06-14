@@ -56,7 +56,7 @@ def register_user(request: HttpRequest) -> ViewResponse:
         signup = signup_implementation.resolve('service')
         signup(form.cleaned_data)
     except MismatchedPasswords:
-        form.add_error('password2', _('The two password fields didn\'t match.'))
+        form.add_error('password2', _('The entered passwords didn\'t match.'))
         return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})
     except UncorrectPassword:
         return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})

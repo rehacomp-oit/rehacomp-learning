@@ -1,4 +1,4 @@
-.PHONY = setup help lint run-dev test
+.PHONY = setup help lint run-dev test gen-messages compile-locales
 
 # target: help - Display callable targets
 help:
@@ -35,3 +35,13 @@ shell:
 # target: run-dev - runs django web server for development on port 8000
 run-dev:
 	@poetry run python manage.py runserver
+
+
+# target: gen-messages - Creates files with translations. if they already exist, updates their contents
+gen-messages:
+	@poetry run python manage.py makemessages -l ru
+
+
+# target: compile-locales - compiles all files with translations for the project
+compile-locales:
+	@poetry run python manage.py compilemessages

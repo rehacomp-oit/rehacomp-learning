@@ -1,0 +1,46 @@
+# Translation of rehacomp-learning to Russian.
+# Copyright (C) 2024 Rehacomp
+# This file is distributed under the same license as the PROJECT rehacomp-learning.
+# Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rehacomp-learning VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-25 10:09+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Tulyakov Evgeniy <e.v.tulyakov1998@gmail.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: server/apps/accounts/apps.py:11
+msgid "Accounts"
+msgstr "Учётные записи"
+
+#: server/apps/accounts/views.py:59
+msgid "The entered passwords didn't match."
+msgstr "Введённые пароли не совпали."
+
+#: server/apps/learning/apps.py:11
+msgid "Learning"
+msgstr "Обучение"
+
+#: server/settings/components/common.py:99
+msgid "Russian"
+msgstr "Русский"
+
+#: server/urls.py:19
+msgid "Admin panel"
+msgstr "Админка"
+
+#: server/urls.py:20
+msgid "The admin panel of the rehacomp-learning service."
+msgstr "Административная панель сервиса rehacomp-learning"
+
+#: server/urls.py:21
+msgid "Home page"
+msgstr "Начальная страница"

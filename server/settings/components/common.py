@@ -3,8 +3,8 @@ Common django settings for project
 '''
 
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from server.settings.components import BASE_DIR, env_config
-
 
 
 SECRET_KEY = env_config('DJANGO_SECRET_KEY')
@@ -41,6 +41,7 @@ MIDDLEWARE: tuple[str, ...] = (
     'csp.middleware.CSPMiddleware',
 
     # Django:
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     # django-permissions-policy
     'django_permissions_policy.PermissionsPolicyMiddleware',
@@ -94,10 +95,11 @@ AUTH_PASSWORD_VALIDATORS = (
 
 # Internationalization
 LANGUAGE_CODE = 'ru-RU'
-TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
+LANGUAGES = (('ru', _('Russian')),)
+LOCALE_PATHS = ('locale/',)
 USE_TZ = True
-
+TIME_ZONE = 'Europe/Moscow'
 
 
 # Security
