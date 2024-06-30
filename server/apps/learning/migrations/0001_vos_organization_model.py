@@ -17,7 +17,6 @@ _options = {
 
 
 class Migration(BaseMigration):
-
     initial = True
     dependencies = ()
     operations = (CreateModel(name='VOSOrganization', fields=_fields, options=_options),)

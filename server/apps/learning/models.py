@@ -3,7 +3,7 @@ from typing import final
 from django.db.models import CharField, Model, SmallAutoField
 from django.utils.translation import gettext_lazy as _
 
-from .shared_constants import VOS_ORGANIZATION_NAME_LENGTH
+from .shared_constants import COURSE_FULL_NAME_LENGTH, COURSE_SHORT_NAME_LANGTH, VOS_ORGANIZATION_NAME_LENGTH
 
 
 @final
@@ -35,3 +35,40 @@ class VOSOrganization(Model):
 
     def __str__(self) -> str:
         return self.organization_name
+
+
+@final
+class Course(Model):
+    '''
+    Training course conducted at the Institute.
+    '''
+
+    class Meta:
+        db_table = 'courses'
+        db_table_comment = 'Training course conducted at the Institute.'
+        verbose_name = _('Course')
+        verbose_name_plural = _('Courses')
+
+
+    id = SmallAutoField(  # noqa: VNE003
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='ID'
+    )
+
+    course_name = CharField(
+        max_length=COURSE_FULL_NAME_LENGTH,
+        unique=True,
+        verbose_name=_('Full name of the course')
+    )
+
+    course_short_name = CharField(
+        max_length=COURSE_SHORT_NAME_LANGTH,
+        unique=True,
+        verbose_name=_('Abbreviation of the course name')
+    )
+
+
+    def __str__(self) -> str:
+        return self.course_short_name

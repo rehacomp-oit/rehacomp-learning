@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rehacomp-learning VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-25 14:37+0300\n"
+"POT-Creation-Date: 2024-06-30 04:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>\n"
 "Language: ru\n"
@@ -41,6 +41,22 @@ msgstr "Организации ВОС"
 #: server/apps/learning/models.py:32
 msgid "VOS organization name"
 msgstr "Наиминование организации ВОС"
+
+#: server/apps/learning/models.py:49
+msgid "Course"
+msgstr "Курс"
+
+#: server/apps/learning/models.py:50
+msgid "Courses"
+msgstr "Курсы"
+
+#: server/apps/learning/models.py:63
+msgid "Full name of the course"
+msgstr "Полное Наиминование курса"
+
+#: server/apps/learning/models.py:69
+msgid "Abbreviation of the course name"
+msgstr "Аббревиатура названия курса"
 
 #: server/settings/components/common.py:99
 msgid "Russian"
