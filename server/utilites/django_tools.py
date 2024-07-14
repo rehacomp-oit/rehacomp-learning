@@ -2,16 +2,13 @@
 A set of customizations for django.
 '''
 
-from typing import Any, final, TYPE_CHECKING
+from typing import Any, final
+from uuid import UUID
 
 from django.core.exceptions import ValidationError
 from django.db.models.fields import Field
 from django.utils.translation import gettext as _
-from ulid import parse
-
-if TYPE_CHECKING:
-    from ulid import ULID
-    from uuid import UUID
+from ulid import parse, ULID
 
 
 @final
@@ -48,7 +45,7 @@ class PKULIDField(Field):
         value: Any,
         connection: Any,
         prepared: bool=False
-    ) -> 'ULID' | 'UUID' | str | None:
+    ) -> ULID | UUID | str | None:
         if value is None:
             return value
 
@@ -58,11 +55,11 @@ class PKULIDField(Field):
         return value.uuid if connection.features.has_native_uuid_field else str(value)
 
 
-    def from_db_value(self, value: Any, expression: Any, connection: Any) -> 'ULID' | None:
+    def from_db_value(self, value: Any, expression: Any, connection: Any) -> ULID | None:
         return self.to_python(value)
 
 
-    def to_python(self, value: Any) -> 'ULID' | None:
+    def to_python(self, value: Any) -> ULID | None:
         if value is None:
             return value
 
