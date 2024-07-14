@@ -3,8 +3,11 @@ from typing import final
 from django.db.models import Model
 from django.db.models.fields import CharField, SmallAutoField
 from django.utils.translation import gettext_lazy as _
-
-from .shared_constants import COURSE_FULL_NAME_LENGTH, COURSE_SHORT_NAME_LANGTH, VOS_ORGANIZATION_NAME_LENGTH
+from server.apps.learning.shared_constants import (
+    COURSE_FULL_NAME_LENGTH,
+    COURSE_SHORT_NAME_LANGTH,
+    VOS_ORGANIZATION_NAME_LENGTH
+)
 
 
 @final

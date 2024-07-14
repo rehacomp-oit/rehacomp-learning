@@ -39,7 +39,7 @@ run-dev:
 
 # target: gen-messages - Creates files with translations. if they already exist, updates their contents
 gen-messages:
-	@poetry run python manage.py makemessages -l ru
+	@poetry run python manage.py makemessages -s -l ru
 
 
 # target: compile-locales - compiles all files with translations for the project
