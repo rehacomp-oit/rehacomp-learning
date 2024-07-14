@@ -1,6 +1,6 @@
 from django.db.migrations import CreateModel
 from django.db.migrations import Migration as BaseMigration
-from django.db.models import CharField, SmallAutoField
+from django.db.models.fields import CharField, SmallAutoField
 
 
 _fields = (
@@ -12,7 +12,6 @@ _fields = (
 _options = {
     'verbose_name': 'Course',
     'verbose_name_plural': 'Courses',
-    'db_table': 'courses',
     'db_table_comment': 'Training course conducted at the Institute.',
 }
 

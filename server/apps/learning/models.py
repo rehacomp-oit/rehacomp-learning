@@ -1,6 +1,7 @@
 from typing import final
 
-from django.db.models import CharField, Model, SmallAutoField
+from django.db.models import Model
+from django.db.models.fields import CharField, SmallAutoField
 from django.utils.translation import gettext_lazy as _
 
 from .shared_constants import COURSE_FULL_NAME_LENGTH, COURSE_SHORT_NAME_LANGTH, VOS_ORGANIZATION_NAME_LENGTH
@@ -13,7 +14,6 @@ class VOSOrganization(Model):
     '''
 
     class Meta:
-        db_table = 'vos_organizations'
         db_table_comment = 'All Russia Association of the Blind.'
         verbose_name = _('VOS organization')
         verbose_name_plural = _('VOS organizations')
@@ -44,7 +44,6 @@ class Course(Model):
     '''
 
     class Meta:
-        db_table = 'courses'
         db_table_comment = 'Training course conducted at the Institute.'
         verbose_name = _('Course')
         verbose_name_plural = _('Courses')
