@@ -1,6 +1,6 @@
 from django.contrib.admin import ModelAdmin, ShowFacets, site
 
-from .models import Course, VOSOrganization
+from .models import Course, Person, VOSOrganization
 
 
 class ExtendedModelAdmin(ModelAdmin):
@@ -9,3 +9,4 @@ class ExtendedModelAdmin(ModelAdmin):
 
 site.register(VOSOrganization, ExtendedModelAdmin)
 site.register(Course, ExtendedModelAdmin)
+site.register(Person, ExtendedModelAdmin)
