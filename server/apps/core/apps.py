@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 @final
-class LearningConfig(AppConfig):
-    name = 'server.apps.learning'
-    label = 'learning'
-    verbose_name = _('Learning')
+class CoreConfig(AppConfig):
+    name = 'server.apps.core'
+    label = 'core'
+    verbose_name = _('core')

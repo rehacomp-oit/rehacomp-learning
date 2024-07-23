@@ -2,7 +2,7 @@ from typing import Final, final
 
 from django.core.exceptions import ValidationError
 from pytest import fixture, mark, raises
-from server.apps.learning.models import Course, VOSOrganization
+from server.apps.core.models import Course, VOSOrganization
 
 
 @mark.module

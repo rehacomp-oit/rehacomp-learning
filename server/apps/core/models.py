@@ -1,9 +1,25 @@
 from typing import final
 
-from django.db.models import CheckConstraint, ForeignKey, Index, Model, Q, SET_NULL
-from django.db.models.fields import BooleanField, CharField, EmailField, PositiveSmallIntegerField
+from django.db.models import (
+    BooleanField,
+    CharField,
+    CheckConstraint,
+    EmailField,
+    ForeignKey,
+    Index,
+    Model,
+    PositiveSmallIntegerField,
+    Q,
+    SET_NULL
+)
+from django.db.models.fields import SmallAutoField
 from django.utils.translation import gettext_lazy as _
-from server.apps.learning.shared_constants import (
+from server.utilites.django_tools import PKULIDField
+from ulid import new as new_ulid
+
+from .shared_constants import (
+    COURSE_FULL_NAME_LENGTH,
+    COURSE_SHORT_NAME_LANGTH,
     DISABILITY_GROUP_LENGTH,
     DisabilityGroups,
     EDUCATION_INFORMATION_LENGTH,
@@ -11,12 +27,9 @@ from server.apps.learning.shared_constants import (
     JOB_INFORMATION_LENGTH,
     PERSON_NAME_LENGTH,
     PHONE_NUMBER_MAX_LENGTH,
-    TrainingLevels
+    TrainingLevels,
+    VOS_ORGANIZATION_NAME_LENGTH
 )
-from server.utilites.django_tools import PKULIDField
-from ulid import new as new_ulid
-
-from .common_models import VOSOrganization
 
 
 _disability_group_check = CheckConstraint(
@@ -34,10 +47,76 @@ _email_pattern_check = CheckConstraint(
     name='email_pattern_check',
 )
 
-_full_name_index = Index(
+_person_full_name_index = Index(
     fields=('first_name', 'patronymic', 'last_name',),
     name='full_name_index'
 )
+
+
+@final
+class VOSOrganization(Model):
+    '''
+    All Russia Association of the Blind.
+    '''
+
+    class Meta:
+        db_table_comment = 'All Russia Association of the Blind.'
+        verbose_name = _('VOS organization')
+        verbose_name_plural = _('VOS organizations')
+
+
+    id = SmallAutoField(  # noqa: VNE003
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='ID'
+    )
+
+    organization_name = CharField(
+        max_length=VOS_ORGANIZATION_NAME_LENGTH,
+        unique=True,
+        verbose_name=_('VOS organization name')
+    )
+
+
+    def __str__(self) -> str:
+        return self.organization_name
+
+
+@final
+class Course(Model):
+    '''
+    Training course conducted at the Institute.
+    '''
+
+    class Meta:
+        db_table_comment = 'Training course conducted at the Institute.'
+        verbose_name = _('Course')
+        verbose_name_plural = _('Courses')
+
+
+    id = SmallAutoField(  # noqa: VNE003
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='ID'
+    )
+
+    course_name = CharField(
+        max_length=COURSE_FULL_NAME_LENGTH,
+        unique=True,
+        verbose_name=_('Full name of the course')
+    )
+
+    course_short_name = CharField(
+        max_length=COURSE_SHORT_NAME_LANGTH,
+        unique=True,
+        verbose_name=_('Abbreviation of the course name')
+    )
+
+
+    def __str__(self) -> str:
+        return self.course_short_name
 
 
 @final
@@ -51,7 +130,7 @@ class Person(Model):
         verbose_name = _('Person')
         verbose_name_plural = _('Persons')
         constraints = (_disability_group_check, _phone_nunber_check, _email_pattern_check,)
-        indexes = (_full_name_index,)
+        indexes = (_person_full_name_index,)
 
 
     id = PKULIDField(  # noqa: VNE003

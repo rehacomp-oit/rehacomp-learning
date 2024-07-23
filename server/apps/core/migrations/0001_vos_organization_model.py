@@ -4,8 +4,18 @@ from django.db.models.fields import CharField, SmallAutoField
 
 
 _fields = (
-    ('id', SmallAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-    ('organization_name', CharField(max_length=80, unique=True, verbose_name='VOS organization name')),
+    ('id', SmallAutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='ID'
+    )),
+
+    ('organization_name', CharField(
+        max_length=80,
+        unique=True,
+        verbose_name='VOS organization name'
+    )),
 )
 
 _options = {

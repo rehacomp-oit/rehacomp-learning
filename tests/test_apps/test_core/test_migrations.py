@@ -4,7 +4,7 @@ from django_test_migrations.migrator import Migrator
 from pytest import mark, raises
 
 
-APPLICATION_NAME: Final = 'learning'
+APPLICATION_NAME: Final = 'core'
 
 
 @mark.django_db

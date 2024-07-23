@@ -1,14 +1,17 @@
 from django.db.migrations import AddConstraint, CreateModel
 from django.db.migrations import Migration as BaseMigration
-from django.db.models import CheckConstraint, ForeignKey, Index, Q
-from django.db.models.deletion import SET_NULL
-from django.db.models.fields import (
+from django.db.models import (
     BooleanField,
     CharField,
+    CheckConstraint,
     EmailField,
+    ForeignKey,
+    Index,
     PositiveSmallIntegerField,
+    Q
 )
-from server.apps.learning.shared_constants import (
+from django.db.models.deletion import SET_NULL
+from server.apps.core.shared_constants import (
     DisabilityGroups,
     EMAIL_ADDRESS_PATTERN,
     TrainingLevels
@@ -125,7 +128,7 @@ _fields = (
         null=True,
         on_delete=SET_NULL,
         related_name='members',
-        to='learning.vosorganization',
+        to='core.vosorganization',
         verbose_name='Related VOS organization'
     )),
 )
@@ -156,7 +159,7 @@ _options = {
 
 
 class Migration(BaseMigration):
-    dependencies = (('learning', '0002_course_model'),)
+    dependencies = (('core', '0002_course_model'),)
     operations = (
         CreateModel(name='Person', fields=_fields, options=_options,),
         AddConstraint(model_name='person', constraint=_disability_group_check),

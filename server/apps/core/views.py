@@ -12,4 +12,4 @@ def show_main_page(request: HttpRequest) -> HttpResponse:
 Main (or index) view.
     Returns rendered default page to the user.
     '''
-    return render(request, 'learning/index.html')
+    return render(request, 'core/index.html')

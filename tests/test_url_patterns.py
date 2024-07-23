@@ -18,7 +18,7 @@ UrlMetadata = namedtuple(
 
 URL_PATTERN_FIXTURE: Final = {
     '/': UrlMetadata('index', 'index'),
-    '/learning/': UrlMetadata('profile', 'learning:profile'),
+    '/learning/': UrlMetadata('profile', 'core:profile'),
     '/accounts/login/': UrlMetadata('login', 'accounts:login'),
     '/accounts/logout/': UrlMetadata('logout', 'accounts:logout'),
     '/accounts/register/': UrlMetadata('register', 'accounts:register'),
