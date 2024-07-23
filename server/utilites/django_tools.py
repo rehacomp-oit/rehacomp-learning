@@ -5,6 +5,7 @@ A set of customizations for django.
 from typing import Any, final
 from uuid import UUID
 
+from django.contrib.admin import ModelAdmin, ShowFacets
 from django.core.exceptions import ValidationError
 from django.db.models.fields import Field
 from django.utils.translation import gettext as _
@@ -67,3 +68,14 @@ class PKULIDField(Field):
             return parse(value)
         except (AttributeError, ValueError):
             raise ValidationError(self.error_messages['invalid'], code='invalid', params={'value': value})
+
+
+@final
+class BaseModelAdmin(ModelAdmin):
+    '''
+    Lightweight admin panel object with disable faceting entirely.
+
+    In most cases, you should use it to register models.
+    '''
+
+    show_facets = ShowFacets.NEVER
