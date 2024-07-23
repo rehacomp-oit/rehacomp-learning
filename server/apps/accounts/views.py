@@ -11,7 +11,7 @@ from .logic.exceptions import AccountAlreadyExists, MismatchedPasswords, Uncorre
 from .logic.implemented import signup_implementation
 
 
-LOGIN_SUCCESS_URL_NAME: Final = 'core:profile'
+LOGIN_SUCCESS_URL_NAME: Final = 'main:home'
 LOGIN_PAGE_TEMPLATE_NAME: Final = 'accounts/login.html'
 REGISTER_SUCCESS_URL_NAME: Final = 'accounts:login'
 REGISTRATION_PAGE_TEMPLATE_NAME: Final = 'accounts/register.html'
