@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rehacomp-learning VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-18 19:00+0300\n"
-"PO-Revision-Date: 2024-07-18 19:10+0300\n"
+"POT-Creation-Date: 2024-07-23 11:50+0300\n"
+"PO-Revision-Date: 2024-07-23 11:56+0300\n"
 "Last-Translator: Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +121,10 @@ msgstr "Личный email адрес"
 msgid "Related VOS organization"
 msgstr "Связанная организация ВОС"
 
+#: server/apps/ui_client/apps.py:11
+msgid "Base UI client features"
+msgstr "Базовые функции пользовательского интерфейса клиента"
+
 #: server/settings/components/common.py:99
 msgid "Russian"
 msgstr "Русский"
@@ -137,11 +141,11 @@ msgstr "Административная панель сервиса rehacomp-le
 msgid "Home page"
 msgstr "Начальная страница"
 
-#: server/utilites/django_tools.py:23
+#: server/utilites/django_tools.py:24
 #, python-format
 msgid "\"%(value)s\" is not a valid ULID."
 msgstr "\"%(value)s\" не валидный ULID."
 
-#: server/utilites/django_tools.py:24
+#: server/utilites/django_tools.py:25
 msgid "Universally Unique Lexicographically Sortable Identifier"
 msgstr "Универсальный уникальный лексикографически сортируемый идентификатор"
