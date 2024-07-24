@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rehacomp-learning VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-23 13:37+0300\n"
-"PO-Revision-Date: 2024-07-23 11:56+0300\n"
+"POT-Creation-Date: 2024-07-24 06:16+0300\n"
+"PO-Revision-Date: 2024-07-24 06:20+0300\n"
 "Last-Translator: Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: server/apps/accounts/apps.py:11
+#: server/apps/accounts/apps.py:12
 msgid "Accounts"
 msgstr "Учётные записи"
 
@@ -27,7 +27,7 @@ msgstr "Учётные записи"
 msgid "The entered passwords didn't match."
 msgstr "Введённые пароли не совпали."
 
-#: server/apps/core/apps.py:11
+#: server/apps/core/apps.py:12
 msgid "core"
 msgstr "Ядро"
 
@@ -119,11 +119,15 @@ msgstr "Личный email адрес"
 msgid "Related VOS organization"
 msgstr "Связанная организация ВОС"
 
+#: server/apps/main/apps.py:12
+msgid "Main"
+msgstr ""
+
 #: server/apps/ui_client/apps.py:11
 msgid "Base UI client features"
 msgstr "Базовые функции пользовательского интерфейса клиента"
 
-#: server/settings/components/common.py:99
+#: server/settings/components/common.py:100
 msgid "Russian"
 msgstr "Русский"
 
