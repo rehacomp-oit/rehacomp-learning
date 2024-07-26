@@ -1,5 +1,4 @@
-from typing import Final
-from typing import final
+from typing import Final, final
 
 from server.common_tools.types import BaseEnum
 
