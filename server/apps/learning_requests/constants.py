@@ -1,6 +1,6 @@
 from typing import Final, final
 
-from server.common_tools.types import BaseEnum
+from server.utilites.common.types import BaseEnum
 
 
 LEARNING_REQUEST_STATUS_LENGTH: Final = 10

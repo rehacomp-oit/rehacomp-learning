@@ -8,6 +8,7 @@ from django.db.models import (
     TextField
 )
 from django.utils.translation import gettext_lazy as _
+from server.utilites.common.funcs import make_ULID
 from server.utilites.django_tools import PKULIDField
 
 from .constants import LEARNING_REQUEST_STATUS_LENGTH, LearningRequestStatuses
@@ -26,6 +27,8 @@ class RequestMetadata(Model):
 
 
     id = PKULIDField(  # noqa: VNE003
+        auto_created=True,
+        default=make_ULID,
         primary_key=True,
         serialize=False,
         verbose_name='id'

@@ -1,6 +1,6 @@
 from typing import Final, final
 
-from server.common_tools.types import BaseEnum
+from server.utilites.common.types import BaseEnum
 
 
 VOS_ORGANIZATION_NAME_LENGTH: Final = 80

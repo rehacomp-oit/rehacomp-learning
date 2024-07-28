@@ -9,11 +9,14 @@ from django.db.models import (
     TextField
 )
 from server.apps.learning_requests.constants import LearningRequestStatuses
+from server.utilites.common.funcs import make_ULID
 from server.utilites.django_tools import PKULIDField
 
 
 _fields = (
     ('id', PKULIDField(
+        auto_created=True,
+        default=make_ULID,
         primary_key=True,
         serialize=False,
         verbose_name='id'

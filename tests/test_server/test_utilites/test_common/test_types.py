@@ -1,7 +1,7 @@
 from hypothesis import given
 from hypothesis.strategies import integers
 from pytest import mark, raises
-from server.common_tools.types import BaseEnum, IntegerId
+from server.utilites.common.types import BaseEnum, IntegerId
 
 
 @mark.module
