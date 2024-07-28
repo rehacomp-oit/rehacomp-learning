@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rehacomp-learning VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-24 06:27+0300\n"
-"PO-Revision-Date: 2024-07-24 06:36+0300\n"
+"POT-Creation-Date: 2024-07-28 05:46+0300\n"
+"PO-Revision-Date: 2024-07-28 05:46+0300\n"
 "Last-Translator: Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -31,91 +31,91 @@ msgstr "Введённые пароли не совпали."
 msgid "core"
 msgstr "Ядро"
 
-#: server/apps/core/models.py:64
+#: server/apps/core/models.py:62
 msgid "VOS organization"
 msgstr "Организация ВОС"
 
-#: server/apps/core/models.py:65
+#: server/apps/core/models.py:63
 msgid "VOS organizations"
 msgstr "Организации ВОС"
 
-#: server/apps/core/models.py:78
+#: server/apps/core/models.py:76
 msgid "VOS organization name"
 msgstr "Наиминование организации ВОС"
 
-#: server/apps/core/models.py:94
+#: server/apps/core/models.py:92
 msgid "Course"
 msgstr "Курс"
 
-#: server/apps/core/models.py:95
+#: server/apps/core/models.py:93
 msgid "Courses"
 msgstr "Курсы"
 
-#: server/apps/core/models.py:108
+#: server/apps/core/models.py:106
 msgid "Full name of the course"
 msgstr "Полное Название курса"
 
-#: server/apps/core/models.py:114
+#: server/apps/core/models.py:112
 msgid "Abbreviation of the course name"
 msgstr "Аббревиатура названия курса"
 
-#: server/apps/core/models.py:130
+#: server/apps/core/models.py:128
 msgid "Person"
 msgstr "Человек"
 
-#: server/apps/core/models.py:131
+#: server/apps/core/models.py:129
 msgid "Persons"
 msgstr "Люди"
 
-#: server/apps/core/models.py:146
+#: server/apps/core/models.py:136
 msgid "First name"
 msgstr "Имя"
 
-#: server/apps/core/models.py:151
+#: server/apps/core/models.py:141
 msgid "Patronymic"
 msgstr "Отчество"
 
-#: server/apps/core/models.py:156
+#: server/apps/core/models.py:146
 msgid "Last name"
 msgstr "Фамилия"
 
-#: server/apps/core/models.py:161
+#: server/apps/core/models.py:151
 msgid "Person's birth year"
 msgstr "Год рождения Человека"
 
-#: server/apps/core/models.py:176
+#: server/apps/core/models.py:166
 msgid "Disability group"
 msgstr "Группа инвалидности"
 
-#: server/apps/core/models.py:184
+#: server/apps/core/models.py:174
 msgid "Education"
 msgstr "Образование"
 
-#: server/apps/core/models.py:192
+#: server/apps/core/models.py:182
 msgid "Person's job"
 msgstr "Место работы человека"
 
-#: server/apps/core/models.py:198
+#: server/apps/core/models.py:188
 msgid "Braille font proficiency"
 msgstr "Владение шрифтом Брайля"
 
-#: server/apps/core/models.py:213
+#: server/apps/core/models.py:203
 msgid "Training Level"
 msgstr "Уровень обучения"
 
-#: server/apps/core/models.py:219
+#: server/apps/core/models.py:209
 msgid "Has device"
 msgstr "Наличие устройства"
 
-#: server/apps/core/models.py:227
+#: server/apps/core/models.py:217
 msgid "Personal phone number"
 msgstr "Личный номер телефона"
 
-#: server/apps/core/models.py:234
+#: server/apps/core/models.py:224
 msgid "Personal email address"
 msgstr "Личный email адрес"
 
-#: server/apps/core/models.py:244
+#: server/apps/core/models.py:234
 msgid "Related VOS organization"
 msgstr "Связанная организация ВОС"
 
@@ -125,13 +125,13 @@ msgstr "Заявки на обучение"
 
 #: server/apps/main/apps.py:12
 msgid "Main"
-msgstr ""
+msgstr "Главное"
 
 #: server/apps/ui_client/apps.py:11
 msgid "Base UI client features"
 msgstr "Базовые функции пользовательского интерфейса клиента"
 
-#: server/settings/components/common.py:100
+#: server/settings/components/common.py:101
 msgid "Russian"
 msgstr "Русский"
 
