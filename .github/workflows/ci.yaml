@@ -47,7 +47,7 @@ jobs:
 
 
       - name: setup project
-        run: poetry install --no-root && make configure
+        run: make setup
 
       - name: run code quality checks
         run: make lint
