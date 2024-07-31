@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rehacomp-learning VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-28 05:46+0300\n"
-"PO-Revision-Date: 2024-07-28 05:46+0300\n"
+"POT-Creation-Date: 2024-07-31 09:28+0300\n"
+"PO-Revision-Date: 2024-07-31 09:28+0300\n"
 "Last-Translator: Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +122,43 @@ msgstr "Связанная организация ВОС"
 #: server/apps/learning_requests/apps.py:12
 msgid "Learning requests"
 msgstr "Заявки на обучение"
+
+#: server/apps/learning_requests/models.py:40
+#: server/apps/learning_requests/models.py:41
+msgid "Request metadata"
+msgstr "Метаданные заявки"
+
+#: server/apps/learning_requests/models.py:56
+msgid "Created at"
+msgstr "Дата создания"
+
+#: server/apps/learning_requests/models.py:61
+msgid "Updated at"
+msgstr "Дата обновления"
+
+#: server/apps/learning_requests/models.py:67
+msgid "Relevance of  learning request"
+msgstr "Реливантность заявки"
+
+#: server/apps/learning_requests/models.py:78
+msgid "Status of learning request"
+msgstr "Статус заявки"
+
+#: server/apps/learning_requests/models.py:84
+msgid "Short text note about learning request"
+msgstr "Короткая заметка о заявке"
+
+#: server/apps/learning_requests/models.py:93
+msgid "Related course"
+msgstr "Связанный курс"
+
+#: server/apps/learning_requests/models.py:102
+msgid "Related person"
+msgstr "Заявитель"
+
+#: server/apps/learning_requests/models.py:110
+msgid "Related author"
+msgstr "Автор заявки"
 
 #: server/apps/main/apps.py:12
 msgid "Main"
