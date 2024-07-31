@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 from health_check import urls as health_urls
 from server.apps.accounts import urls as accounts_urls
+from server.apps.learning_requests import urls as learning_request_urls
 from server.apps.main import urls as main_urls
 from server.apps.main.views import show_main_page
 
@@ -36,6 +37,7 @@ __humans_view = TemplateView.as_view(
 
 urlpatterns = (
     path('accounts/', include(accounts_urls, namespace='accounts')),
+path('learning_requests/', include(learning_request_urls, namespace='learning_requests')),
     path('main/', include(main_urls, namespace='main')),
     path('health/', include(health_urls)),
     path('admin/', admin.site.urls),

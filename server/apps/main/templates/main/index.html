@@ -1,24 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'layout.html' %}
 {% block title %}главная{% endblock %}
 
 
-{% block content %}
-  <nav class="navigation">
-    <ul class="menu-items">
-      <li class="menu-item" role="menuitem">
-        <a href="">Заявки</a>
-      </li>
-      <li class="menu-item" role="menuitem">
-        <a href="">Группы</a>
-      </li>
-      <li class="menu-item" role="menuitem">
-        <a href="{% url 'accounts:logout' %}">Выйти</a>
-      </li>
-    </ul>
-  </nav>
-
-
-  <main>
+{% block main %}
     <p>будущая страница профиля</p>
-  </main>
 {% endblock %}
