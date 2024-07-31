@@ -35,7 +35,7 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           architecture: 'x64'
 
 
@@ -47,7 +47,7 @@ jobs:
 
 
       - name: setup project
-        run: poetry install --no-root && make configure
+        run: make setup
 
       - name: run code quality checks
         run: make lint

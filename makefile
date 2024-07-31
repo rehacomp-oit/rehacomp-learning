@@ -1,16 +1,16 @@
-.PHONY = configure help lint run-dev test
+.PHONY = setup help lint run-dev test gen-messages compile-locales
 
 # target: help - Display callable targets
 help:
 	@poetry version
 	@echo -e "\n\nAvailable commands:"
-	@grep -E "^# target:" makefile | awk -F ": " '{print $$2}'
+	@grep -E "^# target:" ./makefile | awk -F ": " '{print $$2}'
 
-
-# target: configure - generates the file with environment variables for the project
-configure:
+# target: setup - sets up the necessary dependencies for the project, including the development environment
+setup:
+	@poetry install --no-root
+	@echo -e "Generating the file with environment variables for the project:\n"
 	@grep "^[^#]" ./config/envvars.template > ./.env
-
 
 # target: lint - runs static checks for the source code
 lint:
@@ -35,3 +35,13 @@ shell:
 # target: run-dev - runs django web server for development on port 8000
 run-dev:
 	@poetry run python manage.py runserver
+
+
+# target: gen-messages - Creates files with translations. if they already exist, updates their contents
+gen-messages:
+	@poetry run python manage.py makemessages -s -l ru
+
+
+# target: compile-locales - compiles all files with translations for the project
+compile-locales:
+	@poetry run python manage.py compilemessages

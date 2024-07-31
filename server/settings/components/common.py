@@ -3,8 +3,8 @@ Common django settings for project
 '''
 
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from server.settings.components import BASE_DIR, env_config
-
 
 
 SECRET_KEY = env_config('DJANGO_SECRET_KEY')
@@ -13,9 +13,10 @@ SECRET_KEY = env_config('DJANGO_SECRET_KEY')
 INSTALLED_APPS: tuple[str, ...] = (
     # Internal apps go here:
     'server.apps.accounts',
-    'server.apps.common',
+    'server.apps.core',
     'server.apps.learning_requests',
     'server.apps.main',
+    'server.apps.ui_client',
 
     # Default django apps:
     'django.contrib.admin',
@@ -42,6 +43,7 @@ MIDDLEWARE: tuple[str, ...] = (
     'csp.middleware.CSPMiddleware',
 
     # Django:
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     # django-permissions-policy
     'django_permissions_policy.PermissionsPolicyMiddleware',
@@ -83,13 +85,23 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 )
 
+AUTH_PASSWORD_VALIDATORS = (
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 9},
+    },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+)
+
 
 # Internationalization
 LANGUAGE_CODE = 'ru-RU'
-TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
+LANGUAGES = (('ru', _('Russian')),)
+LOCALE_PATHS = ('locale/',)
 USE_TZ = True
-
+TIME_ZONE = 'Europe/Moscow'
 
 
 # Security

@@ -1,117 +1,115 @@
-from typing import Final, final
+from typing import final
 
+from django.conf import settings
 from django.db.models import (
     BooleanField,
     CharField,
     CheckConstraint,
     DateTimeField,
-    FileField,
     ForeignKey,
-    ManyToManyField,
+    Index,
     Model,
-    OneToOneField,
     Q,
     SET_NULL,
     TextField
 )
-from server.apps.common.models import Course, Person
+from django.utils.translation import gettext_lazy as _
+from server.utilites.common.funcs import make_ULID
+from server.utilites.django_tools import PKULIDField
 
 from .constants import LEARNING_REQUEST_STATUS_LENGTH, LearningRequestStatuses
-from .helpers import build_upload_path
 
 
-ATTACHMENT_TARGET_NAME_LENGTH: Final = 80
-ATTACHMENT_PATH_LENGTH: Final = 128
+_request_status_check = CheckConstraint(
+    check=Q(status__in=LearningRequestStatuses.get_values()),
+    name='status_check'
+)
+
+_created_at_index = Index(fields=('created_at',), name='created_at_index')
+_updated_at_index = Index(fields=('updated_at',), name='updated_at_index')
 
 
 @final
-class LearningRequestMetadata(Model):
-    '''Meta information of learning requests.'''
+class RequestMetadata(Model):
+    '''
+    Meta information of learning requests.
+    '''
 
     class Meta:
-        db_table = 'learning_requests_metadata'
         db_table_comment = 'Meta information of learning requests.'
-
-        constraints = (
-            CheckConstraint(
-                check=Q(status__in=LearningRequestStatuses.get_values()),
-                name='status_variants'
-            ),
-        )
+        verbose_name = _('Request metadata')
+        verbose_name_plural = _('Request metadata')
+        constraints = (_request_status_check,)
+        indexes = (_created_at_index, _updated_at_index,)
 
 
-    created_at = DateTimeField(auto_now_add=True)
-    updated_at = DateTimeField(auto_now=True)
+    id = PKULIDField(  # noqa: VNE003
+        auto_created=True,
+        default=make_ULID,
+        primary_key=True,
+        serialize=False,
+        verbose_name='id'
+    )
 
-    note = TextField(
-        db_comment='A short text note about learning request.',
-        db_default='',
-        default='',
+    created_at = DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created at')
+    )
+
+    updated_at = DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated at')
     )
 
     relevance = BooleanField(
-        db_comment='Is the learning request currently relevant.',
         db_default=True,
         default=True,
+        verbose_name=_('Relevance of  learning request')
     )
 
     status = CharField(
         db_comment=(
-            'Available status variants for learning requests: '
-            '<registered>, <approved>, <rejected>, <in_history>'
+            'Available status variants for learning request: '
+            '<registered>, <approved>, <rejected>, <in_archive>.'
         ),
         db_default=LearningRequestStatuses.REGISTERED,
         default=LearningRequestStatuses.REGISTERED,
-        max_length=LEARNING_REQUEST_STATUS_LENGTH
+        max_length=LEARNING_REQUEST_STATUS_LENGTH,
+        verbose_name=_('Status of learning request')
     )
 
-    candidates = ManyToManyField(
-        to=Person,
-        db_table='person_learning_requests',
+    note = TextField(
+        db_default='',
+        default='',
+        verbose_name=_('Short text note about learning request')
     )
 
     course = ForeignKey(
-        db_comment='Related course.',
-        to=Course,
+        db_constraint=False,
+        to='core.Course',
         null=True,
         on_delete=SET_NULL,
         related_name='learning_requests',
+        verbose_name=_('Related course')
     )
 
-
-    def __str__(self) -> str:
-        return self.status
-
-
-@final
-class Attachment(Model):
-    '''Defines the source file with the text of a learning request.'''
-
-    class Meta:
-        db_table = 'attachments'
-        db_table_comment = 'Defines the source file with the text of a learning request.'
-
-
-    target_name = CharField(
-        db_comment='File name without extention.',
-        primary_key=True,
-        max_length=ATTACHMENT_TARGET_NAME_LENGTH
-    )
-
-    uploaded_file = FileField(
-        db_comment='Фull path to the uploaded file with the original learning request.',
-        unique=True,
-        upload_to=build_upload_path,
-        max_length=ATTACHMENT_PATH_LENGTH,
-    )
-
-    learning_request = OneToOneField(
-        db_comment='Related learning request metadata.',
-        to=LearningRequestMetadata,
+    candidate = ForeignKey(
+        db_constraint=False,
+        to='core.Person',
         null=True,
-        on_delete=SET_NULL
+        on_delete=SET_NULL,
+        related_name='learning_requests',
+        verbose_name=_('Related person')
+    )
+
+    author = ForeignKey(
+        db_constraint=False,
+        to=settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=SET_NULL,
+        verbose_name=_('Related author')
     )
 
 
     def __str__(self) -> str:
-        return self.target_name
+        return str(self.created_at)
