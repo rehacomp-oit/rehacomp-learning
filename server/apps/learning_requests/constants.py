@@ -3,6 +3,7 @@ from typing import Final, final
 from server.utilites.common.types import BaseEnum
 
 
+DATE_FORMAT: Final = '%Y-%m-%d %H:%M'
 LEARNING_REQUEST_STATUS_LENGTH: Final = 10
 
 
