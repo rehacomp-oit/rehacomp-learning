@@ -12,7 +12,7 @@ class MockCourseRepository:
         self.__storage = initial_data
 
 
-    def load_course_full_names(self) -> tuple[str, ...]:
+    def fetch_course_names(self) -> tuple[str, ...]:
         return self.__storage
 
 

@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block title %}Заявки на обучение{% endblock %}
+
+
+{% block main %}
+    <h1>Папки курсов</h1>
+    <ul>
+        {% for folder in folders %}
+        <li>{{ folder }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -22,6 +22,7 @@ URL_PATTERN_FIXTURE: Final = {
     '/accounts/login/': UrlMetadata('login', 'accounts:login'),
     '/accounts/logout/': UrlMetadata('logout', 'accounts:logout'),
     '/accounts/register/': UrlMetadata('register', 'accounts:register'),
+    '/learning_requests/': UrlMetadata('requests', 'learning_requests:requests'),
 }
 
 

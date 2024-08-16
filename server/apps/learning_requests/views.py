@@ -1,16 +1,37 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
+from typing import Final, final
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_http_methods
+from django.views.generic.base import View
+from returns.result import Failure, Success
+from server.apps.core.business_error_types import FolderListFailure
+from server.apps.core.protocols.services import CourseFoldersListUseCase
 
 
-@login_required
-@require_http_methods(('GET',))
-def show_learning_requests(request: HttpRequest) -> HttpResponse:
-    '''
-Main (or index) view of this application.
+@final
+class ShowFoldersView(LoginRequiredMixin, View):
 
-    Returns rendered page with list of learning requests.
-    '''
+    SUCCESS_PAGE: Final = 'folders_list.html'
+    UNSUCCESS_PAGE: Final = 'empty_folders_list.html'
 
-    return render(request, 'learning_requests/main.html')
+    folder_list_service: CourseFoldersListUseCase = None  # type: ignore
+
+
+    def __init__(self, *, folder_list_service: CourseFoldersListUseCase) -> None:
+        self.folder_list_service = folder_list_service
+        super().__init__()
+
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        template_context: dict[str, tuple[()]] = {}
+        match self.folder_list_service():
+            case Success(value):
+                template_context['folders'] = value
+                return render(request, self.SUCCESS_PAGE, template_context)
+
+            case Failure(FolderListFailure.EMPTY_LIST):
+                return render(request, self.UNSUCCESS_PAGE, template_context)
+
+            case Failure(FolderListFailure.BROKEN_FOLDER_NAME):
+                raise Http404()
