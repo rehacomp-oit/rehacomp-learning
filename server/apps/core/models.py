@@ -15,19 +15,18 @@ from django.db.models import (
 from django.db.models.fields import SmallAutoField
 from django.utils.translation import gettext_lazy as _
 
-from .constants import (
+from .domain.constants import (
     COURSE_FULL_NAME_LENGTH,
     COURSE_SHORT_NAME_LANGTH,
     DISABILITY_GROUP_LENGTH,
-    DisabilityGroups,
     EDUCATION_INFORMATION_LENGTH,
     EMAIL_ADDRESS_PATTERN,
     JOB_INFORMATION_LENGTH,
     PERSON_NAME_LENGTH,
     PHONE_NUMBER_MAX_LENGTH,
-    TrainingLevels,
     VOS_ORGANIZATION_NAME_LENGTH
 )
+from .domain.enum_types import DisabilityGroups, TrainingLevels
 
 
 _disability_group_check = CheckConstraint(

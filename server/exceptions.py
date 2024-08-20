@@ -1,17 +1,17 @@
 '''
-Base exception types for the project.
+Base exception types for this project.
 '''
 
 
-class AppError(Exception):
+class ApplicationError(Exception):
     '''
     Base exception for this application.
     '''
     pass
 
 
-class ServiceFailed(AppError):
+class BusinessLogicFailed(ApplicationError):
     '''
-    Unsuccessful execution of a business scenario.
+    Unsuccessful execution of a business operation.
     '''
     pass

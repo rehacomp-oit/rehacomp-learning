@@ -3,10 +3,12 @@
 
 
 {% block main %}
-    <h1>Папки курсов</h1>
-    <ul>
-        {% for folder in folders %}
-        <li>{{ folder }}</li>
-        {% endfor %}
-    </ul>
+  <h1>Папки курсов</h1>
+  <ul>
+    {% for folder in folders %}
+    <li>
+        <h2> <a href="">{{ folder.name }} </a> </h2>
+    </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

@@ -10,7 +10,7 @@ from django.db.models import (
     Index,
     PositiveSmallIntegerField,
 )
-from server.apps.core.constants import (
+from server.apps.core.domain.enum_types import (
     DisabilityGroups,
     TrainingLevels
 )

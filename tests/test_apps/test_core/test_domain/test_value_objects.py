@@ -3,8 +3,8 @@ from typing import final
 from hypothesis import given
 from hypothesis.strategies import text
 from pytest import mark, raises
-from server.apps.core.constants import COURSE_FULL_NAME_LENGTH
-from server.apps.core.value_objects import CourseFolderName
+from server.apps.core.domain.constants import COURSE_FULL_NAME_LENGTH
+from server.apps.core.domain.value_objects import CourseFolderName
 
 
 @final

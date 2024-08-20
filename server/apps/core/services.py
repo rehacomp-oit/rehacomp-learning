@@ -3,10 +3,10 @@ from typing import final
 
 from returns.result import Failure, Success
 
-from .business_error_types import FolderListFailure
+from .domain.entities import CourseFolder
+from .domain.exceptions import InvalidFolderMetadata
 from .protocols.repositories import CourseRepository
-from .protocols.results import CourseFoldersListServiceResult
-from .value_objects import CourseFolderName
+from .protocols.results import CourseFoldersListServiceResult, FolderListFailure
 
 
 @final
@@ -20,13 +20,15 @@ class CourseFoldersListService:
 
 
     def __call__(self) -> CourseFoldersListServiceResult:
-        raw_data = self.repository.fetch_course_names()
-        if not raw_data:
-            return Failure(FolderListFailure.EMPTY_LIST)
-
         try:
-            folder_list = tuple(CourseFolderName(item) for item in raw_data)
-        except ValueError:
+            folders = tuple(
+                CourseFolder.from_raw_data(record.id, record.course_name)
+                for record in self.repository.fetch_all_lazy()
+            )
+        except InvalidFolderMetadata:
             return Failure(FolderListFailure.BROKEN_FOLDER_NAME)
+
+        if not folders:
+            return Failure(FolderListFailure.EMPTY_LIST)
         else:
-            return Success(folder_list)
+            return Success(folders)
