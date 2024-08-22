@@ -5,8 +5,9 @@ from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.generic.base import View
 from returns.result import Failure, Success
-from server.apps.core.protocols.results import FolderListFailure
-from server.apps.core.protocols.services import CourseFoldersListUseCase
+
+from .protocols.results import FolderListFailure
+from .protocols.services import CourseFoldersListUseCase
 
 
 @final

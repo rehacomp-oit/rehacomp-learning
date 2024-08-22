@@ -23,7 +23,7 @@ _email_pattern_check = CheckConstraint(
 
 @final
 class Migration(BaseMigration):
-    dependencies = (('core', '0003_person_model'),)
+    dependencies = (('learning_requests', '0003_person_model'),)
 
     operations = (
         AddConstraint(model_name='person', constraint=_disability_group_check),

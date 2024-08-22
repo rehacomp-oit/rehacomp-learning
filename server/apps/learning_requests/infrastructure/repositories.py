@@ -4,7 +4,7 @@ Implementation of data access objects.
 
 from typing import final, Iterable
 
-from server.apps.core.models import Course
+from server.apps.learning_requests.models import Course
 
 
 @final
@@ -20,3 +20,7 @@ class CourseDBRepo:
 
         queryset = Course.objects.all()
         return queryset.iterator()
+
+
+    def has_any_course(self) -> bool:
+        return Course.objects.exists()

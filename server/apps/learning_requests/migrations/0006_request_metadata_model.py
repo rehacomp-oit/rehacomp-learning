@@ -8,7 +8,7 @@ from django.db.models import (
     DateTimeField,
     TextField
 )
-from server.apps.learning_requests.constants import LearningRequestStatuses
+from server.apps.learning_requests.domain.enum_types import LearningRequestStatuses
 from server.utilites.common.funcs import make_ULID
 from server.utilites.django_tools import PKULIDField
 
@@ -66,6 +66,5 @@ _options = {
 
 @final
 class Migration(BaseMigration):
-    initial = True
-    dependencies = ()
+    dependencies = (('learning_requests', '0005_related_organization_for_person',),)
     operations = (CreateModel(name='RequestMetadata', fields=_fields, options=_options),)

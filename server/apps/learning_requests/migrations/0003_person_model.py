@@ -10,7 +10,7 @@ from django.db.models import (
     Index,
     PositiveSmallIntegerField,
 )
-from server.apps.core.domain.enum_types import (
+from server.apps.learning_requests.domain.enum_types import (
     DisabilityGroups,
     TrainingLevels
 )
@@ -129,5 +129,5 @@ _options = {
 
 @final
 class Migration(BaseMigration):
-    dependencies = (('core', '0002_course_model',),)
+    dependencies = (('learning_requests', '0002_course_model',),)
     operations = (CreateModel(name='Person', fields=_fields, options=_options),)

@@ -1,6 +1,6 @@
 from typing import Iterable, Protocol
 
-from server.apps.core.models import Course
+from server.apps.learning_requests.models import Course
 
 
 class CourseRepository(Protocol):
@@ -9,4 +9,8 @@ class CourseRepository(Protocol):
     '''
 
     def fetch_all_lazy(self) -> Iterable[Course]:
+        ...
+
+
+    def has_any_course(self) -> bool:
         ...

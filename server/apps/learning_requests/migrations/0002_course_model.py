@@ -35,5 +35,5 @@ _options = {
 
 @final
 class Migration(BaseMigration):
-    dependencies = (('core', '0001_vos_organization_model'),)
+    dependencies = (('learning_requests', '0001_vos_organization_model'),)
     operations = (CreateModel(name='Course', fields=_fields, options=_options),)

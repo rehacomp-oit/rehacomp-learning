@@ -4,8 +4,8 @@ from enum import StrEnum
 from typing import final, TypeAlias
 
 from returns.result import Result
-from server.apps.core.domain.constants import COURSE_FULL_NAME_LENGTH
-from server.apps.core.domain.entities import CourseFolder
+from server.apps.learning_requests.domain.constants import COURSE_FULL_NAME_LENGTH
+from server.apps.learning_requests.domain.entities import CourseFolder
 
 
 @final

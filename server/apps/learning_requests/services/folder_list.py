@@ -2,11 +2,10 @@ from dataclasses import dataclass
 from typing import final
 
 from returns.result import Failure, Success
-
-from .domain.entities import CourseFolder
-from .domain.exceptions import InvalidFolderMetadata
-from .protocols.repositories import CourseRepository
-from .protocols.results import CourseFoldersListServiceResult, FolderListFailure
+from server.apps.learning_requests.domain.entities import CourseFolder
+from server.apps.learning_requests.domain.exceptions import InvalidFolderMetadata
+from server.apps.learning_requests.protocols.repositories import CourseRepository
+from server.apps.learning_requests.protocols.results import CourseFoldersListServiceResult, FolderListFailure
 
 
 @final
@@ -20,6 +19,9 @@ class CourseFoldersListService:
 
 
     def __call__(self) -> CourseFoldersListServiceResult:
+        if not self.repository.has_any_course():
+            return Failure(FolderListFailure.EMPTY_LIST)
+
         try:
             folders = tuple(
                 CourseFolder.from_raw_data(record.id, record.course_name)
@@ -27,8 +29,5 @@ class CourseFoldersListService:
             )
         except InvalidFolderMetadata:
             return Failure(FolderListFailure.BROKEN_FOLDER_NAME)
-
-        if not folders:
-            return Failure(FolderListFailure.EMPTY_LIST)
         else:
             return Success(folders)

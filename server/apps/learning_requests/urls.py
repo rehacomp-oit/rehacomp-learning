@@ -1,7 +1,7 @@
 from django.urls import path
-from server.apps.core.implemented import folder_list_service_impl
-from server.apps.core.protocols.services import CourseFoldersListUseCase
 
+from .registry import folder_list_service_impl
+from .protocols.services import CourseFoldersListUseCase
 from .views import ShowFolderContentView, ShowFoldersView
 
 

@@ -21,7 +21,7 @@ _fields = (
         null=True,
         on_delete=SET_NULL,
         related_name='learning_requests',
-        to='core.person',
+        to='learning_requests.person',
         verbose_name='Related person'
     ),
 
@@ -30,7 +30,7 @@ _fields = (
         null=True,
         on_delete=SET_NULL,
         related_name='learning_requests',
-        to='core.course',
+        to='learning_requests.course',
         verbose_name='Related course'
     ),
 )
@@ -48,7 +48,7 @@ _author_foreign_key_definition = (
 _candidate_foreign_key_definition = (
     '-- Create constraint related_person_fk on model request_metadata\n'
     'ALTER TABLE "learning_requests_requestmetadata" ADD CONSTRAINT "related_person_fk" '
-    'FOREIGN KEY ("candidate_id") REFERENCES "core_person" ("id") '
+    'FOREIGN KEY ("candidate_id") REFERENCES "learning_requests_person" ("id") '
     'ON DELETE SET NULL '
     'DEFERRABLE INITIALLY DEFERRED;'
 )
@@ -56,7 +56,7 @@ _candidate_foreign_key_definition = (
 _course_foreign_key_definition = (
     '-- Create constraint related_course on model request_metadata\n'
     'ALTER TABLE "learning_requests_requestmetadata" ADD CONSTRAINT "related_course_fk" '
-    'FOREIGN KEY ("course_id") REFERENCES "core_course" ("id") '
+    'FOREIGN KEY ("course_id") REFERENCES "learning_requests_course" ("id") '
     'ON DELETE SET NULL '
     'DEFERRABLE INITIALLY DEFERRED;'
 )
@@ -65,8 +65,8 @@ _course_foreign_key_definition = (
 @final
 class Migration(BaseMigration):
     dependencies = (
-        ('core', '0005_related_organization_for_person'),
-        ('learning_requests', '0002_request_performance_and_checks'),
+        ('learning_requests', '0005_related_organization_for_person'),
+        ('learning_requests', '0007_request_performance_and_checks'),
         swappable_dependency(settings.AUTH_USER_MODEL),
     )
 

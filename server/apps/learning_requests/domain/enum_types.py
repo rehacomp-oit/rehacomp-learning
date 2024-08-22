@@ -24,3 +24,15 @@ class DisabilityGroups(str, BaseEnum):
     VISION_THURD = 'v3'
     OTHER = 'o'
     NOTHING = 'n'
+
+
+@final
+class LearningRequestStatuses(str, BaseEnum):
+    '''
+    Available status variants for learning requests.
+    '''
+
+    REGISTERED = 'registered'
+    APPROVED = 'approved'
+    REJECTED = 'rejected'
+    IN_ARCHIVE = 'in_archive'
