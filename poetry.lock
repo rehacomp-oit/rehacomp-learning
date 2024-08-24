@@ -311,6 +311,21 @@ docs = ["sphinx"]
 test = ["celery", "pytest", "pytest-cov", "pytest-django", "redis"]
 
 [[package]]
+name = "django-htmx"
+version = "1.19.0"
+description = "Extensions for using Django with htmx."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_htmx-1.19.0-py3-none-any.whl", hash = "sha256:875a642814e52278c1728842436beda2001847a493ab79fd82da3fb46ead140f"},
+    {file = "django_htmx-1.19.0.tar.gz", hash = "sha256:e7e17304e78e07f96eca0affc3ce1806edfdf3538bb7cb1912452b101f3e627d"},
+]
+
+[package.dependencies]
+asgiref = ">=3.6"
+django = ">=3.2"
+
+[[package]]
 name = "django-http-referrer-policy"
 version = "1.1.1"
 description = "django-http-referrer-policy provides a middleware class implementing the Referrer-Policy header for Django-powered sites."
@@ -1193,4 +1208,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "8e1f5ad3850ea3a5478d2cee0117ec44c1a472782156f305c17860ef247e28e3"
+content-hash = "619c9d22d1b067ff065d6157ea84f5fedbf59c891baf7b0f5922f5b50da23964"

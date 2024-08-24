@@ -1,5 +1,5 @@
 '''
-Main URL mapping configuration file.
+Main URL mapping configuration module.
 
 Include other URLConfs from external apps using method `include()`.
 '''

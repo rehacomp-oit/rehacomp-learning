@@ -25,6 +25,9 @@ INSTALLED_APPS: tuple[str, ...] = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # ajax:
+    'django_htmx',
+
     # Security:
     'axes',
 
@@ -52,6 +55,7 @@ MIDDLEWARE: tuple[str, ...] = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 
     # Axes:
     'axes.middleware.AxesMiddleware',
