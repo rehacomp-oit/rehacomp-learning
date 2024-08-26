@@ -1,22 +1,17 @@
 from django.urls import path
 
-from .registry import folder_list_service_impl
 from .protocols.services import CourseFoldersListUseCase
+from .registry import folder_list_service_impl
 from .views import ShowFolderContentView, ShowFoldersView
 
 
 app_name = 'learning_requests'
 
-urlpatterns = (
-    path(
-        '',
-        ShowFoldersView.as_view(folder_list_service=folder_list_service_impl.resolve(CourseFoldersListUseCase)),
-        name='requests'
-    ),
+_show_folders = ShowFoldersView.as_view(service=folder_list_service_impl.resolve(CourseFoldersListUseCase))
+_get_learning_requests = ShowFolderContentView.as_view()
 
-    path(
-        'folder',
-        ShowFolderContentView.as_view(),
-        name='folder'
-    ),
+
+urlpatterns = (
+    path('', _show_folders, name='folders'),
+    path('folder_<int:course_id>/', _get_learning_requests, name='folder'),
 )

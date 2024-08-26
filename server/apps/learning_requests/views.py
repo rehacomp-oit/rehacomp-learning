@@ -16,17 +16,17 @@ class ShowFoldersView(LoginRequiredMixin, View):
     SUCCESS_PAGE: Final = 'folders_list.html'
     UNSUCCESS_PAGE: Final = 'empty_folders_list.html'
 
-    folder_list_service: CourseFoldersListUseCase = None  # type: ignore
+    service: CourseFoldersListUseCase = None  # type: ignore
 
 
-    def __init__(self, *, folder_list_service: CourseFoldersListUseCase) -> None:
-        self.folder_list_service = folder_list_service
+    def __init__(self, *, service: CourseFoldersListUseCase) -> None:
+        self.service = service
         super().__init__()
 
 
     def get(self, request: HttpRequest) -> HttpResponse:
         template_context: dict[str, tuple[()]] = {}
-        match self.folder_list_service():
+        match self.service():
             case Success(value):
                 template_context['folders'] = value
                 return render(request, self.SUCCESS_PAGE, template_context)
@@ -44,6 +44,6 @@ class ShowFolderContentView(LoginRequiredMixin, View):
     PAGE_TEMPLATE: Final = 'folder.html'
 
 
-    def get(self, request: HttpRequest, folder_name: str) -> HttpResponse:
-        template_context = {'folder_name': folder_name}
+    def get(self, request: HttpRequest, course_id: int) -> HttpResponse:
+        template_context = {}
         return render(request, self.PAGE_TEMPLATE, template_context)
