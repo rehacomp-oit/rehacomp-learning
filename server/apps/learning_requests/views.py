@@ -1,10 +1,11 @@
 from typing import Final, final
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.views.generic.base import View
 from returns.result import Failure, Success
+from server.utilites.django_tools import HtmxHttpRequest
 
 from .protocols.results import FolderListFailure
 from .protocols.services import CourseFoldersListUseCase
@@ -24,7 +25,7 @@ class ShowFoldersView(LoginRequiredMixin, View):
         super().__init__()
 
 
-    def get(self, request: HttpRequest) -> HttpResponse:
+    def get(self, request: HtmxHttpRequest) -> HttpResponse:
         template_context: dict[str, tuple[()]] = {}
         match self.service():
             case Success(value):
@@ -44,6 +45,6 @@ class ShowFolderContentView(LoginRequiredMixin, View):
     PAGE_TEMPLATE: Final = 'folder.html'
 
 
-    def get(self, request: HttpRequest, course_id: int) -> HttpResponse:
+    def get(self, request: HtmxHttpRequest, course_id: int) -> HttpResponse:
         template_context = {}
         return render(request, self.PAGE_TEMPLATE, template_context)

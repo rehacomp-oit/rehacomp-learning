@@ -1,11 +1,17 @@
+{% load django_htmx %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rehacomp learning | {% block title %}{% endblock %}</title>
+  <title>Обучение | {% block subtitle %}{% endblock %}</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';">
+
+  <!-- Setup htmx configuration -->
+  <meta name="htmx-config" content='{"historyCacheSize": 15}'>
+
+  <script src="{% static 'ui_client/js/htmx.min.js' %}" defer></script>
 </head>
 
 

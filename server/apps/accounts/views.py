@@ -1,10 +1,11 @@
 from typing import Final, TypeAlias
 
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
+from server.utilites.django_tools import HtmxHttpRequest
 
 from .forms import LoginForm, RegisterForm
 from .logic.exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
@@ -20,7 +21,7 @@ ViewResponse: TypeAlias = HttpResponse | HttpResponseRedirect
 
 
 @require_http_methods(('GET', 'POST',))
-def login_user(request: HttpRequest) -> ViewResponse:
+def login_user(request: HtmxHttpRequest) -> ViewResponse:
     if request.method == 'GET':
         form = LoginForm()
         return render(request, LOGIN_PAGE_TEMPLATE_NAME, {'form': form})
@@ -37,13 +38,13 @@ def login_user(request: HttpRequest) -> ViewResponse:
     return redirect(LOGIN_SUCCESS_URL_NAME)
 
 
-def logout_user(request: HttpRequest) -> HttpResponseRedirect:
+def logout_user(request: HtmxHttpRequest) -> HttpResponseRedirect:
     logout(request)
     return redirect(REGISTER_SUCCESS_URL_NAME)
 
 
 @require_http_methods(('GET', 'POST',))
-def register_user(request: HttpRequest) -> ViewResponse:
+def register_user(request: HtmxHttpRequest) -> ViewResponse:
     if request.method == 'GET':
         form = RegisterForm()
         return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})

@@ -8,7 +8,9 @@ from uuid import UUID
 from django.contrib.admin import ModelAdmin, ShowFacets
 from django.core.exceptions import ValidationError
 from django.db.models.fields import Field
+from django.http import HttpRequest
 from django.utils.translation import gettext as _
+from django_htmx.middleware import HtmxDetails
 from ulid import parse, ULID
 
 
@@ -79,3 +81,8 @@ class BaseModelAdmin(ModelAdmin):
     '''
 
     show_facets = ShowFacets.NEVER
+
+
+@final
+class HtmxHttpRequest(HttpRequest):
+    htmx: HtmxDetails
