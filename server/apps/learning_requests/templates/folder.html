@@ -4,8 +4,8 @@
 
 {% block main %}
   <h1>Заявки на курс</h1>
-  <a href="">Добавить заявку</a>
+  <button hx-get="{% url 'index' %}" hx-target="body" hx-trigger="click, keyup[altKey&&shiftKey&&key=='n'] from:body">Добавить заявку (alt-shift-N)</button>
 
-  <br>
+  <br> <br>
 <p>Список заявок</p>
 {% endblock %}
