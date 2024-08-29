@@ -17,8 +17,8 @@ from django.db.models import (
 )
 from django.db.models.fields import SmallAutoField
 from django.utils.translation import gettext_lazy as _
-from server.utilites.common.funcs import make_ULID
-from server.utilites.django_tools import PKULIDField
+from server.common.django_tools import PKULIDField
+from server.common.utils import make_ULID
 
 from .domain.constants import (
     COURSE_FULL_NAME_LENGTH,

@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.views.generic.base import View
 from returns.result import Failure, Success
-from server.utilites.django_tools import HtmxHttpRequest
+from server.common.django_tools import HtmxHttpRequest
 
 from .protocols.results import FolderListFailure
 from .protocols.services import CourseFoldersListUseCase
@@ -46,5 +46,5 @@ class ShowFolderContentView(LoginRequiredMixin, View):
 
 
     def get(self, request: HtmxHttpRequest, course_id: int) -> HttpResponse:
-        template_context = {}
+        template_context: dict[str, object] = {}
         return render(request, self.PAGE_TEMPLATE, template_context)

@@ -1,7 +1,8 @@
 from hypothesis import given
 from hypothesis.strategies import integers
 from pytest import mark, raises
-from server.utilites.common.types import BaseEnum, IntegerId
+from server.common.exceptions import InvalidIdentifier
+from server.common.types import BaseEnum, IntegerId
 
 
 @mark.module
@@ -28,5 +29,5 @@ def test_integer_id_validation(invalid_data) -> None:
     This test insures the impossibility to create an integer identifier with a value less than or equal to zero.
     '''
 
-    with raises(ValueError):
+    with raises(InvalidIdentifier):
         IntegerId(invalid_data)

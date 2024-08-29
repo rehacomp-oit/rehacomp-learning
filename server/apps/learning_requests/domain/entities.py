@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import final, Self
 
-from server.utilites.common.types import IntegerId
+from server.common.types import IntegerId
 
 from .exceptions import InvalidFolderMetadata
 from .value_objects import CourseFolderId, CourseFolderName

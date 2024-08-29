@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 from django.core.exceptions import ValidationError
 from pytest import fixture, mark, MonkeyPatch, raises
-from server.utilites import django_tools
+from server.common import django_tools
 
 
 PKULIDField: TypeAlias = django_tools.PKULIDField

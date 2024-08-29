@@ -1,6 +1,6 @@
 from typing import final
 
-from server.exceptions import BusinessLogicFailed
+from server.common.exceptions import BusinessLogicFailed
 
 
 @final

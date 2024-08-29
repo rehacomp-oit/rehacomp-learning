@@ -9,8 +9,8 @@ from django.db.models import (
     TextField
 )
 from server.apps.learning_requests.domain.enum_types import LearningRequestStatuses
-from server.utilites.common.funcs import make_ULID
-from server.utilites.django_tools import PKULIDField
+from server.common.django_tools import PKULIDField
+from server.common.utils import make_ULID
 
 
 _fields = (

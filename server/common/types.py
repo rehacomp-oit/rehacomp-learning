@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import Any, final, Self
 
+from .exceptions import InvalidIdentifier
+
 
 class BaseEnum(Enum):
     '''
@@ -22,6 +24,6 @@ class IntegerId(int):
 
     def __new__(cls, value: int) -> Self:
         if value <= 0:
-            raise ValueError('Value must be a positive integer')
+            raise InvalidIdentifier(value)
         else:
             return super().__new__(cls, value)

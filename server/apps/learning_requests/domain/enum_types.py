@@ -1,6 +1,6 @@
 from typing import final
 
-from server.utilites.common.types import BaseEnum
+from server.common.types import BaseEnum
 
 
 @final

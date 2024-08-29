@@ -1,6 +1,6 @@
 from typing import final, NewType, Self
 
-from server.utilites.common.types import IntegerId
+from server.common.types import IntegerId
 
 from .constants import COURSE_FULL_NAME_LENGTH
 

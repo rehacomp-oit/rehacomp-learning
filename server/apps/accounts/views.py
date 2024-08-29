@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
-from server.utilites.django_tools import HtmxHttpRequest
+from server.common.django_tools import HtmxHttpRequest
 
 from .forms import LoginForm, RegisterForm
 from .logic.exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
