@@ -10,14 +10,12 @@ _fields = (
         auto_created=True,
         primary_key=True,
         serialize=False,
-        verbose_name='ID'
-    )),
+    ),),
 
     ('organization_name', CharField(
         max_length=80,
-        unique=True,
-        verbose_name='VOS organization name'
-    )),
+        unique=True
+    ),),
 )
 
 _options = {

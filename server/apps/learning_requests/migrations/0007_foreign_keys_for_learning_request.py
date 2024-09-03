@@ -65,8 +65,8 @@ _course_foreign_key_definition = (
 @final
 class Migration(BaseMigration):
     dependencies = (
-        ('learning_requests', '0005_related_organization_for_person'),
-        ('learning_requests', '0007_request_performance_and_checks'),
+        ('learning_requests', '0004_related_organization_for_person'),
+        ('learning_requests', '0006_request_metadata_performance'),
         swappable_dependency(settings.AUTH_USER_MODEL),
     )
 

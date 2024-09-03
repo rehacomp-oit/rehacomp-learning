@@ -24,7 +24,7 @@ class CourseFoldersListService:
 
         try:
             folders = tuple(
-                CourseFolder.from_raw_data(record.id, record.course_name)
+                CourseFolder.from_raw_data(record.id, record.name)
                 for record in self.repository.fetch_all_lazy()
             )
         except InvalidFolderMetadata:

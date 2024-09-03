@@ -26,7 +26,7 @@ _foreign_key_constraint_definition = (
 
 @final
 class Migration(BaseMigration):
-    dependencies = (('learning_requests', '0004_checks_for_person_model'),)
+    dependencies = (('learning_requests', '0003_person_model'),)
 
     operations = (
         AddField(model_name='person', name='related_vos_organization', field=_field_definition),

@@ -2,28 +2,14 @@ from typing import final
 
 from django.db.migrations import CreateModel
 from django.db.migrations import Migration as BaseMigration
-from django.db.models.fields import CharField, SmallAutoField
+from django.db.models.fields import CharField, SlugField, SmallAutoField
 
 
 _fields = (
-    ('id', SmallAutoField(
-        auto_created=True,
-        primary_key=True,
-        serialize=False,
-        verbose_name='ID'
-    )),
-
-    ('course_name', CharField(
-        max_length=256,
-        unique=True,
-        verbose_name='Full name of the course'
-    )),
-
-    ('course_short_name', CharField(
-        max_length=10,
-        unique=True,
-        verbose_name='Abbreviation of the course name'
-    )),
+    ('id', SmallAutoField(auto_created=True, primary_key=True, serialize=False),),
+    ('course_name', CharField(max_length=256, unique=True),),
+    ('slug', SlugField(unique=True),),
+    ('course_short_name', CharField(max_length=10, unique=True),),
 )
 
 _options = {
