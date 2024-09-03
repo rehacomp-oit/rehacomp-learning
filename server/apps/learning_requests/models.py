@@ -77,12 +77,12 @@ class Course(Model):
 
 
     def __str__(self) -> str:
-        return self.course_short_name
+        return self.short_name
 
 
     def save(self, *args, **kwargs) -> None:
-        if not self.id:
-            self.slug = slugify(transliterate_text(self.course_name))
+        if not self.id and not self.slug:
+            self.slug = slugify(transliterate_text(self.name))
 
         super().save(*args, **kwargs)
 
@@ -144,8 +144,7 @@ class Person(Model):
         null=True,
         to=VOSOrganization,
         on_delete=SET_NULL,
-        related_name='members',
-        verbose_name=_('Related VOS organization')
+        related_name='members'
     )
 
 

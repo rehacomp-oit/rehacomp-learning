@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rehacomp-learning VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 15:43+0300\n"
-"PO-Revision-Date: 2024-07-31 09:28+0300\n"
+"POT-Creation-Date: 2024-09-03 23:40+0300\n"
+"PO-Revision-Date: 2024-09-04 09:12+0300\n"
 "Last-Translator: Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -23,138 +23,58 @@ msgstr ""
 msgid "Accounts"
 msgstr "Учётные записи"
 
-#: server/apps/accounts/views.py:59
+#: server/apps/accounts/views.py:60
 msgid "The entered passwords didn't match."
 msgstr "Введённые пароли не совпали."
+
+#: server/apps/learning_requests/admin/forms.py:16
+msgid "Course name"
+msgstr "Название курса"
+
+#: server/apps/learning_requests/admin/forms.py:17
+msgid "Full name of the course"
+msgstr "Полное Название курса"
+
+#: server/apps/learning_requests/admin/forms.py:23
+msgid "Abbreviation"
+msgstr "Аббревиатура"
+
+#: server/apps/learning_requests/admin/forms.py:44
+msgid "organization_name"
+msgstr "Название организации"
 
 #: server/apps/learning_requests/apps.py:12
 msgid "Learning requests"
 msgstr "Заявки на обучение"
 
-#: server/apps/learning_requests/models.py:76
+#: server/apps/learning_requests/models.py:49
 msgid "VOS organization"
 msgstr "Организация ВОС"
 
-#: server/apps/learning_requests/models.py:77
+#: server/apps/learning_requests/models.py:50
 msgid "VOS organizations"
 msgstr "Организации ВОС"
 
-#: server/apps/learning_requests/models.py:90
-msgid "VOS organization name"
-msgstr "Наиминование организации ВОС"
-
-#: server/apps/learning_requests/models.py:106
+#: server/apps/learning_requests/models.py:69
 msgid "Course"
 msgstr "Курс"
 
-#: server/apps/learning_requests/models.py:107
+#: server/apps/learning_requests/models.py:70
 msgid "Courses"
 msgstr "Курсы"
 
-#: server/apps/learning_requests/models.py:120
-msgid "Full name of the course"
-msgstr "Полное Название курса"
-
-#: server/apps/learning_requests/models.py:126
-msgid "Abbreviation of the course name"
-msgstr "Аббревиатура названия курса"
-
-#: server/apps/learning_requests/models.py:142
+#: server/apps/learning_requests/models.py:98
 msgid "Person"
 msgstr "Человек"
 
-#: server/apps/learning_requests/models.py:143
+#: server/apps/learning_requests/models.py:99
 msgid "Persons"
 msgstr "Люди"
 
-#: server/apps/learning_requests/models.py:150
-msgid "First name"
-msgstr "Имя"
-
-#: server/apps/learning_requests/models.py:155
-msgid "Patronymic"
-msgstr "Отчество"
-
-#: server/apps/learning_requests/models.py:160
-msgid "Last name"
-msgstr "Фамилия"
-
+#: server/apps/learning_requests/models.py:164
 #: server/apps/learning_requests/models.py:165
-msgid "Person's birth year"
-msgstr "Год рождения Человека"
-
-#: server/apps/learning_requests/models.py:180
-msgid "Disability group"
-msgstr "Группа инвалидности"
-
-#: server/apps/learning_requests/models.py:188
-msgid "Education"
-msgstr "Образование"
-
-#: server/apps/learning_requests/models.py:196
-msgid "Person's job"
-msgstr "Место работы человека"
-
-#: server/apps/learning_requests/models.py:202
-msgid "Braille font proficiency"
-msgstr "Владение шрифтом Брайля"
-
-#: server/apps/learning_requests/models.py:217
-msgid "Training Level"
-msgstr "Уровень обучения"
-
-#: server/apps/learning_requests/models.py:223
-msgid "Has device"
-msgstr "Наличие устройства"
-
-#: server/apps/learning_requests/models.py:231
-msgid "Personal phone number"
-msgstr "Личный номер телефона"
-
-#: server/apps/learning_requests/models.py:238
-msgid "Personal email address"
-msgstr "Личный email адрес"
-
-#: server/apps/learning_requests/models.py:248
-msgid "Related VOS organization"
-msgstr "Связанная организация ВОС"
-
-#: server/apps/learning_requests/models.py:264
-#: server/apps/learning_requests/models.py:265
 msgid "Request metadata"
 msgstr "Метаданные заявки"
-
-#: server/apps/learning_requests/models.py:280
-msgid "Created at"
-msgstr "Дата создания"
-
-#: server/apps/learning_requests/models.py:285
-msgid "Updated at"
-msgstr "Дата обновления"
-
-#: server/apps/learning_requests/models.py:291
-msgid "Relevance of  learning request"
-msgstr "Реливантность заявки"
-
-#: server/apps/learning_requests/models.py:302
-msgid "Status of learning request"
-msgstr "Статус заявки"
-
-#: server/apps/learning_requests/models.py:308
-msgid "Short text note about learning request"
-msgstr "Короткая заметка о заявке"
-
-#: server/apps/learning_requests/models.py:317
-msgid "Related course"
-msgstr "Связанный курс"
-
-#: server/apps/learning_requests/models.py:326
-msgid "Related person"
-msgstr "Заявитель"
-
-#: server/apps/learning_requests/models.py:334
-msgid "Related author"
-msgstr "Автор заявки"
 
 #: server/apps/main/apps.py:12
 msgid "Main"
@@ -164,7 +84,16 @@ msgstr "Главное"
 msgid "Base UI client features"
 msgstr "Базовые функции пользовательского интерфейса клиента"
 
-#: server/settings/components/common.py:100
+#: server/common/django_tools.py:26
+#, python-format
+msgid "\"%(value)s\" is not a valid ULID."
+msgstr "\"%(value)s\" не валидный ULID."
+
+#: server/common/django_tools.py:27
+msgid "Universally Unique Lexicographically Sortable Identifier"
+msgstr "Универсальный уникальный лексикографически сортируемый идентификатор"
+
+#: server/settings/components/common.py:104
 msgid "Russian"
 msgstr "Русский"
 
@@ -179,12 +108,3 @@ msgstr "Административная панель сервиса rehacomp-le
 #: server/urls.py:22
 msgid "Home page"
 msgstr "Начальная страница"
-
-#: server/utilites/django_tools.py:24
-#, python-format
-msgid "\"%(value)s\" is not a valid ULID."
-msgstr "\"%(value)s\" не валидный ULID."
-
-#: server/utilites/django_tools.py:25
-msgid "Universally Unique Lexicographically Sortable Identifier"
-msgstr "Универсальный уникальный лексикографически сортируемый идентификатор"

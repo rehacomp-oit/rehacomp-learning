@@ -45,6 +45,6 @@ class ShowFolderContentView(LoginRequiredMixin, View):
     PAGE_TEMPLATE: Final = 'folder.html'
 
 
-    def get(self, request: HtmxHttpRequest, course_id: int) -> HttpResponse:
+    def get(self, request: HtmxHttpRequest, folder_slug: str) -> HttpResponse:
         template_context: dict[str, object] = {}
         return render(request, self.PAGE_TEMPLATE, template_context)

@@ -11,8 +11,7 @@ _field_definition = ForeignKey(
     null=True,
     on_delete=SET_NULL,
     related_name='members',
-    to='learning_requests.vosorganization',
-    verbose_name='Related VOS organization'
+    to='learning_requests.vosorganization'
 )
 
 _foreign_key_constraint_definition = (

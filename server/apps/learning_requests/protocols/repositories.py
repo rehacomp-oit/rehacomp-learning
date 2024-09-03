@@ -1,6 +1,4 @@
-from typing import Iterable, Protocol
-
-from server.apps.learning_requests.models import Course
+from typing import Any, Iterable, Protocol
 
 
 class CourseRepository(Protocol):
@@ -8,7 +6,7 @@ class CourseRepository(Protocol):
     Interface of data access object for learning courses.
     '''
 
-    def fetch_all_lazy(self) -> Iterable[Course]:
+    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any]]:
         ...
 
 

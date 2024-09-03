@@ -1,11 +1,9 @@
-from __future__ import annotations
-
 from enum import StrEnum
 from typing import final, TypeAlias
 
 from returns.result import Result
 from server.apps.learning_requests.domain.constants import COURSE_FULL_NAME_LENGTH
-from server.apps.learning_requests.domain.entities import CourseFolder
+from server.apps.learning_requests.domain.value_objects import CourseFolderName
 
 
 @final
@@ -16,4 +14,4 @@ class FolderListFailure(StrEnum):
     )
 
 
-CourseFoldersListServiceResult: TypeAlias = Result[tuple[CourseFolder, ...], FolderListFailure]
+CourseFoldersListServiceResult: TypeAlias = Result[tuple[CourseFolderName, ...], FolderListFailure]
