@@ -13,7 +13,7 @@ class CourseDBRepo:
     Manages training course data in the database.
     '''
 
-    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any]]:
+    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any, ...]]:
         '''
         Returns an iterator that load all records about learning courses from the database.
         '''

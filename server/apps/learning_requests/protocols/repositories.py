@@ -6,7 +6,7 @@ class CourseRepository(Protocol):
     Interface of data access object for learning courses.
     '''
 
-    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any]]:
+    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any, ...]]:
         ...
 
 
