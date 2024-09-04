@@ -3,10 +3,10 @@
 
 
 {% block content %}
-  <nav class="navigation">
+  <nav aria-label="Главное меню" class="navigation">
     <ul class="menu-items">
       <li class="menu-item" role="menuitem">
-        <a href="{% url 'learning_requests:folders' %}">Заявки</a>
+        <a href="{% url 'learning_requests:folders' %}" >Заявки</a>
       </li>
       <li class="menu-item" role="menuitem">
         <a href="">Группы</a>
@@ -18,7 +18,7 @@
   </nav>
 
 
-  <main>
+  <main aria-live="polite">
     {% block main %}{% endblock %}
   </main>
 {% endblock %}
