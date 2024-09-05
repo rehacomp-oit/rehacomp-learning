@@ -2,13 +2,14 @@
 A set of customizations for django.
 '''
 
-from typing import Any, final
+from typing import Any, final, MutableMapping, Sequence
 from uuid import UUID
 
 from django.contrib.admin import ModelAdmin, ShowFacets
 from django.core.exceptions import ValidationError
 from django.db.models.fields import Field
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 from django.utils.translation import gettext as _
 from django_htmx.middleware import HtmxDetails
 from ulid import parse, ULID
@@ -86,3 +87,22 @@ class BaseModelAdmin(ModelAdmin):
 @final
 class HtmxHttpRequest(HttpRequest):
     htmx: HtmxDetails
+
+
+def htmx_render(
+    request: HtmxHttpRequest,
+    template_name: str | Sequence[str],
+    context: MutableMapping[str, Any] | None=None,
+    content_type: str | None=None,
+    status: int | None=None,
+    using: str | None=None,
+) -> HttpResponse:
+    if context is None:
+        context = {}
+
+    if request.htmx:
+        context['base_template'] = 'main/_partial.html'
+    else:
+        context['base_template'] = 'main/_base.html'
+
+    return render(request, template_name, context, content_type, status, using)

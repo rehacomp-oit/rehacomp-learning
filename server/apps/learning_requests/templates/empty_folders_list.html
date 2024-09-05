@@ -1,7 +1,10 @@
-{% extends 'layout.html' %}
-{% block subtitle %}Заявки на обучение{% endblock %}
+{% extends base_template %}
+{% block subtitle %}Курсы{% endblock subtitle %}
 
 
-{% block main %}
-<p>Увас нет не одной папки курса. Вы должны добавить их через панель администратора. </p>
+{% block content %}
+  <main>
+    <h1>Папки курсов не найдены</h1>
+    <p>Увас не добавлено не одного учебного курса. Добавьте их через панель администратора. </p>
+  </main>
 {% endblock %}

@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block subtitle %}вход{% endblock %}
+{% extends base_template %}
+{% block subtitle %}Вход{% endblock subtitle %}
 
 
 {% block content %}
@@ -9,10 +9,13 @@
     <h1>Вход в систему</h1>
     <p>если ещё нет аккаунта, самое время
       <br>
-      <a href="{% url 'accounts:register' %}">зарегистрироваться</a></p>
+      <a href="{% url 'accounts:register' %}" hx-get="{% url 'accounts:register' %}" hx-push-url="{% url 'accounts:register' %}">зарегистрироваться</a></p>
 
-    <form method="post">
-      {% csrf_token %}
+    <form
+    hx-post="#"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    hx-target=".application-screan"
+  >
       {{ form.non_field_errors }}
 
       <div class="fieldWrapper">

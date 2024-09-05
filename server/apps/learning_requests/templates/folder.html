@@ -1,11 +1,13 @@
-{% extends 'layout.html' %}
-{% block subtitle %}Заявки{% endblock %}
+{% extends base_template %}
+{% block subtitle %}Курс{% endblock subtitle %}
 
 
-{% block main %}
-  <h1>Заявки на курс</h1>
-  <button hx-get="{% url 'index' %}" hx-target="body" hx-trigger="click, keyup[altKey&&shiftKey&&key=='n'] from:body">Добавить заявку (alt-shift-N)</button>
+{% block content %}
+  <main>
+    <h1>Заявки на курс</h1>
+    <button hx-get="{% url 'index' %}" hx-target="body">Добавить заявку (alt-shift-N)</button>
 
-  <br> <br>
-<p>Список заявок</p>
+    <br> <br>
+    <p>Список заявок</p>
+  </main>
 {% endblock %}

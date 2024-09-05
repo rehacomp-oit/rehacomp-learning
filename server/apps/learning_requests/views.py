@@ -2,9 +2,9 @@ from typing import Final, final
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse
-from django.shortcuts import render
 from django.views.generic.base import View
 from returns.result import Failure, Success
+from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
 
 from .protocols.results import FolderListFailure

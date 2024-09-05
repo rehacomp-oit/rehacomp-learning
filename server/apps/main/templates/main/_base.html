@@ -5,13 +5,12 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Обучение | {% block subtitle %}{% endblock %}</title>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self';">
+  <title>{% block subtitle %}{% endblock subtitle %} - обучение</title>
 
   <!-- Setup htmx configuration -->
-  <meta name="htmx-config" content='{"historyCacheSize": 15}'>
+  <meta name="htmx-config" content='{"historyCacheSize": 15, "selfRequestsOnly": true, "includeIndicatorStyles": false}'>
 
-  <script src="{% static 'ui_client/js/htmx.min.js' %}" defer></script>
+  <script src="{% static 'main/js/htmx.min.js' %}" defer></script>
 </head>
 
 
@@ -31,7 +30,7 @@
   </header>
   <br>
 
-  {% block content %}{% endblock %}
+  <div class="application-screan"> {% block content %}{% endblock %} </div>
   <br>
 </body>
 

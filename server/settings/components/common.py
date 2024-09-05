@@ -15,7 +15,6 @@ INSTALLED_APPS: tuple[str, ...] = (
     'server.apps.accounts',
     'server.apps.learning_requests',
     'server.apps.main',
-    'server.apps.ui_client',
 
     # Default django apps:
     'django.contrib.admin',
@@ -30,6 +29,7 @@ INSTALLED_APPS: tuple[str, ...] = (
 
     # Security:
     'axes',
+    'csp',
 
     # Health checks:
     # see: https://github.com/KristianOellegaard/django-health-check

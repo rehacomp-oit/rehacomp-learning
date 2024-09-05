@@ -1,14 +1,16 @@
-{% extends 'layout.html' %}
-{% block subtitle %}Заявки на обучение{% endblock %}
+{% extends base_template %}
+{% block subtitle %}Курсы{% endblock subtitle %}
 
 
-{% block main %}
-  <h1>Папки курсов</h1>
-  <ul>
-    {% for folder in folders %}
-    <li>
-        <h2> <a href="{% url 'learning_requests:folder' folder.slug %}">{{ folder.name }} </a> </h2>
-    </li>
-    {% endfor %}
-  </ul>
+{% block content %}
+  <main>
+    <h1>Папки курсов</h1>
+    <ul>
+      {% for folder in folders %}
+      <li>
+          <h2> <a href="{% url 'learning_requests:folder' folder.slug %}">{{ folder.name }} </a> </h2>
+      </li>
+      {% endfor %}
+    </ul>
+  </main>
 {% endblock %}

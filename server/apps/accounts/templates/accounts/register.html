@@ -1,11 +1,13 @@
-{% extends 'base.html' %}
-{% block subtitle %}регистрация{% endblock %}
-
+{% extends base_template %}
+{% block subtitle %}Регистрация{% endblock subtitle %}
 
 {% block content %}
     <h1>Добро пожаловать</h1>
-    <form method="post">
-      {% csrf_token %}
+    <form
+      hx-post="#"
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+      hx-target=".application-screan"
+    >
       {{ form.non_field_errors }}
 
       <div class="fieldWrapper">

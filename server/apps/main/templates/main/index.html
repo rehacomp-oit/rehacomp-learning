@@ -1,7 +1,28 @@
-{% extends 'layout.html' %}
-{% block subtitle %}главная{% endblock %}
+{% extends base_template %}
+{% block subtitle %}Главная{% endblock subtitle %}
 
 
-{% block main %}
+{% block content %}
+  <h1>Личный кабинет</h1>
+  <nav aria-label="Главное меню" class="navigation">
+    <ul class="menu-items" hx-target=".application-screan">
+      <li class="menu-item"> <a
+        href="{% url 'learning_requests:folders' %}"
+        hx-get="{% url 'learning_requests:folders' %}"
+        hx-push-url="{% url 'learning_requests:folders' %}"
+      >Заявки</a> </li>
+      <li class="menu-item"> <a href="">Группы</a> </li>
+      <li class="menu-item"> <a
+        href="{% url 'accounts:logout' %}"
+        hx-get="{% url 'accounts:logout' %}"
+        hx-push-url="{% url 'accounts:logout' %}"
+      >Выйти</a> </li>
+    </ul>
+  </nav>
+<br> <br>
+
+
+  <main>
     <p>будущая страница профиля</p>
-{% endblock %}
+  </main>
+{% endblock content %}

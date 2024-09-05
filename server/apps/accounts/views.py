@@ -2,9 +2,10 @@ from typing import Final, TypeAlias
 
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
+from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
 
 from .forms import LoginForm, RegisterForm
