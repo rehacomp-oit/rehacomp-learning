@@ -4,15 +4,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse
 from django.views.generic.base import View
 from returns.result import Failure, Success
+from server.apps.learning_requests.protocols.results import FolderListFailure
+from server.apps.learning_requests.protocols.services import CourseFoldersListUseCase
 from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
 
-from .protocols.results import FolderListFailure
-from .protocols.services import CourseFoldersListUseCase
-
 
 @final
-class ShowFoldersView(LoginRequiredMixin, View):
+class LoadFolderNamesView(LoginRequiredMixin, View):
 
     SUCCESS_PAGE: Final = 'folders_list.html'
     UNSUCCESS_PAGE: Final = 'empty_folders_list.html'
@@ -37,14 +36,3 @@ class ShowFoldersView(LoginRequiredMixin, View):
 
             case Failure(FolderListFailure.BROKEN_FOLDER_NAME):
                 raise Http404()
-
-
-@final
-class ShowFolderContentView(LoginRequiredMixin, View):
-
-    PAGE_TEMPLATE: Final = 'folder.html'
-
-
-    def get(self, request: HtmxHttpRequest, folder_slug: str) -> HttpResponse:
-        template_context: dict[str, object] = {}
-        return render(request, self.PAGE_TEMPLATE, template_context)

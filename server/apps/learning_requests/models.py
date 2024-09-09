@@ -1,6 +1,5 @@
 from typing import final
 
-from django.conf import settings
 from django.db.models import (
     BooleanField,
     CharField,
@@ -189,12 +188,6 @@ class RequestMetadata(Model):
         null=True,
         on_delete=SET_NULL,
         related_name='learning_requests'
-    )
-    author = ForeignKey(
-        db_constraint=False,
-        to=settings.AUTH_USER_MODEL,
-        null=True,
-        on_delete=SET_NULL
     )
 
 

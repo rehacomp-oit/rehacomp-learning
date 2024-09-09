@@ -1,21 +1,12 @@
 from typing import final
 
-from django.conf import settings
-from django.db.migrations import AddField, RunSQL, swappable_dependency
+from django.db.migrations import AddField, RunSQL
 from django.db.migrations import Migration as BaseMigration
 from django.db.models import ForeignKey
 from django.db.models.deletion import SET_NULL
 
 
 _fields = (
-    ForeignKey(
-        db_constraint=False,
-        null=True,
-        on_delete=SET_NULL,
-        to=settings.AUTH_USER_MODEL,
-        verbose_name='Request author'
-    ),
-
     ForeignKey(
         db_constraint=False,
         null=True,
@@ -37,14 +28,6 @@ _fields = (
 
 
 # Define foreign key constraints
-_author_foreign_key_definition = (
-    '-- Create constraint request_author_fk on model request_metadata\n'
-    'ALTER TABLE "learning_requests_requestmetadata" ADD CONSTRAINT "request_author_fk" '
-    'FOREIGN KEY ("author_id") REFERENCES "auth_user" ("id") '
-    'ON DELETE SET NULL '
-    'DEFERRABLE INITIALLY DEFERRED;'
-)
-
 _candidate_foreign_key_definition = (
     '-- Create constraint related_person_fk on model request_metadata\n'
     'ALTER TABLE "learning_requests_requestmetadata" ADD CONSTRAINT "related_person_fk" '
@@ -67,15 +50,12 @@ class Migration(BaseMigration):
     dependencies = (
         ('learning_requests', '0004_related_organization_for_person'),
         ('learning_requests', '0006_request_metadata_performance'),
-        swappable_dependency(settings.AUTH_USER_MODEL),
     )
 
 
     operations = (
-        AddField(model_name='requestmetadata', name='author', field=_fields[0]),
-        AddField(model_name='requestmetadata', name='candidate', field=_fields[1]),
-        AddField(model_name='requestmetadata', name='course', field=_fields[2]),
-        RunSQL(_author_foreign_key_definition),
+        AddField(model_name='requestmetadata', name='candidate', field=_fields[0]),
+        AddField(model_name='requestmetadata', name='course', field=_fields[1]),
         RunSQL(_candidate_foreign_key_definition),
         RunSQL(_course_foreign_key_definition),
     )
