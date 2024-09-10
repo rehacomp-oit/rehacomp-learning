@@ -25,7 +25,6 @@ from .domain.constants import (
     DISABILITY_GROUP_LENGTH,
     EDUCATION_INFORMATION_LENGTH,
     JOB_INFORMATION_LENGTH,
-    LEARNING_REQUEST_STATUS_LENGTH,
     PERSON_NAME_LENGTH,
     PHONE_NUMBER_MAX_LENGTH,
     VOS_ORGANIZATION_NAME_LENGTH
@@ -168,11 +167,6 @@ class RequestMetadata(Model):
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
     relevance = BooleanField(db_default=True, default=True)
-    status = CharField(
-        db_default=LearningRequestStatuses.REGISTERED,
-        default=LearningRequestStatuses.REGISTERED,
-        max_length=LEARNING_REQUEST_STATUS_LENGTH
-    )
     note = TextField(db_default='', default='')
 
     course = ForeignKey(

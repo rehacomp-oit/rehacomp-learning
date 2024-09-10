@@ -2,13 +2,7 @@ from typing import final
 
 from django.db.migrations import CreateModel
 from django.db.migrations import Migration as BaseMigration
-from django.db.models import (
-    BooleanField,
-    CharField,
-    DateTimeField,
-    TextField
-)
-from server.apps.learning_requests.domain.enum_types import LearningRequestStatuses
+from django.db.models import BooleanField, DateTimeField, TextField
 from server.common.django_tools import PKULIDField
 from server.common.utils import make_ULID
 
@@ -18,11 +12,6 @@ _fields = (
     ('created_at', DateTimeField(auto_now_add=True),),
     ('updated_at', DateTimeField(auto_now=True),),
     ('relevance', BooleanField(db_default=True, default=True),),
-    ('status', CharField(
-        db_default=LearningRequestStatuses['REGISTERED'],
-        default=LearningRequestStatuses['REGISTERED'],
-        max_length=10
-    ),),
     ('note', TextField(db_default='', default=''),),
 )
 
