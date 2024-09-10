@@ -10,5 +10,9 @@ class CourseRepository(Protocol):
         ...
 
 
+    def fetch_course_name_by_slug(self, slug: str) -> str | None:
+        ...
+
+
     def has_any_course(self) -> bool:
         ...

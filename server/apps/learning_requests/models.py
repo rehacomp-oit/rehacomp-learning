@@ -29,7 +29,7 @@ from .domain.constants import (
     PHONE_NUMBER_MAX_LENGTH,
     VOS_ORGANIZATION_NAME_LENGTH
 )
-from .domain.enum_types import DisabilityGroups, LearningRequestStatuses, TrainingLevels
+from .domain.enum_types import DisabilityGroups, TrainingLevels
 
 
 _created_at_index = Index(fields=('created_at',), name='created_at_index')

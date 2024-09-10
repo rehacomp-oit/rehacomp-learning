@@ -1,10 +1,10 @@
 {% extends base_template %}
-{% block subtitle %}Курс{% endblock subtitle %}
+{% block subtitle %}{{ current_folder_name }}{% endblock subtitle %}
 
 
 {% block content %}
   <main>
-    <h1>Заявки на курс</h1>
+    <h1>Заявки на курс {{ current_folder_name }} </h1>
     <button hx-get="{% url 'index' %}" hx-target="body">Добавить заявку (alt-shift-N)</button>
 
     <br> <br>

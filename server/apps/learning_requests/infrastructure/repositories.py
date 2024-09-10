@@ -22,5 +22,15 @@ class CourseDBRepo:
         return queryset.iterator()
 
 
+    def fetch_course_name_by_slug(self, slug: str) -> str | None:
+        queryset = Course.objects.values_list('name', flat=True)
+        try:
+            course_name = queryset.get(slug=slug)
+        except Course.DoesNotExist:
+            return None
+        else:
+            return course_name
+
+
     def has_any_course(self) -> bool:
         return Course.objects.exists()
