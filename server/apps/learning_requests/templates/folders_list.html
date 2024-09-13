@@ -4,6 +4,11 @@
 
 {% block content %}
   <main>
+    {% if not folders %}
+    <h1><span aria-live="assertive" role="alert">Папки курсов не найдены</span> </h1>
+    <p>Увас не добавлено не одного учебного курса. Добавьте их через панель администратора. </p>
+
+    {% else %}
     <h1>Папки курсов</h1>
     <ul>
       {% for folder in folders %}
@@ -12,5 +17,6 @@
       </li>
       {% endfor %}
     </ul>
+    {% endif %}
   </main>
 {% endblock %}

@@ -1,7 +1,10 @@
 from enum import Enum
-from typing import Any, final, Self
+from typing import Any, final, NewType, Self
 
 from .exceptions import InvalidIdentifier
+
+
+FailureReason = NewType('FailureReason', str)
 
 
 class BaseEnum(Enum):
