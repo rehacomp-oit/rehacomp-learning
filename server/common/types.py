@@ -1,3 +1,4 @@
+from abc import ABC
 from enum import Enum
 from typing import Any, final, NewType, Self
 
@@ -30,3 +31,36 @@ class IntegerId(int):
             raise InvalidIdentifier(value)
         else:
             return super().__new__(cls, value)
+
+
+class BaseEntity(ABC):
+    '''
+    base entity implementation
+    '''
+
+    id: Any  # noqa: VNE003
+
+
+    def __str__(self) -> str:
+        return str(self.id)
+
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, BaseEntity):
+            return NotImplemented
+        else:
+            return self.id == other.id
+
+
+    def __lt__(self, other: object) -> bool:
+        if not isinstance(other, BaseEntity):
+            return NotImplemented
+        else:
+            return self.id < other.id
+
+
+    def __gt__(self, other: object) -> bool:
+        if not isinstance(other, BaseEntity):
+            return NotImplemented
+        else:
+            return self.id > other.id
