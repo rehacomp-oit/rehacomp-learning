@@ -9,7 +9,6 @@ _fields = (
     ('id', SmallAutoField(auto_created=True, primary_key=True, serialize=False),),
     ('name', CharField(max_length=256, unique=True),),
     ('slug', SlugField(unique=True),),
-    ('short_name', CharField(max_length=10, unique=True),),
 )
 
 _options = {

@@ -21,7 +21,6 @@ from server.common.utils import make_ULID, transliterate_text
 
 from .domain.constants import (
     COURSE_FULL_NAME_LENGTH,
-    COURSE_SHORT_NAME_LANGTH,
     DISABILITY_GROUP_LENGTH,
     EDUCATION_INFORMATION_LENGTH,
     JOB_INFORMATION_LENGTH,
@@ -71,11 +70,10 @@ class Course(Model):
     id = SmallAutoField(auto_created=True, primary_key=True)  # noqa: VNE003
     name = CharField(max_length=COURSE_FULL_NAME_LENGTH, unique=True)
     slug = SlugField(unique=True)
-    short_name = CharField(max_length=COURSE_SHORT_NAME_LANGTH, unique=True)
 
 
     def __str__(self) -> str:
-        return self.short_name
+        return self.name
 
 
     def save(self, *args, **kwargs) -> None:
