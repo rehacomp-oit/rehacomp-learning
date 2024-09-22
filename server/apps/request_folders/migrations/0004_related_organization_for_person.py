@@ -11,13 +11,13 @@ _field_definition = ForeignKey(
     null=True,
     on_delete=SET_NULL,
     related_name='members',
-    to='learning_requests.vosorganization'
+    to='request_folders.vosorganization'
 )
 
 _foreign_key_constraint_definition = (
     '-- Create constraint related_vos_fk on model person\n'
-    'ALTER TABLE "learning_requests_person" ADD CONSTRAINT "related_vos_fk" '
-    'FOREIGN KEY ("related_vos_organization_id") REFERENCES "learning_requests_vosorganization" ("id") '
+    'ALTER TABLE "request_folders_person" ADD CONSTRAINT "related_vos_fk" '
+    'FOREIGN KEY ("related_vos_organization_id") REFERENCES "request_folders_vosorganization" ("id") '
     'ON DELETE SET NULL '
     'DEFERRABLE INITIALLY DEFERRED;'
 )
@@ -25,8 +25,7 @@ _foreign_key_constraint_definition = (
 
 @final
 class Migration(BaseMigration):
-    dependencies = (('learning_requests', '0003_person_model'),)
-
+    dependencies = (('request_folders', '0003_person_model'),)
     operations = (
         AddField(model_name='person', name='related_vos_organization', field=_field_definition),
         RunSQL(_foreign_key_constraint_definition),

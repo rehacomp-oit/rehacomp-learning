@@ -13,7 +13,7 @@
     <ul>
       {% for folder in folders %}
       <li>
-          <h2> <a href="{% url 'learning_requests:folder' folder.slug %}">{{ folder.name }} </a> </h2>
+          <h2> <a href="{% url 'request_folders:folder' folder.slug %}">{{ folder.name }} </a> </h2>
       </li>
       {% endfor %}
     </ul>

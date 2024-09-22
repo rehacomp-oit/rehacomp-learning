@@ -6,7 +6,7 @@ from .registry import folder_list_service_impl
 from .views import LoadFolderNamesView, LoadLearningRequestsView
 
 
-app_name = 'learning_requests'
+app_name = 'request_folders'
 
 _load_folder_names = LoadFolderNamesView.as_view(service=folder_list_service_impl.resolve(ShowCourseFoldersListUseCase))
 _load_learning_requests = LoadLearningRequestsView.as_view(repository=CourseDBRepo())

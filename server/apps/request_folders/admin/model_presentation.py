@@ -1,7 +1,7 @@
 from typing import final
 
 from django.contrib.admin import ModelAdmin, register, ShowFacets
-from server.apps.learning_requests.models import Course, VOSOrganization
+from server.apps.request_folders.models import Course, VOSOrganization
 
 from .forms import CourseForm, VOSOrganizationForm
 

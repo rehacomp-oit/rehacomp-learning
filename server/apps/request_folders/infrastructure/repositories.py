@@ -4,7 +4,7 @@ Implementation of data access objects.
 
 from typing import Any, final, Iterable
 
-from server.apps.learning_requests.models import Course
+from server.apps.request_folders.models import Course
 
 
 @final

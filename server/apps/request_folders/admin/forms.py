@@ -2,7 +2,7 @@ from typing import final
 
 from django.forms import CharField, ModelForm
 from django.utils.translation import gettext_lazy as _
-from server.apps.learning_requests.models import Course, VOSOrganization
+from server.apps.request_folders.models import Course, VOSOrganization
 
 
 @final

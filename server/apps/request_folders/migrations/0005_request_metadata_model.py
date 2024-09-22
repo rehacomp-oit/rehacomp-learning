@@ -25,5 +25,5 @@ _options = {
 
 @final
 class Migration(BaseMigration):
-    dependencies = (('learning_requests', '0004_related_organization_for_person',),)
+    dependencies = (('request_folders', '0004_related_organization_for_person',),)
     operations = (CreateModel(name='RequestMetadata', fields=_fields, options=_options),)

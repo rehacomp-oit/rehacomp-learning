@@ -2,10 +2,10 @@ from dataclasses import dataclass
 from typing import final
 
 from returns.result import Failure, Success
-from server.apps.learning_requests.domain.exceptions import InvalidFolderName
-from server.apps.learning_requests.domain.value_objects import CourseFolderName
-from server.apps.learning_requests.protocols.repositories import CourseRepository
-from server.apps.learning_requests.protocols.services import CourseFoldersListResult
+from server.apps.request_folders.domain.exceptions import InvalidFolderName
+from server.apps.request_folders.domain.value_objects import CourseFolderName
+from server.apps.request_folders.protocols.repositories import CourseRepository
+from server.apps.request_folders.protocols.services import CourseFoldersListResult
 from server.common.types import FailureReason
 
 

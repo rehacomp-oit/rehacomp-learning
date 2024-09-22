@@ -1,7 +1,7 @@
 from typing import Protocol, TypeAlias
 
 from returns.result import Result
-from server.apps.learning_requests.domain.value_objects import CourseFolderName
+from server.apps.request_folders.domain.value_objects import CourseFolderName
 from server.common.types import FailureReason
 
 

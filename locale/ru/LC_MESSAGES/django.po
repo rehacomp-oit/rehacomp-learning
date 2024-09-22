@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rehacomp-learning VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 23:40+0300\n"
+"POT-Creation-Date: 2024-09-22 11:45+0300\n"
 "PO-Revision-Date: 2024-09-04 09:12+0300\n"
 "Last-Translator: Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>\n"
 "Language: ru\n"
@@ -23,73 +23,69 @@ msgstr ""
 msgid "Accounts"
 msgstr "Учётные записи"
 
-#: server/apps/accounts/views.py:60
+#: server/apps/accounts/views.py:61
 msgid "The entered passwords didn't match."
 msgstr "Введённые пароли не совпали."
-
-#: server/apps/learning_requests/admin/forms.py:16
-msgid "Course name"
-msgstr "Название курса"
-
-#: server/apps/learning_requests/admin/forms.py:17
-msgid "Full name of the course"
-msgstr "Полное Название курса"
-
-#: server/apps/learning_requests/admin/forms.py:23
-msgid "Abbreviation"
-msgstr "Аббревиатура"
-
-#: server/apps/learning_requests/admin/forms.py:44
-msgid "organization_name"
-msgstr "Название организации"
-
-#: server/apps/learning_requests/apps.py:12
-msgid "Learning requests"
-msgstr "Заявки на обучение"
-
-#: server/apps/learning_requests/models.py:49
-msgid "VOS organization"
-msgstr "Организация ВОС"
-
-#: server/apps/learning_requests/models.py:50
-msgid "VOS organizations"
-msgstr "Организации ВОС"
-
-#: server/apps/learning_requests/models.py:69
-msgid "Course"
-msgstr "Курс"
-
-#: server/apps/learning_requests/models.py:70
-msgid "Courses"
-msgstr "Курсы"
-
-#: server/apps/learning_requests/models.py:98
-msgid "Person"
-msgstr "Человек"
-
-#: server/apps/learning_requests/models.py:99
-msgid "Persons"
-msgstr "Люди"
-
-#: server/apps/learning_requests/models.py:164
-#: server/apps/learning_requests/models.py:165
-msgid "Request metadata"
-msgstr "Метаданные заявки"
 
 #: server/apps/main/apps.py:12
 msgid "Main"
 msgstr "Главное"
 
-#: server/apps/ui_client/apps.py:11
-msgid "Base UI client features"
-msgstr "Базовые функции пользовательского интерфейса клиента"
+#: server/apps/request_folders/admin/forms.py:16
+msgid "Course name"
+msgstr "Название курса"
 
-#: server/common/django_tools.py:26
+#: server/apps/request_folders/admin/forms.py:17
+msgid "Full name of the course"
+msgstr "Полное Название курса"
+
+#: server/apps/request_folders/admin/forms.py:23
+msgid "Abbreviation"
+msgstr "Аббревиатура"
+
+#: server/apps/request_folders/admin/forms.py:44
+msgid "organization_name"
+msgstr "Название организации"
+
+#: server/apps/request_folders/apps.py:12
+msgid "Request folders"
+msgstr "Папки заявок"
+
+#: server/apps/request_folders/models.py:47
+msgid "VOS organization"
+msgstr "Организация ВОС"
+
+#: server/apps/request_folders/models.py:48
+msgid "VOS organizations"
+msgstr "Организации ВОС"
+
+#: server/apps/request_folders/models.py:67
+msgid "Course"
+msgstr "Курс"
+
+#: server/apps/request_folders/models.py:68
+msgid "Courses"
+msgstr "Курсы"
+
+#: server/apps/request_folders/models.py:96
+msgid "Person"
+msgstr "Человек"
+
+#: server/apps/request_folders/models.py:97
+msgid "Persons"
+msgstr "Люди"
+
+#: server/apps/request_folders/models.py:161
+#: server/apps/request_folders/models.py:162
+msgid "Request metadata"
+msgstr "Метаданные заявки"
+
+#: server/common/django_tools.py:27
 #, python-format
 msgid "\"%(value)s\" is not a valid ULID."
 msgstr "\"%(value)s\" не валидный ULID."
 
-#: server/common/django_tools.py:27
+#: server/common/django_tools.py:28
 msgid "Universally Unique Lexicographically Sortable Identifier"
 msgstr "Универсальный уникальный лексикографически сортируемый идентификатор"
 

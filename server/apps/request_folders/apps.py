@@ -5,8 +5,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 @final
-class LearningRequestsConfig(AppConfig):
+class RequestFoldersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'server.apps.learning_requests'
-    label = 'learning_requests'
-    verbose_name = _('Learning requests')
+    name = 'server.apps.request_folders'
+    label = 'request_folders'
+    verbose_name = _('Request folders')

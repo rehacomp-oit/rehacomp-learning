@@ -3,7 +3,7 @@ from typing import Final, final
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views.generic.base import View
-from server.apps.learning_requests.protocols.repositories import CourseRepository
+from server.apps.request_folders.protocols.repositories import CourseRepository
 from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
 

@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse
 from django.views.generic.base import View
 from returns.result import Failure, Success
-from server.apps.learning_requests.protocols.services import ShowCourseFoldersListUseCase
+from server.apps.request_folders.protocols.services import ShowCourseFoldersListUseCase
 from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
 
