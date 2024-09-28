@@ -1,16 +1,30 @@
+from re import sub
+from unicodedata import normalize
+
 from ulid import new, ULID
+
+
+_translate_table = str.maketrans(
+    'абвгдеёжзийклмнопрстуфхцчшщъыьэюя',
+    'abvgdeejzijklmnoprstufhzcss_y_eua'
+)
 
 
 def make_ULID() -> ULID:
     return new()
 
 
-def transliterate_text(text: str) -> str:
+def slugify_text(source_text: str) -> str:
     '''
-    transliterates the letters of the Russian alphabet.
+    Converts text into a format suitable for url generation.
+
+    convert Cyrillic characters to ascii. Convert spaces or repeated
+    dashes to single dashes. Remove characters that aren't alphanumerics,
+    underscores, or hyphens. Convert to lowercase. Also strip leading and
+    trailing whitespace, dashes, and underscores.
     '''
 
-    source = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
-    destenation = 'abvgdeejzijklmnoprstufhzcss_y_eua'
-    translate_table = str.maketrans(source, destenation)
-    return text.lower().translate(translate_table)
+    tmp_string = source_text.lower().translate(_translate_table)
+    tmp_string = normalize('NFKD', tmp_string).encode('ascii', 'ignore').decode('ascii')
+    tmp_string = sub(r'[^\w\s-]', '', tmp_string)
+    return sub(r'[-\s]+', '-', tmp_string).strip('-_')

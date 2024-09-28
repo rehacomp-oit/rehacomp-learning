@@ -14,10 +14,9 @@ from django.db.models import (
     TextField
 )
 from django.db.models.fields import SmallAutoField
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from server.common.django_tools import PKULIDField
-from server.common.utils import make_ULID, transliterate_text
+from server.common.utils import make_ULID, slugify_text
 
 from .domain.constants import (
     COURSE_FULL_NAME_LENGTH,
@@ -78,7 +77,7 @@ class Course(Model):
 
     def save(self, *args, **kwargs) -> None:
         if not self.id and not self.slug:
-            self.slug = slugify(transliterate_text(self.name))
+            self.slug = slugify_text(self.name)
 
         super().save(*args, **kwargs)
 
