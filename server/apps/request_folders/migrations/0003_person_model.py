@@ -9,10 +9,6 @@ from django.db.models import (
     Index,
     PositiveSmallIntegerField,
 )
-from server.apps.request_folders.domain.enum_types import (
-    DisabilityGroups,
-    TrainingLevels
-)
 from server.common.django_tools import PKULIDField
 
 
@@ -22,15 +18,11 @@ _fields = (
     ('patronymic', CharField(max_length=20),),
     ('last_name', CharField(max_length=20),),
     ('birth_year', PositiveSmallIntegerField(null=True),),
-    ('disability_group', CharField(
-        db_default=DisabilityGroups['VISION_FIRST'],
-        default=DisabilityGroups['VISION_FIRST'],
-        max_length=5
-    ),),
+    ('disability_group', CharField(max_length=5),),
     ('education_info', CharField(blank=True, db_default='', default='', max_length=80),),
     ('job_info', CharField(blank=True, db_default='', default='', max_length=80),),
     ('is_known_braille', BooleanField(db_default=False, default=False),),
-    ('training_level', PositiveSmallIntegerField(db_default=TrainingLevels['ZERO'], default=TrainingLevels['ZERO']),),
+    ('training_level', PositiveSmallIntegerField(),),
     ('has_device', BooleanField(db_default=False, default=False),),
     ('personal_phone', CharField(blank=True, db_default='', default='', max_length=20),),
     ('email', EmailField(blank=True, db_default='', default='', max_length=254),)

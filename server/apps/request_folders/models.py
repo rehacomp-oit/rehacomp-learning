@@ -25,7 +25,6 @@ from .domain.constants import (
     PHONE_NUMBER_MAX_LENGTH,
     VOS_ORGANIZATION_NAME_LENGTH
 )
-from .domain.enum_types import DisabilityGroups, TrainingLevels
 
 
 _created_at_index = Index(fields=('created_at',), name='created_at_index')
@@ -93,11 +92,7 @@ class Person(Model):
     patronymic = CharField(max_length=PERSON_NAME_LENGTH)
     last_name = CharField(max_length=PERSON_NAME_LENGTH)
     birth_year = PositiveSmallIntegerField(null=True)
-    disability_group = CharField(
-        max_length=DISABILITY_GROUP_LENGTH,
-        db_default=DisabilityGroups.VISION_FIRST,
-        default=DisabilityGroups.VISION_FIRST
-    )
+    disability_group = CharField(max_length=DISABILITY_GROUP_LENGTH)
     education_info = CharField(
         blank=True,
         db_default='',
@@ -111,7 +106,7 @@ class Person(Model):
         max_length=JOB_INFORMATION_LENGTH
     )
     is_known_braille = BooleanField(db_default=False, default=False)
-    training_level = PositiveSmallIntegerField(db_default=TrainingLevels.ZERO, default=TrainingLevels.ZERO)
+    training_level = PositiveSmallIntegerField()
     has_device = BooleanField(db_default=False, default=False)
     personal_phone = CharField(
         blank=True,
