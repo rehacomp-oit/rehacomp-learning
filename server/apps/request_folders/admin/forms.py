@@ -9,19 +9,13 @@ from server.apps.request_folders.models import Course, VOSOrganization
 class CourseForm(ModelForm):
     class Meta:
         model = Course
-        fields = ('name', 'short_name', 'slug',)
+        fields = ('name', 'slug',)
 
 
     name = CharField(
         label=_('Course name'),
         help_text=_('Full name of the course'),
         min_length=2,
-        required=True,
-        strip=True
-    )
-    short_name = CharField(
-        label=_('Abbreviation'),
-        min_length=1,
         required=True,
         strip=True
     )
