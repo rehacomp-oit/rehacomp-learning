@@ -2,11 +2,12 @@ from typing import final
 
 from django.db.migrations import CreateModel
 from django.db.migrations import Migration as BaseMigration
-from django.db.models.fields import CharField, SlugField, SmallAutoField
+from django.db.models.fields import CharField, SlugField
+from server.common.django_tools import PKULIDField
 
 
 _fields = (
-    ('id', SmallAutoField(auto_created=True, primary_key=True, serialize=False),),
+    ('id', PKULIDField(auto_created=True, primary_key=True, serialize=False),),
     ('name', CharField(max_length=256, unique=True),),
     ('slug', SlugField(unique=True),),
 )

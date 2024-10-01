@@ -3,7 +3,6 @@ from typing import final
 from django.db.migrations import CreateModel
 from django.db.migrations import Migration as BaseMigration
 from django.db.models import (
-    BigAutoField,
     BooleanField,
     CharField,
     EmailField,
@@ -14,10 +13,11 @@ from server.apps.request_folders.domain.enum_types import (
     DisabilityGroups,
     TrainingLevels
 )
+from server.common.django_tools import PKULIDField
 
 
 _fields = (
-    ('id', BigAutoField(auto_created=True, primary_key=True, serialize=False),),
+    ('id', PKULIDField(auto_created=True, primary_key=True, serialize=False),),
     ('first_name', CharField(max_length=20),),
     ('patronymic', CharField(max_length=20),),
     ('last_name', CharField(max_length=20),),

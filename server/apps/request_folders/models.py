@@ -13,7 +13,6 @@ from django.db.models import (
     SlugField,
     TextField
 )
-from django.db.models.fields import SmallAutoField
 from django.utils.translation import gettext_lazy as _
 from server.common.django_tools import PKULIDField
 from server.common.utils import slugify_text
@@ -46,7 +45,7 @@ class VOSOrganization(Model):
         verbose_name_plural = _('VOS organizations')
 
 
-    id = SmallAutoField(auto_created=True, primary_key=True,)  # noqa: VNE003
+    id = PKULIDField(auto_created=True, primary_key=True)  # noqa: VNE003
     organization_name = CharField(max_length=VOS_ORGANIZATION_NAME_LENGTH, unique=True)
 
 
@@ -66,7 +65,7 @@ class Course(Model):
         verbose_name_plural = _('Courses')
 
 
-    id = SmallAutoField(auto_created=True, primary_key=True)  # noqa: VNE003
+    id = PKULIDField(auto_created=True, primary_key=True)  # noqa: VNE003
     name = CharField(max_length=COURSE_FULL_NAME_LENGTH, unique=True)
     slug = SlugField(unique=True)
 
@@ -97,6 +96,7 @@ class Person(Model):
         )
 
 
+    id = PKULIDField(auto_created=True, primary_key=True)  # noqa: VNE003
     first_name = CharField(max_length=PERSON_NAME_LENGTH)
     patronymic = CharField(max_length=PERSON_NAME_LENGTH)
     last_name = CharField(max_length=PERSON_NAME_LENGTH)
