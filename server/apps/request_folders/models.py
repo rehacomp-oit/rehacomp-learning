@@ -16,7 +16,7 @@ from django.db.models import (
 from django.db.models.fields import SmallAutoField
 from django.utils.translation import gettext_lazy as _
 from server.common.django_tools import PKULIDField
-from server.common.utils import make_ULID, slugify_text
+from server.common.utils import slugify_text
 
 from .domain.constants import (
     COURSE_FULL_NAME_LENGTH,
@@ -160,7 +160,7 @@ class RequestMetadata(Model):
         indexes = (_created_at_index, _updated_at_index,)
 
 
-    id = PKULIDField(auto_created=True, default=make_ULID, primary_key=True)  # noqa: VNE003
+    id = PKULIDField(auto_created=True, primary_key=True)  # noqa: VNE003
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
     relevance = BooleanField(db_default=True, default=True)

@@ -4,11 +4,10 @@ from django.db.migrations import CreateModel
 from django.db.migrations import Migration as BaseMigration
 from django.db.models import BooleanField, DateTimeField, TextField
 from server.common.django_tools import PKULIDField
-from server.common.utils import make_ULID
 
 
 _fields = (
-    ('id', PKULIDField(auto_created=True, default=make_ULID, primary_key=True, serialize=False),),
+    ('id', PKULIDField(auto_created=True, primary_key=True, serialize=False),),
     ('created_at', DateTimeField(auto_now_add=True),),
     ('updated_at', DateTimeField(auto_now=True),),
     ('relevance', BooleanField(db_default=True, default=True),),
