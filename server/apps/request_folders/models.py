@@ -15,7 +15,6 @@ from django.db.models import (
 )
 from django.utils.translation import gettext_lazy as _
 from server.common.django_tools import PKULIDField
-from server.common.utils import slugify_text
 
 from .domain.constants import (
     COURSE_FULL_NAME_LENGTH,
@@ -72,13 +71,6 @@ class Course(Model):
 
     def __str__(self) -> str:
         return self.name
-
-
-    def save(self, *args, **kwargs) -> None:
-        if not self.id and not self.slug:
-            self.slug = slugify_text(self.name)
-
-        super().save(*args, **kwargs)
 
 
 @final
