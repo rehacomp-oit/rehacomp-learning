@@ -1,7 +1,6 @@
 from abc import ABC
 from enum import Enum
 from typing import Any, final, NewType, Self
-from uuid import UUID
 
 from .exceptions import InvalidIdentifier
 
@@ -39,7 +38,7 @@ class BaseEntity(ABC):
     base entity implementation
     '''
 
-    id: UUID  # noqa: VNE003
+    id: Any  # noqa: VNE003
 
 
     def __str__(self) -> str:

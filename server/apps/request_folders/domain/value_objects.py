@@ -1,8 +1,12 @@
 from dataclasses import dataclass
-from typing import final
+from typing import final, NewType
+from uuid import UUID
 
 from .constants import COURSE_FULL_NAME_LENGTH
 from .exceptions import InvalidFolderName
+
+
+CourseFolderId = NewType('CourseFolderId', UUID)
 
 
 @final
