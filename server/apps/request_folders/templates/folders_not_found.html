@@ -1,23 +1,10 @@
 {% extends base_template %}
-{% block subtitle %}Курсы{% endblock subtitle %}
+{% block subtitle %}Курсы не найдены{% endblock subtitle %}
 
 
 {% block content %}
   <main>
-    {% if not folders %}
     <h1><span aria-live="assertive" role="alert">Папки курсов не найдены</span> </h1>
     <p>Увас не добавлено не одного учебного курса. Добавьте их через панель администратора. </p>
-
-    {% else %}
-    <button>Добавить заявку</button>
-    <h1>Папки курсов</h1>
-    <ul>
-      {% for folder in folders %}
-      <li>
-          <h2> <a href="">{{ folder.name }} </a> </h2>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
   </main>
 {% endblock %}

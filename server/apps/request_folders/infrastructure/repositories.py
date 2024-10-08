@@ -1,36 +1,37 @@
-'''
-Implementation of data access objects.
-'''
+from typing import final, TypeAlias
 
-from typing import Any, final, Iterable
-
+from server.apps.request_folders.domain.entities import CourseFolder
+from server.apps.request_folders.domain.value_objects import CourseFolderId
 from server.apps.request_folders.models import Course
+from ulid import ULID
 
 
 @final
-class CourseDBRepo:
+class CourseFolderDjangoRepository:
     '''
     Manages training course data in the database.
     '''
 
-    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any, ...]]:
-        '''
-        Returns an iterator that load all records about learning courses from the database.
-        '''
-
-        queryset = Course.objects.values_list(*fild_names)
-        return queryset.iterator()
+    __RawData: TypeAlias = tuple[ULID, str, str]
 
 
-    def fetch_course_name_by_slug(self, slug: str) -> str | None:
-        queryset = Course.objects.values_list('name', flat=True)
-        try:
-            course_name = queryset.get(slug=slug)
-        except Course.DoesNotExist:
-            return None
-        else:
-            return course_name
+    def fetch_all(self) -> tuple[CourseFolder, ...]:
+        queryset = Course.objects.values_list()
+        return tuple(self.__to_entity(raw) for raw in queryset.iterator())
 
 
-    def has_any_course(self) -> bool:
-        return Course.objects.exists()
+    def fetch_by_slug(self, course_folder_slug: str) -> CourseFolder:
+        queryset = Course.objects.values_list()
+        return self.__to_entity(queryset.get(slug=course_folder_slug))
+
+
+    def is_empty(self) -> bool:
+        return not Course.objects.exists()
+
+
+    def __to_entity(self, raw_data: __RawData) -> CourseFolder:
+        return CourseFolder(
+            CourseFolderId(raw_data[0].uuid),
+            raw_data[1],
+            raw_data[2]
+        )

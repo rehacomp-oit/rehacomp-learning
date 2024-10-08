@@ -1,1 +1,1 @@
-from .show_course_folders_list import CourseFoldersListService
+from .get_course_folders_list import GetCourseFoldersListService

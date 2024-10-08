@@ -9,7 +9,7 @@
     <h1>Вход в систему</h1>
     <p>если ещё нет аккаунта, самое время
       <br>
-      <a href="{% url 'accounts:register' %}" hx-get="{% url 'accounts:register' %}" hx-push-url="{% url 'accounts:register' %}">зарегистрироваться</a></p>
+      <a href="{% url 'accounts:register' %}" hx-get="{% url 'accounts:register' %}" hx-target=".application-screan" hx-push-url="{% url 'accounts:register' %}">зарегистрироваться</a></p>
 
     <form
     hx-post="#"

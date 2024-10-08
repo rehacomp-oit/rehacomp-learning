@@ -1,18 +1,17 @@
-from typing import Any, Iterable, Protocol
+from typing import Protocol
+
+from server.apps.request_folders.domain.entities import CourseFolder
 
 
-class CourseRepository(Protocol):
+class CourseFolderRepository(Protocol):
     '''
     Interface of data access object for learning courses.
     '''
 
-    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any, ...]]:
+
+    def fetch_all(self) -> tuple[CourseFolder, ...]:
         ...
 
 
-    def fetch_course_name_by_slug(self, slug: str) -> str | None:
-        ...
-
-
-    def has_any_course(self) -> bool:
+    def is_empty(self) -> bool:
         ...
