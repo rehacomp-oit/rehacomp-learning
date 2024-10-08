@@ -2,35 +2,28 @@
 Implementation of data access objects.
 '''
 
-from typing import Any, final, Iterable
+from typing import final, TypeAlias
 
+from server.apps.request_folders.domain.entities import CourseFolder
+from server.apps.request_folders.domain.value_objects import CourseFolderId
 from server.apps.request_folders.models import Course
+from server.core.infrastructure import BaseRepository
+from ulid import ULID
 
 
 @final
-class CourseDBRepo:
+class CourseRepository(BaseRepository):
     '''
     Manages training course data in the database.
     '''
 
-    def fetch_fields_lazy(self, *fild_names: str) -> Iterable[tuple[Any, ...]]:
-        '''
-        Returns an iterator that load all records about learning courses from the database.
-        '''
-
-        queryset = Course.objects.values_list(*fild_names)
-        return queryset.iterator()
+    _model = Course
+    __RawData: TypeAlias = tuple[ULID, str, str]
 
 
-    def fetch_course_name_by_slug(self, slug: str) -> str | None:
-        queryset = Course.objects.values_list('name', flat=True)
-        try:
-            course_name = queryset.get(slug=slug)
-        except Course.DoesNotExist:
-            return None
-        else:
-            return course_name
-
-
-    def has_any_course(self) -> bool:
-        return Course.objects.exists()
+    def _to_entity(self, raw_data: __RawData) -> CourseFolder:
+        return CourseFolder(
+            CourseFolderId(raw_data[0].uuid),
+            raw_data[1],
+            raw_data[2]
+        )
