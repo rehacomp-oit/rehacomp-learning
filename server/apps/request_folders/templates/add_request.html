@@ -1,0 +1,77 @@
+{% extends base_template %}
+{% block subtitle %}Новая заявка{% endblock subtitle %}
+
+
+{% block content %}
+  <main>
+    <form>
+      <fieldset>
+        <legend>Информация о кандедате</legend>
+
+        <p class="form_element">
+          <label for="name">Имя</label>
+          <input
+          id="name" name="name"
+          autofocus required type="text"
+          min="2" max="80"
+          >
+        </p>
+
+        <p>
+          <label for="patronymic">Отчество</label>
+          <input id="patronymic" name="patronymic" required type="text"><br>
+        </p>
+
+        <p>
+          <label for="last_name">Фамилия</label>
+          <input id="last_name", required type="text"><br>
+        </p>
+
+        <p>
+          <label for="birth_year">Год рождения</label>
+          <input id="birth_year", required type="number" min="1000" max="3000" value="2024"><br>
+        </p>
+
+        <p>
+          <label for="education_info">сведения об образование</label>
+          <input id="education_info", required type="text"><br>
+        </p>
+
+        <p>
+          <label for="job_info">Место работы</label>
+          <input id="job_info", required type="text"><br>
+        </p>
+
+        <p>
+          <label for="personal_phone">телефон</label>
+          <input id="personal_phone", required type="tel"><br>
+        </p>
+
+        <p>
+          <label for="email">Адрес электронной почты</label>
+          <input id="email", required type="email"><br>
+        </p>
+
+      </fieldset>
+
+
+      <h1>Заявка</h1>
+      <fieldset>
+        <legend>Сведения о заявке</legend>
+
+        <p>
+          <label for="comments">Примечание</label>
+          <textarea id="comments" name="comments"></textarea>
+        </p>
+
+        <p>
+          <label for="is_archive">Архивная</label>
+          <input id="is_archive" name="is_archive" type="checkbox" value="1">
+        </p>
+      </fieldset>
+
+      <button type="submit">Отправить</button>
+    </form>
+
+  </main>
+{% endblock %}
