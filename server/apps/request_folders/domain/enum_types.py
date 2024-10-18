@@ -5,7 +5,9 @@ from server.common.types import BaseEnum
 
 @final
 class TrainingLevels(int, BaseEnum):
-    '''Options for possible levels of computer or smartphone proficiency.'''
+    '''
+    Options for possible levels of computer or smartphone proficiency.
+    '''
 
     ZERO = 0
     BEGINNER = 1
@@ -16,11 +18,13 @@ class TrainingLevels(int, BaseEnum):
 
 
 @final
-class DisabilityGroups(str, BaseEnum):
-    '''Options for possible disability groups.'''
+class DisabilityGroups(int, BaseEnum):
+    '''
+    Options for possible disability groups.
+    '''
 
-    VISION_FIRST = 'v1'
-    VISION_SECOND = 'v2'
-    VISION_THURD = 'v3'
-    OTHER = 'o'
-    NOTHING = 'n'
+    VISION_FIRST = 1
+    VISION_SECOND = 2
+    VISION_THURD = 3
+    OTHER = 4
+    NOTHING = 5

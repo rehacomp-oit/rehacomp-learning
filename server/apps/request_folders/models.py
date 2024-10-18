@@ -18,7 +18,6 @@ from server.common.django_tools import PKULIDField
 
 from .domain.constants import (
     COURSE_FULL_NAME_LENGTH,
-    DISABILITY_GROUP_LENGTH,
     EDUCATION_INFORMATION_LENGTH,
     JOB_INFORMATION_LENGTH,
     PERSON_NAME_LENGTH,
@@ -92,7 +91,7 @@ class Person(Model):
     patronymic = CharField(max_length=PERSON_NAME_LENGTH)
     last_name = CharField(max_length=PERSON_NAME_LENGTH)
     birth_year = PositiveSmallIntegerField(null=True)
-    disability_group = CharField(max_length=DISABILITY_GROUP_LENGTH)
+    disability_group = PositiveSmallIntegerField()
     education_info = CharField(
         blank=True,
         db_default='',

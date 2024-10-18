@@ -1,0 +1,17 @@
+{% extends base_template %}
+{% block subtitle %}Новая заявка{% endblock subtitle %}
+
+
+{% block content %}
+  <main>
+    <form
+    hx-post="#"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    hx-target=".application-screan"
+    >
+      {{ form.as_p }}
+      <button type="submit">Отправить</button>
+    </form>
+
+  </main>
+{% endblock %}

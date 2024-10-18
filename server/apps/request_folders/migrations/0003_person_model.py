@@ -18,7 +18,7 @@ _fields = (
     ('patronymic', CharField(max_length=20),),
     ('last_name', CharField(max_length=20),),
     ('birth_year', PositiveSmallIntegerField(null=True),),
-    ('disability_group', CharField(max_length=5),),
+    ('disability_group', PositiveSmallIntegerField(),),
     ('education_info', CharField(blank=True, db_default='', default='', max_length=80),),
     ('job_info', CharField(blank=True, db_default='', default='', max_length=80),),
     ('is_known_braille', BooleanField(db_default=False, default=False),),
