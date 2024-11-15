@@ -1,41 +1,15 @@
 from abc import ABC
-from enum import Enum
-from typing import Any, final, NewType, Self
-
-from ulid import ULID
-
-from .exceptions import InvalidIdentifier
-
-
-FailureReason = NewType('FailureReason', str)
-
-
-class BaseEnum(Enum):
-    '''
-    Extends built-in Enumeration With New Behavior.
-    it is used as a base class when defining enumerations.
-    '''
-
-    @classmethod
-    def get_values(cls) -> tuple[Any, ...]:
-        return tuple(item.value for item in cls.__members__.values())
+from typing import Any, final
 
 
 @final
-class IntegerId(int):
-    '''
-    A type that allows you to create identifiers in the form of positive integers.
-    It must be used instead of the integer type built into python.
-    '''
-
-    def __new__(cls, value: int) -> Self:
-        if value <= 0:
-            raise InvalidIdentifier(value)
-        else:
-            return super().__new__(cls, value)
-
-
 class EntityId:
+    '''
+    Value object for domain identifiers.
+
+    This abstraction allows you to implement ID generation as isolated as possible.
+    '''
+
     __slots__ = ('__value')
     __value: Any
 
@@ -51,6 +25,10 @@ class EntityId:
     @property
     def value(self) -> Any:
         return self.__value
+
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__}({self.__value})>'
 
 
     def __eq__(self, other: object) -> bool:
@@ -80,7 +58,7 @@ class BaseEntity(ABC):
     base entity implementation
     '''
 
-    id: ULID  # noqa: VNE003
+    id: EntityId  # noqa: VNE003
 
 
     def __str__(self) -> str:

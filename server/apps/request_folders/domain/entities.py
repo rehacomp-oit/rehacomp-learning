@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import final
 
-from server.common.types import BaseEntity
+from server.common.domain import BaseEntity
 
 from .value_objects import CourseFolderId
 

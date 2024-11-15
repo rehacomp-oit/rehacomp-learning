@@ -3,6 +3,7 @@ from typing import final, TypeAlias
 from server.apps.request_folders.domain.entities import CourseFolder
 from server.apps.request_folders.domain.value_objects import CourseFolderId
 from server.apps.request_folders.models import Course
+from server.common.domain import EntityId
 from ulid import ULID
 
 
@@ -31,7 +32,7 @@ class CourseFolderDjangoRepository:
 
     def __to_entity(self, raw_data: __RawData) -> CourseFolder:
         return CourseFolder(
-            CourseFolderId(raw_data[0]),
+            CourseFolderId(EntityId(raw_data[0])),
             raw_data[1],
             raw_data[2]
         )

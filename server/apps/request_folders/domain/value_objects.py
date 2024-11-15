@@ -1,6 +1,6 @@
 from typing import NewType
 
-from ulid import ULID
+from server.common.domain import EntityId
 
 
-CourseFolderId = NewType('CourseFolderId', ULID)
+CourseFolderId = NewType('CourseFolderId', EntityId)
