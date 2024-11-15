@@ -24,5 +24,5 @@ class CourseFolder(BaseEntity):
         if len(words) == 1:
             return self.name[:3].upper()
         else:
-            chars = [word[0] for word in words]
+            chars = (word[0] for word in words)
             return ''.join(chars).upper()
