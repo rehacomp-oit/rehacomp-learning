@@ -9,7 +9,7 @@ from .value_objects import CourseFolderId
 @final
 @dataclass(slots=True)
 class CourseFolder(BaseEntity):
-    id: CourseFolderId | None  # noqa: VNE003
+    id: CourseFolderId  # noqa: VNE003
     name: str
     slug: str
 

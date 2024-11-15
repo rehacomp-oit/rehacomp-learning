@@ -31,7 +31,7 @@ class CourseFolderDjangoRepository:
 
     def __to_entity(self, raw_data: __RawData) -> CourseFolder:
         return CourseFolder(
-            CourseFolderId(raw_data[0].uuid),
+            CourseFolderId(raw_data[0]),
             raw_data[1],
             raw_data[2]
         )

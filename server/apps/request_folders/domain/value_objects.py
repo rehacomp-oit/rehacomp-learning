@@ -1,5 +1,6 @@
 from typing import NewType
-from uuid import UUID
+
+from ulid import ULID
 
 
-CourseFolderId = NewType('CourseFolderId', UUID)
+CourseFolderId = NewType('CourseFolderId', ULID)

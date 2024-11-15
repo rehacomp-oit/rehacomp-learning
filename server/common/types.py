@@ -2,8 +2,9 @@ from abc import ABC
 from enum import Enum
 from typing import Any, final, NewType, Self
 
+from ulid import ULID
+
 from .exceptions import InvalidIdentifier
-from .protocols import EntityID
 
 
 FailureReason = NewType('FailureReason', str)
@@ -39,7 +40,7 @@ class BaseEntity(ABC):
     base entity implementation
     '''
 
-    id: EntityID  # noqa: VNE003
+    id: ULID  # noqa: VNE003
 
 
     def __str__(self) -> str:
