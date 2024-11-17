@@ -4,3 +4,4 @@ from server.common.domain import EntityId
 
 
 CourseFolderId = NewType('CourseFolderId', EntityId)
+OrganizationId = NewType('OrganizationId', EntityId)
