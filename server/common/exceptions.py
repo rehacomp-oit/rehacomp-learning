@@ -5,31 +5,40 @@ Common exception types for this project.
 from typing import final
 
 
-class ApplicationError(Exception):
+class BaseError(Exception):
     '''
     Base exception for this application.
+
+    this exception should not be used directly.
     '''
     pass
 
 
-class BusinessLogicFailed(ApplicationError):
+class InfrastructureLayerError(BaseError):
     '''
-    Unsuccessful execution of a business operation.
+    Critical error in the application infrastructure layer.
     '''
-    pass
+
+    def __init__(self, optional_message: str | None=None) -> None:
+        message = optional_message or 'Critical error in the application infrastructure!'
+        super().__init__(message)
 
 
 @final
-class InvalidIdentifier(BusinessLogicFailed):
+class ControllerError(InfrastructureLayerError):
     '''
-    Error occurred when the integer identifier value was incorrect.
+    Critical http controller error caused by problems with the application infrastructure.
     '''
 
-    def __init__(self, invalid_id: int) -> None:
-        self.invalid_id = invalid_id
-        self.message = 'Value must be a positive integer'
-        super().__init__(self.message)
+    def __init__(self, reason: str) -> None:
+        message = f'Internal application error! Reason: "{reason}".'
+        self.reason = reason
+        super().__init__(message)
 
 
-    def __str__(self) -> str:
-        return f'{self.invalid_id} -> {self.message}'
+@final
+class MissingDataError(BaseError):
+    '''
+    The requested data was not found.
+    '''
+    pass

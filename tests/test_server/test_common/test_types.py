@@ -1,8 +1,5 @@
-from hypothesis import given
-from hypothesis.strategies import integers
-from pytest import mark, raises
-from server.common.exceptions import InvalidIdentifier
-from server.common.types import BaseEnum, IntegerId
+from pytest import mark
+from server.common.types import BaseEnum
 
 
 @mark.module
@@ -20,14 +17,3 @@ def test_extended_enum_behaviour() -> None:
     expected_result = (12, 23, 34,)
     real_result = Example.get_values()
     assert real_result == expected_result
-
-
-@mark.module
-@given(invalid_data=integers(max_value=0))
-def test_integer_id_validation(invalid_data) -> None:
-    '''
-    This test insures the impossibility to create an integer identifier with a value less than or equal to zero.
-    '''
-
-    with raises(InvalidIdentifier):
-        IntegerId(invalid_data)
