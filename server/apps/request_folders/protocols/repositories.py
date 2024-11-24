@@ -24,6 +24,3 @@ class VOSOrganizationRepository(Protocol):
 
     def fetch_all(self) -> tuple[VosOrganization, ...]:
         ...
-
-    def is_empty(self) -> bool:
-        ...
