@@ -1,8 +1,5 @@
 from enum import Enum
-from typing import Any, NewType
-
-
-FailureReason = NewType('FailureReason', str)
+from typing import Any
 
 
 class BaseEnum(Enum):
