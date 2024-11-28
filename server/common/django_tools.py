@@ -9,7 +9,7 @@ from django.contrib.admin import ModelAdmin, ShowFacets
 from django.core.exceptions import ValidationError
 from django.db.models.fields import Field
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.template import loader
 from django.utils.translation import gettext as _
 from django_htmx.middleware import HtmxDetails
 from ulid import parse, ULID
@@ -86,6 +86,26 @@ class BaseModelAdmin(ModelAdmin):
 
 @final
 class HtmxHttpRequest(HttpRequest):
+    '''
+    An HttpRequest subclass that enhances the standard Django request object
+    with additional attributes for htmx support.
+
+    This class is primarily intended for type annotations and is not meant
+    to be instantiated directly. It extends the standard HttpRequest to
+    include htmx-specific details that may be useful when handling
+    htmx requests in Django views.
+
+    Attributes:
+        htmx: An instance of HtmxDetails that contains
+        specific information about the htmx request, such as the request
+        method, headers, and relevant attributes that help in processing
+        htmx-driven interactions.
+
+    Note:
+        This class should be used to annotate views that expect htmx
+        requests, providing better type hints and improving code readability.
+    '''
+
     htmx: HtmxDetails
 
 
@@ -97,12 +117,29 @@ def htmx_render(
     status: int | None=None,
     using: str | None=None,
 ) -> HttpResponse:
-    if context is None:
-        context = {}
+    '''
+        Render a template with context data, supporting htmx.
 
-    if request.htmx:
-        context['base_template'] = 'main/_partial.html'
-    else:
-        context['base_template'] = 'main/_base.html'
+    This function overloads the `render` function from `django.shortcuts` to provide
+    HTML rendering capabilities that integrate with htmx for dynamic client-side interactions.
 
-    return render(request, template_name, context, content_type, status, using)
+    Parameters:
+        request: The HTTP request object, extended to support htmx attributes.
+        template_name: The name of the template to be rendered, or a sequence of template names.
+        context: A dictionary of context data to pass to the template. Defaults to None.
+        content_type: The MIME type to use for the response. Defaults to None.
+        status: The HTTP status code to return. Defaults to None.
+        using: The name of the template engine to use. Defaults to None.
+
+    Returns:
+        HttpResponse: The rendered template as an HttpResponse object.
+
+    Raises:
+        TemplateDoesNotExist: If the template is not found.
+        SuspiciousOperation: If the request is not valid for htmx rendering.
+'''
+
+    rendering_context = context or {}
+    rendering_context['base_template'] = 'main/_partial.html' if request.htmx else 'main/_base.html'
+    content = loader.render_to_string(template_name, rendering_context, request, using=using)
+    return HttpResponse(content, content_type, status)
