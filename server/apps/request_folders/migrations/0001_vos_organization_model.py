@@ -9,7 +9,7 @@ from server.common.django_tools import PKULIDField
 _fields = (
     ('id', PKULIDField(auto_created=True, primary_key=True, serialize=False),),
 
-    ('organization_name', CharField(
+    ('name', CharField(
         max_length=80,
         unique=True
     ),),

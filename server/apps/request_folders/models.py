@@ -43,7 +43,7 @@ class VOSOrganization(Model):
 
 
     id = PKULIDField(auto_created=True, primary_key=True)  # noqa: VNE003
-    organization_name = CharField(max_length=VOS_ORGANIZATION_NAME_LENGTH, unique=True)
+    name = CharField(max_length=VOS_ORGANIZATION_NAME_LENGTH, unique=True)
 
 
     def __str__(self) -> str:

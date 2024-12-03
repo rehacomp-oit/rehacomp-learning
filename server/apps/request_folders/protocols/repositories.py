@@ -1,6 +1,7 @@
 from typing import Protocol
 
-from server.apps.request_folders.domain.entities import CourseFolder, VosOrganization
+from server.apps.request_folders.domain.entities import CourseFolder
+from server.apps.request_folders.domain.value_objects import RequestFormOptions
 
 
 class CourseFolderRepository(Protocol):
@@ -12,11 +13,10 @@ class CourseFolderRepository(Protocol):
         ...
 
 
-class VOSOrganizationRepository(Protocol):
+class RequestFormOptionsRepository(Protocol):
     '''
     Interface of data access object for VOS organizations.
     '''
 
-
-    def fetch_all(self) -> tuple[VosOrganization, ...]:
+    def fetch(self) -> RequestFormOptions:
         ...

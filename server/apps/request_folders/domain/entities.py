@@ -3,7 +3,7 @@ from typing import final
 
 from server.common.domain import BaseEntity
 
-from .value_objects import CourseFolderId, OrganizationId
+from .value_objects import CourseFolderId
 
 
 @final
@@ -26,10 +26,3 @@ class CourseFolder(BaseEntity):
         else:
             chars = (word[0] for word in words)
             return ''.join(chars).upper()
-
-
-@final
-@dataclass(slots=True)
-class VosOrganization(BaseEntity):
-    id: OrganizationId  # noqa: VNE003
-    name: str
