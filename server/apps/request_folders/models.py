@@ -47,7 +47,7 @@ class VOSOrganization(Model):
 
 
     def __str__(self) -> str:
-        return self.organization_name
+        return self.name
 
 
 @final

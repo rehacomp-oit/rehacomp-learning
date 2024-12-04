@@ -9,7 +9,28 @@
     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
     hx-target=".application-screan"
     >
-      {{ form.as_p }}
+      {{ form.non_field_errors }}
+
+      <h1>Информация о кандедате</h1>
+      <div class="field-wrapper"> {{ form.first_name.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.patronymic.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.last_name.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.birth_year.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.organizations.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.disability_group.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.education.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.job.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.is_known_braille.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.has_device.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.training_levels.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.personal_phone.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.email.as_field_group }} </div>
+
+      <h1>Сведения о заявке</h1>
+      <div class="field-wrapper"> {{ form.courses.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.comments.as_field_group }} </div>
+      <div class="field-wrapper"> {{ form.is_archived.as_field_group }} </div>
+
       <button type="submit">Отправить</button>
     </form>
 

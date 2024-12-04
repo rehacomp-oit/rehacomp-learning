@@ -1,13 +1,9 @@
 from typing import final
 
 from django.db import Error as DatabaseError
-from server.apps.request_folders.domain.entities import CourseFolder
-from server.apps.request_folders.domain.value_objects import CourseFolderId, RequestFormOptions
+from server.apps.request_folders.domain.value_objects import CourseFolder, RequestFormOptions
 from server.apps.request_folders.models import Course, VOSOrganization
-from server.common.domain import EntityId
-from server.common.exceptions import MissingDataError
 from server.common.infrastructure import make_safe
-from ulid import ULID
 
 
 @final
@@ -15,25 +11,20 @@ class CourseFolderDjangoRepository:
     '''
     Manages training course data in the database.
     '''
+    __slots__ = ('__courses_data_manager')
 
-    __slots__ = ()
+
+    def __init__(self) -> None:
+        self.__courses_data_manager = Course.objects
 
 
     @make_safe(DatabaseError)
     def fetch_all(self) -> tuple[CourseFolder, ...]:
-        if not Course.objects.exists():
-            raise MissingDataError
+        if not self.__courses_data_manager.exists():
+            return ()
         else:
-            queryset = Course.objects.values_list()
-            return tuple(self.__to_entity(raw) for raw in queryset.iterator())
-
-
-    def __to_entity(self, raw_data: tuple[ULID, str, str]) -> CourseFolder:
-        return CourseFolder(
-            CourseFolderId(EntityId(raw_data[0])),
-            raw_data[1],
-            raw_data[2]
-        )
+            queryset = self.__courses_data_manager.values_list('name', 'slug')
+            return tuple(CourseFolder(*row) for row in queryset)
 
 
 @final
@@ -54,19 +45,16 @@ class RequestFormOptionsDjangoRepository:
 
 
     @make_safe(DatabaseError)
-    def fetch(self) -> RequestFormOptions:
+    def fetch(self) -> RequestFormOptions | None:
         '''
         Retrieves the value object with all organizations and courses from the database.
-
-        Raises:
-            MissingDataError: If there is no course or organization data present in the database.
 
         Returns:
             the collected value object listing Courses and organizations.
         '''
 
         if not self.__courses_data_manager.exists() or not self.__organizations_data_manager.exists():
-            raise MissingDataError
+            return None
 
         field_names = ('id', 'name',)
         course_data_QS = self.__courses_data_manager.values_list(*field_names)

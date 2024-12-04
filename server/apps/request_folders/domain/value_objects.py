@@ -4,7 +4,14 @@ from typing import final, NewType
 from server.common.domain import EntityId
 
 
-CourseFolderId = NewType('CourseFolderId', EntityId)
+CourseId = NewType('CourseId', EntityId)
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class CourseFolder:
+    name: str
+    slug: str | None = None
 
 
 @final

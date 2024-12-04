@@ -160,8 +160,8 @@ class LearningRequestForm(Form):
     @classmethod
     def build_unbound_form(
         cls,
-        learning_course_data: tuple[tuple[int, str], ...],
-        organizations_data: tuple[tuple[int, str], ...]
+        learning_course_data: tuple[tuple[str, str], ...],
+        organizations_data: tuple[tuple[str, str], ...]
     ) -> Self:
         form = cls()
         form.fields['courses'].choices = learning_course_data

@@ -36,10 +36,10 @@ class CourseForm(ModelForm):
 class VOSOrganizationForm(ModelForm):
     class Meta:
         model = VOSOrganization
-        fields = ('organization_name',)
+        fields = ('name',)
 
 
-    organization_name = CharField(
+    name = CharField(
         label=_('organization_name'),
         required=True,
         strip=True

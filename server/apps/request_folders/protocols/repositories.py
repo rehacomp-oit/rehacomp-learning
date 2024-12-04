@@ -1,7 +1,7 @@
 from typing import Protocol
 
-from server.apps.request_folders.domain.entities import CourseFolder
-from server.apps.request_folders.domain.value_objects import RequestFormOptions
+from returns.io import IOResultE
+from server.apps.request_folders.domain.value_objects import CourseFolder, RequestFormOptions
 
 
 class CourseFolderRepository(Protocol):
@@ -9,7 +9,7 @@ class CourseFolderRepository(Protocol):
     Interface of data access object for learning courses.
     '''
 
-    def fetch_all(self) -> tuple[CourseFolder, ...]:
+    def fetch_all(self) -> IOResultE[tuple[CourseFolder, ...]]:
         ...
 
 
@@ -18,5 +18,5 @@ class RequestFormOptionsRepository(Protocol):
     Interface of data access object for VOS organizations.
     '''
 
-    def fetch(self) -> RequestFormOptions:
+    def fetch(self) -> IOResultE[RequestFormOptions | None]:
         ...
