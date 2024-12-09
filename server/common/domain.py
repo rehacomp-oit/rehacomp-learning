@@ -1,5 +1,13 @@
 from abc import ABC
+from dataclasses import dataclass
 from typing import Any, final
+
+
+entity_dataclass = dataclass(eq=False, order=False, repr=False, slots=True)
+entity_dataclass.__doc__ = (
+    'Configures the standard dataclass by disabling'
+    'the comparison methods and enabling slots.'
+)
 
 
 @final
@@ -53,7 +61,7 @@ class EntityId:
 
 
 
-class BaseEntity(ABC):
+class Entity(ABC):
     '''
     base entity implementation
     '''
@@ -65,22 +73,26 @@ class BaseEntity(ABC):
         return str(self.id)
 
 
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__}({self.id})>'
+
+
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, BaseEntity):
+        if not isinstance(other, Entity):
             return NotImplemented
         else:
             return self.id == other.id
 
 
     def __lt__(self, other: object) -> bool:
-        if not isinstance(other, BaseEntity):
+        if not isinstance(other, Entity):
             return NotImplemented
         else:
             return self.id < other.id
 
 
     def __gt__(self, other: object) -> bool:
-        if not isinstance(other, BaseEntity):
+        if not isinstance(other, Entity):
             return NotImplemented
         else:
             return self.id > other.id

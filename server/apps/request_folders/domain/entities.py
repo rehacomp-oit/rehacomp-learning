@@ -1,21 +1,20 @@
 from dataclasses import dataclass
 from typing import final
 
-from server.common.domain import BaseEntity
+from server.common.domain import Entity
 
-from .value_objects import CourseFolderId
+from .value_objects import CourseId, OrganizationId
 
 
 @final
 @dataclass(slots=True)
-class CourseFolder(BaseEntity):
-    id: CourseFolderId  # noqa: VNE003
+class LearningCourse(Entity):
+    id: CourseId  # noqa: VNE003
     name: str
     slug: str
 
 
-    @property
-    def course_abbreviation(self) -> str:
+    def get_course_short_name(self) -> str:
         '''
         Returns the generated abbreviation of the course name.
         '''
@@ -26,3 +25,10 @@ class CourseFolder(BaseEntity):
         else:
             chars = (word[0] for word in words)
             return ''.join(chars).upper()
+
+
+@final
+@dataclass(slots=True)
+class RegionalOrganization(Entity):
+    id: OrganizationId  # noqa: VNE003
+    name: str

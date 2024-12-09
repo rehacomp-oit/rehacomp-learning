@@ -1,13 +1,16 @@
 from typing import final
 
 from django.db import Error as DatabaseError
-from server.apps.request_folders.domain.value_objects import CourseFolder, RequestFormOptions
+from server.apps.request_folders.domain.entities import LearningCourse, RegionalOrganization
+from server.apps.request_folders.domain.value_objects import CourseId, OrganizationId
 from server.apps.request_folders.models import Course, VOSOrganization
+from server.common.domain import EntityId
 from server.common.infrastructure import make_safe
+from ulid import ULID
 
 
 @final
-class CourseFolderDjangoRepository:
+class LearningCourseDjangoRepository:
     '''
     Manages training course data in the database.
     '''
@@ -19,48 +22,41 @@ class CourseFolderDjangoRepository:
 
 
     @make_safe(DatabaseError)
-    def fetch_all(self) -> tuple[CourseFolder, ...]:
-        if not self.__courses_data_manager.exists():
-            return ()
-        else:
-            queryset = self.__courses_data_manager.values_list('name', 'slug')
-            return tuple(CourseFolder(*row) for row in queryset)
-
-
-@final
-class RequestFormOptionsDjangoRepository:
-    '''
-    Implementation of the django repository for data management of the learning request registration form.
-
-    This class handles the retrieval and management of value objects that represent
-    from the database information about learning courses and VOS organizations
-    for registration learning request.
-    '''
-    __slots__ = ('__courses_data_manager', '__organizations_data_manager')
-
-
-    def __init__(self) -> None:
-        self.__courses_data_manager = Course.objects
-        self.__organizations_data_manager = VOSOrganization.objects
+    def fetch_all(self) -> tuple[LearningCourse, ...]:
+        queryset = self.__courses_data_manager.values_list()
+        return tuple(self.__build_entity(row) for row in queryset)
 
 
     @make_safe(DatabaseError)
-    def fetch(self) -> RequestFormOptions | None:
-        '''
-        Retrieves the value object with all organizations and courses from the database.
+    def exists(self) -> bool:
+        return self.__courses_data_manager.exists()
 
-        Returns:
-            the collected value object listing Courses and organizations.
-        '''
 
-        if not self.__courses_data_manager.exists() or not self.__organizations_data_manager.exists():
-            return None
+    def __build_entity(self, src: tuple[ULID, str, str]) -> LearningCourse:
+        identity = CourseId(EntityId(src[0]))
+        return LearningCourse(identity, src[1], src[2])
 
-        field_names = ('id', 'name',)
-        course_data_QS = self.__courses_data_manager.values_list(*field_names)
-        organization_data_QS = self.__organizations_data_manager.values_list(*field_names)
-        transform = lambda item: (str(item[0]), item[1])
-        return RequestFormOptions(
-            tuple(transform(row) for row in course_data_QS),
-            tuple(transform(row) for row in organization_data_QS)
-        )
+
+@final
+class RegionalOrganizationDjangoRepository:
+    __slots__ = ('__data_manager')
+
+
+    def __init__(self) -> None:
+        self.__data_manager = VOSOrganization.objects
+
+
+    @make_safe(DatabaseError)
+    def fetch_all(self) -> tuple[RegionalOrganization, ...]:
+        queryset = self.__data_manager.values_list()
+        return tuple(self.__build_entity(row) for row in queryset)
+
+
+    @make_safe(DatabaseError)
+    def exists(self) -> bool:
+        return self.__data_manager.exists()
+
+
+    def __build_entity(self, src: tuple[ULID, str]) -> RegionalOrganization:
+        identity = OrganizationId(EntityId(src[0]))
+        return RegionalOrganization(identity, src[1])
