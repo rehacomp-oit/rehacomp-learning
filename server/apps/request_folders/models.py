@@ -44,6 +44,7 @@ class VOSOrganization(Model):
 
     id = PKULIDField(auto_created=True, primary_key=True)  # noqa: VNE003
     name = CharField(max_length=VOS_ORGANIZATION_NAME_LENGTH, unique=True)
+    code = PositiveSmallIntegerField()
 
 
     def __str__(self) -> str:

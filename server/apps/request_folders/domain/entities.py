@@ -3,7 +3,7 @@ from typing import final
 
 from server.common.domain import Entity
 
-from .value_objects import CourseId, OrganizationId
+from .value_objects import CourseId, OrganizationCode, OrganizationId
 
 
 @final
@@ -32,3 +32,4 @@ class LearningCourse(Entity):
 class RegionalOrganization(Entity):
     id: OrganizationId  # noqa: VNE003
     name: str
+    code: OrganizationCode

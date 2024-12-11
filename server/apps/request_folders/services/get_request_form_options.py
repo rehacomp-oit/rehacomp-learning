@@ -25,7 +25,7 @@ class GetRequestFormOptionsService:
     def __call__(self) -> Result[RequestFormOptions, GetRequestFormOptionFailure]:
         return self._load_courses_with_organizations()\
             .alt(self._handle_infrastructure_error)\
-            .bind_result(self._build_output)
+            .bind(self._build_output)
 
 
     @safe(exceptions=(InfrastructureLayerError,))
@@ -45,8 +45,6 @@ class GetRequestFormOptionsService:
             return Failure(GetRequestFormOptionFailure.MISSING_DATA)
 
         courses, organizations = data
-        options = RequestFormOptions(
-            tuple((str(course.id), course.name) for course in courses),
-            tuple((str(organization.id), organization.name) for organization in organizations)
-        )
-        return Success(options)
+        course_choices = tuple((course.slug, course.name) for course in courses)
+        organization_choices = tuple((str(organization.code), organization.name) for organization in organizations)
+        return Success(RequestFormOptions(course_choices, organization_choices))

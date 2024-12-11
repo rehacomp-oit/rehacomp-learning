@@ -1,0 +1,2 @@
+from .course import LearningCourseDjangoRepository
+from .regional_organization import RegionalOrganizationDjangoRepository

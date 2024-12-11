@@ -2,17 +2,14 @@ from typing import final
 
 from django.db.migrations import CreateModel
 from django.db.migrations import Migration as BaseMigration
-from django.db.models.fields import CharField
+from django.db.models.fields import CharField, PositiveSmallIntegerField
 from server.common.django_tools import PKULIDField
 
 
 _fields = (
     ('id', PKULIDField(auto_created=True, primary_key=True, serialize=False),),
-
-    ('name', CharField(
-        max_length=80,
-        unique=True
-    ),),
+    ('name', CharField(max_length=80, unique=True),),
+    ('code', PositiveSmallIntegerField()),
 )
 
 _options = {

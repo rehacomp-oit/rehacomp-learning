@@ -50,7 +50,7 @@ class AddLearningRequestView:
             case Success(value):
                 form = LearningRequestForm.build_unbound_form(
                     value.course_choices,
-                    value.organization_choises
+                    value.organization_choices
                 )
                 return render(request, 'add_request.html', {'form': form})
             case Failure(GetRequestFormOptionFailure.MISSING_DATA):

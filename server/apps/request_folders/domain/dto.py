@@ -22,4 +22,4 @@ class RequestFormOptions:
     '''
 
     course_choices: tuple[tuple[str, str], ...]
-    organization_choises: tuple[tuple[str, str], ...]
+    organization_choices: tuple[tuple[str, str], ...]

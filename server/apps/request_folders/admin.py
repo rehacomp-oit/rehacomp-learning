@@ -2,7 +2,7 @@ from typing import final
 
 from django.contrib.admin import ModelAdmin, register, ShowFacets
 from django.db.models import Model
-from django.forms import CharField, ModelForm
+from django.forms import CharField, IntegerField, ModelForm
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from ulid import new as new_ULID
@@ -36,13 +36,17 @@ class CourseForm(ModelForm):
 class VOSOrganizationForm(ModelForm):
     class Meta:
         model = VOSOrganization
-        fields = ('name',)
+        fields = ('name', 'code',)
 
 
     name = CharField(
         label=_('organization_name'),
         required=True,
         strip=True
+    )
+
+    code = IntegerField(
+        label=_('Organization code'), required=True
     )
 
 
