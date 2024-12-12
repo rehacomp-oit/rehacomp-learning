@@ -1,13 +1,12 @@
-from dataclasses import dataclass
 from typing import final
 
-from server.common.domain import Entity
+from server.common.domain import define_entity, Entity
 
 from .value_objects import CourseId, OrganizationCode, OrganizationId
 
 
 @final
-@dataclass(slots=True)
+@define_entity
 class LearningCourse(Entity):
     id: CourseId  # noqa: VNE003
     name: str
@@ -28,7 +27,7 @@ class LearningCourse(Entity):
 
 
 @final
-@dataclass(slots=True)
+@define_entity
 class RegionalOrganization(Entity):
     id: OrganizationId  # noqa: VNE003
     name: str

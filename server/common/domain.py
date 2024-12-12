@@ -1,13 +1,18 @@
 from abc import ABC
 from dataclasses import dataclass
-from typing import Any, final
+from typing import Any, dataclass_transform, final, TypeVar
 
 
-entity_dataclass = dataclass(eq=False, order=False, repr=False, slots=True)
-entity_dataclass.__doc__ = (
-    'Configures the standard dataclass by disabling'
-    'the comparison methods and enabling slots.'
-)
+_T = TypeVar('_T')
+
+
+@dataclass_transform()
+def define_entity(cls: type[_T]) -> type[_T]:
+    '''
+    Configures the standard dataclass by disabling the comparison methods and enabling slots.
+    '''
+
+    return dataclass(eq=False, repr=False, slots=True)(cls)
 
 
 @final
