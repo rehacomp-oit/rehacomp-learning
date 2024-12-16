@@ -1,9 +1,19 @@
 from abc import ABC
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from functools import partial
 from typing import Any, dataclass_transform, final, TypeVar
 
 
+__all__ = (
+    'define_entity',
+    'EntityId',
+    'Entity',
+)
+
+
 _T = TypeVar('_T')
+
+entity_field = partial(field, compare=False, init=False, repr=False)
 
 
 @dataclass_transform()
