@@ -75,12 +75,13 @@ class EntityId:
             return self.__value > other.__value
 
 
-
 class Entity(ABC):
     '''
     base entity implementation
     '''
 
+    # A small optimization has been applied here to reduce the size of child classes
+    __slots__ = ()
     id: EntityId  # noqa: VNE003
 
 
