@@ -1,8 +1,10 @@
+from datetime import datetime, timezone
 from typing import final
 
-from server.common.domain import define_entity, Entity
+from server.common.domain import define_entity, Entity, entity_field
 
-from .value_objects import CourseId, OrganizationCode, OrganizationId
+from .enum_types import LearningRequestStatus
+from .value_objects import CourseId, LearningRequestId, OrganizationCode, OrganizationId, PersonId
 
 
 @final
@@ -32,3 +34,37 @@ class RegionalOrganization(Entity):
     id: OrganizationId  # noqa: VNE003
     name: str
     code: OrganizationCode
+
+
+@final
+@define_entity
+class Person(Entity):
+    id: PersonId  # noqa: VNE003
+    first_name: str
+    patronymic: str
+    last_name: str
+
+
+@final
+@define_entity
+class LearningRequest(Entity):
+    id: LearningRequestId  # noqa: VNE003
+    course: LearningCourse
+    candidate: Person
+    created_at: datetime = entity_field(default=datetime.now(tz=timezone.utc))
+    updated_at: datetime | None = entity_field(default=None)
+    note: str = entity_field(default='')
+    status: LearningRequestStatus = entity_field(default=LearningRequestStatus.REQUEST)
+    relevance: bool = entity_field(default=True)
+
+
+    def mark_as_irrelevant(self, reason: str | None=None) -> None:
+        self.relevance = False
+        if reason is not None:
+            self.note = reason
+        else:
+            self.note = 'В архиве'
+
+
+    def deny(self) -> None:
+        self.status = LearningRequestStatus.REJECTION

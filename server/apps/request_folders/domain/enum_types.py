@@ -1,10 +1,11 @@
+from enum import auto, IntEnum
 from typing import final
 
 from server.common.types import BaseEnum
 
 
 @final
-class TrainingLevels(int, BaseEnum):
+class TrainingLevel(int, BaseEnum):
     '''
     Options for possible levels of computer or smartphone proficiency.
     '''
@@ -18,7 +19,7 @@ class TrainingLevels(int, BaseEnum):
 
 
 @final
-class DisabilityGroups(int, BaseEnum):
+class DisabilityGroup(int, BaseEnum):
     '''
     Options for possible disability groups.
     '''
@@ -28,3 +29,9 @@ class DisabilityGroups(int, BaseEnum):
     VISION_THURD = 3
     OTHER = 4
     NOTHING = 5
+
+
+@final
+class LearningRequestStatus(IntEnum):
+    REQUEST = auto()
+    REJECTION = auto()

@@ -5,6 +5,8 @@ from server.common.domain import EntityId
 
 CourseId = NewType('CourseId', EntityId)
 OrganizationId = NewType('OrganizationId', EntityId)
+PersonId = NewType('PersonId', EntityId)
+LearningRequestId = NewType('LearningRequestId', EntityId)
 
 
 @final
