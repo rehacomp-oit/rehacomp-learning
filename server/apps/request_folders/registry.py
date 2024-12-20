@@ -4,8 +4,10 @@ from punq import Container
 from server.common.protocols import HttpController
 
 from .domain.protocols.repositories import LearningCourseRepository, RegionalOrganizationRepository
+from .domain.protocols.translators import DisabilityGroupTranslator, TrainingLevelTranslator
 from .domain.protocols.usecases import GetCourseFoldersUsecase, GetRequestFormOptionsUsecase
 from .infrastructure.repositories import LearningCourseDjangoRepository, RegionalOrganizationDjangoRepository
+from .infrastructure.translators import DisabilityGroupDjangoTranslator, TrainingLevelDjangoTranslator
 from .services import GetCourseFoldersService, GetRequestFormOptionsService
 from .views import AddLearningRequestView, GetFoldersListView
 
@@ -24,5 +26,7 @@ add_learning_request_impl = Container()
 add_learning_request_impl.register(Logger, instance=_logger_object)
 add_learning_request_impl.register(LearningCourseRepository, LearningCourseDjangoRepository)
 add_learning_request_impl.register(RegionalOrganizationRepository, RegionalOrganizationDjangoRepository)
+add_learning_request_impl.register(DisabilityGroupTranslator, DisabilityGroupDjangoTranslator)
+add_learning_request_impl.register(TrainingLevelTranslator, TrainingLevelDjangoTranslator)
 add_learning_request_impl.register(GetRequestFormOptionsUsecase, GetRequestFormOptionsService)
 add_learning_request_impl.register(HttpController, AddLearningRequestView)

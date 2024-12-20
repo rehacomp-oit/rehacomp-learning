@@ -48,10 +48,7 @@ class AddLearningRequestView:
     def _handle_GET(self, request: HtmxHttpRequest) -> HttpResponse:
         match self.get_request_form_options():
             case Success(value):
-                form = LearningRequestForm.build_unbound_form(
-                    value.course_choices,
-                    value.organization_choices
-                )
+                form = LearningRequestForm.build_unbound_form(**value.to_dict())
                 return render(request, 'add_request.html', {'form': form})
             case Failure(GetRequestFormOptionFailure.MISSING_DATA):
                 page_template = 'folders_not_found.html'

@@ -29,25 +29,6 @@ MIN_BIRTH_YEAR: Final = 1000
 MAX_BIRTH_YEAR: Final = 3000
 
 
-# Below is the definition of internal iterables for form fields with a choice
-_disability_group_choices = (
-    (1, _('First group based on vision'),),
-    (2, _('Second group based on vision'),),
-    (3, _('Third group based on vision'),),
-    (4, _('Other disability'),),
-    (5, _('No disability'),),
-)
-
-_training_level_choices = (
-    (0, _('Zero level'),),
-    (1, _('Beginner user'),),
-    (2, _('Basic level'),),
-    (3, _('Confident user'),),
-    (4, _('Experienced user'),),
-    (5, _('Advanced user'),),
-)
-
-
 # Definition form validatiors and widgets
 _phone_number_validator = RegexValidator(
     regex=PHONE_NUMBER_PATTERN,
@@ -97,7 +78,6 @@ class LearningRequestForm(Form):
     )
 
     disability_group = TypedChoiceField(
-        choices=_disability_group_choices,
         coerce=str,
         label=_('Disability group')
     )
@@ -125,7 +105,6 @@ class LearningRequestForm(Form):
     )
 
     training_levels = TypedChoiceField(
-        choices=_training_level_choices,
         coerce=str,
         label=_('Training level')
     )
@@ -160,10 +139,14 @@ class LearningRequestForm(Form):
     @classmethod
     def build_unbound_form(
         cls,
-        learning_course_data: tuple[tuple[str, str], ...],
-        organizations_data: tuple[tuple[str, str], ...]
+        course_choices: tuple[tuple[str, str], ...],
+        organization_choices: tuple[tuple[str, str], ...],
+        disability_group_choices: tuple[tuple[int, str], ...],
+        training_level_choices: tuple[tuple[int, str], ...]
     ) -> Self:
         form = cls()
-        form.fields['courses'].choices = learning_course_data
-        form.fields['organizations'].choices = organizations_data
+        form.fields['courses'].choices = course_choices
+        form.fields['organizations'].choices = organization_choices
+        form .fields['disability_group'].choices = disability_group_choices
+        form.fields['training_levels'].choices = training_level_choices
         return form
