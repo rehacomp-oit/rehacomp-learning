@@ -3,7 +3,7 @@ from typing import final
 
 from server.common.domain import define_entity, Entity, entity_field
 
-from .enum_types import LearningRequestStatus
+from .enum_types import DisabilityGroup, LearningRequestStatus, TrainingLevel
 from .value_objects import CourseId, LearningRequestId, OrganizationCode, OrganizationId, PersonId
 
 
@@ -43,6 +43,16 @@ class Person(Entity):
     first_name: str
     patronymic: str
     last_name: str
+    birth_year: int
+    disability_group: DisabilityGroup
+    vos_organization: RegionalOrganization
+    training_level: TrainingLevel
+    education_info: str = ''
+    job_info: str = ''
+    is_known_braille: bool = False
+    has_device: bool = True
+    personal_phone: str = ''
+    email: str = ''
 
 
 @final
