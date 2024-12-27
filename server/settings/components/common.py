@@ -109,7 +109,6 @@ TIME_ZONE = 'Europe/Moscow'
 
 # Security
 # https://docs.djangoproject.com/en/4.2/topics/security/
-SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
@@ -126,3 +125,8 @@ PERMISSIONS_POLICY: dict[str, str | list[str]] = {}  # noqa: WPS234
 # Timeouts
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std:setting-EMAIL_TIMEOUT
 EMAIL_TIMEOUT = 5
+
+
+# Session
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SESSION_COOKIE_HTTPONLY = True
