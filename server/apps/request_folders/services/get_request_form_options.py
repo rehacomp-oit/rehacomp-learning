@@ -5,9 +5,9 @@ from logging import Logger
 from typing import final
 
 from returns.pipeline import flow
-from returns.pointfree import alt, bind
-from returns.result import Failure, Result, safe, Success
-from server.common.exceptions import InfrastructureLayerError
+from returns.pointfree import bind
+from returns.result import Failure, Result, Success
+from server.common.exceptions import EmptyRepositoryError, InfrastructureLayerError
 
 from ..domain.dto import RequestFormOptions
 from ..domain.entities import LearningCourse, RegionalOrganization
@@ -29,26 +29,36 @@ class GetRequestFormOptionsService:
     def __call__(self) -> Result[RequestFormOptions, GetRequestFormOptionFailure]:
         return flow(
             _InternalContext(),
-            self._load_courses_with_organizations,
-            alt(self._handle_infrastructure_error),
+            self._load_all_courses,
+            bind(self._load_all_organizations),
             bind(self._load_translations),
             bind(self._build_output)
         )
 
 
-    @safe(exceptions=(InfrastructureLayerError,))
-    def _load_courses_with_organizations(self, context: _InternalContext) -> _InternalContext:
-        if not self.course_repository.exists() or not self.organization_repository.exists():
-            context.courses, context.organizations = (), ()
-            return context
+    def _load_all_courses(self, context: _InternalContext) -> Result[_InternalContext, GetRequestFormOptionFailure]:
+        try:
+            context.courses = self.course_repository.fetch_all()
+        except EmptyRepositoryError:
+            return Failure(GetRequestFormOptionFailure.MISSING_DATA)
+        except InfrastructureLayerError:
+            return Failure(GetRequestFormOptionFailure.CRITICAL_FAILURE)
+        else:
+            return Success(context)
 
-        context.courses = self.course_repository.fetch_all()
-        context.organizations = self.organization_repository.fetch_all()
-        return context
 
-
-    def _handle_infrastructure_error(self, exception_object: Exception) -> GetRequestFormOptionFailure:
-        return GetRequestFormOptionFailure.CRITICAL_FAILURE
+    def _load_all_organizations(
+        self,
+        context: _InternalContext
+    ) -> Result[_InternalContext, GetRequestFormOptionFailure]:
+        try:
+            context.organizations = self.organization_repository.fetch_all()
+        except EmptyRepositoryError:
+            return Failure(GetRequestFormOptionFailure.MISSING_DATA)
+        except InfrastructureLayerError:
+            return Failure(GetRequestFormOptionFailure.CRITICAL_FAILURE)
+        else:
+            return Success(context)
 
 
     def _load_translations(self, context: _InternalContext) -> Success[_InternalContext]:
@@ -57,10 +67,7 @@ class GetRequestFormOptionsService:
         return Success(context)
 
 
-    def _build_output(self, context: _InternalContext) -> Result[RequestFormOptions, GetRequestFormOptionFailure]:
-        if not context.courses and not context.organizations:
-            return Failure(GetRequestFormOptionFailure.MISSING_DATA)
-
+    def _build_output(self, context: _InternalContext) -> Success[RequestFormOptions]:
         course_choices = tuple(
             (course.slug, course.name) for course in context.courses
         )

@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from logging import Logger
 from typing import final
 
-from returns.result import Failure, Result, safe, Success
-from server.common.exceptions import InfrastructureLayerError
+from returns.result import Failure, Result, Success
+from server.common.exceptions import EmptyRepositoryError, InfrastructureLayerError
 
 from ..domain.dto import CourseFolder
 from ..domain.entities import LearningCourse
@@ -19,29 +19,23 @@ class GetCourseFoldersService:
 
 
     def __call__(self) -> Result[tuple[CourseFolder, ...], GetCourseFoldersFailure]:
-        return self._load_all_courses()\
-            .alt(self._handle_infrastructure_error)\
-            .bind_result(self._process_selected_data)
+        return self._load_all_courses().bind(self._make_output)
 
 
-    @safe(exceptions=(InfrastructureLayerError,))
-    def _load_all_courses(self) -> tuple[LearningCourse, ...] | None:
-        if not self.repository.exists():
-            return None
-
-        return self.repository.fetch_all()
-
-
-    def _handle_infrastructure_error(self, exception_object: Exception) -> GetCourseFoldersFailure:
-        return GetCourseFoldersFailure.CRITICAL_FAILURE
-
-
-    def _process_selected_data(
-        self,
-        courses: tuple[LearningCourse, ...] | None
-    ) -> Result[tuple[CourseFolder, ...], GetCourseFoldersFailure]:
-        if courses is None:
+    def _load_all_courses(self) -> Result[tuple[LearningCourse, ...], GetCourseFoldersFailure]:
+        try:
+            courses = self.repository.fetch_all()
+        except EmptyRepositoryError:
             return Failure(GetCourseFoldersFailure.MISSING_DATA)
+        except InfrastructureLayerError:
+            return Failure(GetCourseFoldersFailure.CRITICAL_FAILURE)
         else:
-            dto = tuple(CourseFolder(course.name, course.slug) for course in courses)
-            return Success(dto)
+            return Success(courses)
+
+
+    def _make_output(
+        self,
+        courses: tuple[LearningCourse, ...]
+    ) -> Success[tuple[CourseFolder, ...]]:
+        dto = tuple(CourseFolder(course.name, course.slug) for course in courses)
+        return Success(dto)

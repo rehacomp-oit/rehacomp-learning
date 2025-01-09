@@ -37,7 +37,7 @@ class ControllerError(InfrastructureLayerError):
 
 
 @final
-class MissingDataError(BaseError):
+class EmptyRepositoryError(InfrastructureLayerError):
     '''
     The requested data was not found.
     '''

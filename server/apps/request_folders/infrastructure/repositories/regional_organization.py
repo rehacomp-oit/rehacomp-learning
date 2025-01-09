@@ -1,10 +1,11 @@
 from typing import final, TypedDict
 
-from django.db import Error as DatabaseError
+from django.core.cache import cache
 from server.apps.request_folders.domain.entities import RegionalOrganization
 from server.apps.request_folders.domain.value_objects import OrganizationCode, OrganizationId
 from server.apps.request_folders.models import VOSOrganization
 from server.common.domain import EntityId
+from server.common.exceptions import EmptyRepositoryError
 from server.common.infrastructure import make_safe
 from ulid import ULID
 
@@ -18,22 +19,31 @@ class _DBInternal(TypedDict):
 
 @final
 class RegionalOrganizationDjangoRepository:
-    __slots__ = ('__manager')
+    __slots__ = (
+        '__cache_timeout',
+        '__organizations_cache',
+    )
 
 
     def __init__(self) -> None:
-        self.__manager = VOSOrganization.objects
+        # 10 minutes
+        self.__cache_timeout = 600
+        self.__organizations_cache = 'courses'
 
 
-    @make_safe(DatabaseError)
+    @make_safe
     def fetch_all(self) -> tuple[RegionalOrganization, ...]:
-        queryset = self.__manager.order_by('name').values()
-        return tuple(self.__build_entity(row) for row in queryset)
+        organizations = cache.get(self.__organizations_cache)
+        if organizations is not None:
+            return organizations
 
+        queryset = VOSOrganization.objects.order_by('name').values()
+        organizations = tuple(self.__build_entity(row) for row in queryset)
+        if organizations is None:
+            raise EmptyRepositoryError('message')
 
-    @make_safe(DatabaseError)
-    def exists(self) -> bool:
-        return self.__manager.exists()
+        cache.set(self.__organizations_cache, organizations, self.__cache_timeout)
+        return organizations
 
 
     def __build_entity(self, src: _DBInternal) -> RegionalOrganization:
