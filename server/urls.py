@@ -4,6 +4,9 @@ Main URL mapping configuration module.
 Include other URLConfs from external apps using method `include()`.
 '''
 
+from typing import Any
+
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.urls import include, path
@@ -35,7 +38,7 @@ __humans_view = TemplateView.as_view(
 )
 
 
-urlpatterns = (
+urlpatterns: tuple[Any, ...] = (
     path('accounts/', include(accounts_urls, namespace='accounts')),
     path('main/', include(main_urls, namespace='main')),
     path('request_folders/', include(request_folders_urls, namespace='request_folders')),
@@ -46,3 +49,10 @@ urlpatterns = (
     # Explicit index view:
     path('', show_main_page, name='index'),
 )
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = (
+        path('__debug__/', include(debug_toolbar.urls)),
+        *urlpatterns,
+    )
