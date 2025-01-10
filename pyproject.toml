@@ -5,13 +5,14 @@ description = "learning management system for rehacomp"
 authors = ["Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+package-mode = false
 classifiers = [
   "Private :: Do not Upload",
 ]
 
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.13"
 django = {extras = ["argon2"], version = "^5.0.3"}
 django-split-settings = "^1.3.0"
 django-axes = "^6.4.0"
@@ -26,6 +27,8 @@ punq = "^0.7.0"
 ulid-py = "^1.1.0"
 returns = "^0.23.0"
 django-htmx = "^1.19.0"
+structlog = "^24.4.0"
+wheel = "^0.45.1"
 
 
 [tool.poetry.group.dev.dependencies]
