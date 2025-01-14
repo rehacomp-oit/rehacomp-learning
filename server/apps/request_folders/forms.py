@@ -44,7 +44,7 @@ _phone_number_input = Input(
 @final
 class LearningRequestForm(Form):
 
-    courses = ChoiceField(
+    course = ChoiceField(
         label=_('Learning course')
     )
 
@@ -73,7 +73,7 @@ class LearningRequestForm(Form):
         label=_('Birth year')
     )
 
-    organizations = ChoiceField(
+    organization = ChoiceField(
         label=_('VOS organization')
     )
 
@@ -104,7 +104,7 @@ class LearningRequestForm(Form):
         label=_('Presence of device')
     )
 
-    training_levels = TypedChoiceField(
+    training_level = TypedChoiceField(
         coerce=str,
         label=_('Training level')
     )
@@ -133,7 +133,7 @@ class LearningRequestForm(Form):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.fields['courses'].widget.attrs['autofocus'] = True
+        self.fields['first_name'].widget.attrs['autofocus'] = True
 
 
     @classmethod
@@ -145,8 +145,8 @@ class LearningRequestForm(Form):
         training_level_choices: tuple[tuple[int, str], ...]
     ) -> Self:
         form = cls()
-        form.fields['courses'].choices = course_choices
-        form.fields['organizations'].choices = organization_choices
+        form.fields['course'].choices = course_choices
+        form.fields['organization'].choices = organization_choices
         form .fields['disability_group'].choices = disability_group_choices
-        form.fields['training_levels'].choices = training_level_choices
+        form.fields['training_level'].choices = training_level_choices
         return form

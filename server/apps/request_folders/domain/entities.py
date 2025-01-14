@@ -57,7 +57,7 @@ class Person(Entity):
 
 @final
 @define_entity
-class LearningRequest(Entity):
+class LearningRequestCart(Entity):
     id: LearningRequestId  # noqa: VNE003
     course: LearningCourse
     candidate: Person
