@@ -36,6 +36,11 @@ _hendlers = {
 
 
 _LOGGERS = {
+    'server': {
+        'handlers': ('console',),
+        'propagate': False,
+        'level': 'INFO',
+    },
     'django': {
         'handlers': ('console',),
         'propagate': True,

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from logging import Logger
+from logging import getLogger
 from typing import final
 
 from returns.pipeline import flow
@@ -16,6 +16,9 @@ from ..domain.protocols.translators import DisabilityGroupTranslator, TrainingLe
 from ..domain.results import GetRequestFormOptionFailure
 
 
+_logger = getLogger(__name__)
+
+
 @final
 @dataclass(frozen=True, slots=True)
 class GetRequestFormOptionsService:
@@ -23,7 +26,6 @@ class GetRequestFormOptionsService:
     organization_repository: RegionalOrganizationRepository
     disability_group_translator: DisabilityGroupTranslator
     training_level_translator: TrainingLevelTranslator
-    logger: Logger
 
 
     def __call__(self) -> Result[RequestFormOptions, GetRequestFormOptionFailure]:
@@ -40,8 +42,10 @@ class GetRequestFormOptionsService:
         try:
             context.courses = self.course_repository.fetch_all()
         except EmptyRepositoryError:
+            _logger.info('Information about learning courses is missing')
             return Failure(GetRequestFormOptionFailure.MISSING_DATA)
-        except InfrastructureLayerError:
+        except InfrastructureLayerError as exc:
+            _logger.exception(exc)
             return Failure(GetRequestFormOptionFailure.CRITICAL_FAILURE)
         else:
             return Success(context)
@@ -54,8 +58,10 @@ class GetRequestFormOptionsService:
         try:
             context.organizations = self.organization_repository.fetch_all()
         except EmptyRepositoryError:
+            _logger.info('Information about VOS organizations is missing')
             return Failure(GetRequestFormOptionFailure.MISSING_DATA)
-        except InfrastructureLayerError:
+        except InfrastructureLayerError as exc:
+            _logger.exception(exc)
             return Failure(GetRequestFormOptionFailure.CRITICAL_FAILURE)
         else:
             return Success(context)

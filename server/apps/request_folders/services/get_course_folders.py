@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from logging import Logger
+from logging import getLogger
 from typing import final
 
 from returns.result import Failure, Result, Success
@@ -11,11 +11,13 @@ from ..domain.protocols.repositories import LearningCourseRepository
 from ..domain.results import GetCourseFoldersFailure
 
 
+_logger = getLogger(__name__)
+
+
 @final
 @dataclass(frozen=True, slots=True)
 class GetCourseFoldersService:
     repository: LearningCourseRepository
-    logger: Logger
 
 
     def __call__(self) -> Result[tuple[CourseFolder, ...], GetCourseFoldersFailure]:
@@ -26,8 +28,10 @@ class GetCourseFoldersService:
         try:
             courses = self.repository.fetch_all()
         except EmptyRepositoryError:
+            _logger.info('Information about learning courses is missing')
             return Failure(GetCourseFoldersFailure.MISSING_DATA)
-        except InfrastructureLayerError:
+        except InfrastructureLayerError as exc:
+            _logger.exception(exc)
             return Failure(GetCourseFoldersFailure.CRITICAL_FAILURE)
         else:
             return Success(courses)
