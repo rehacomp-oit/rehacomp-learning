@@ -11,9 +11,6 @@ class LearningCourseRepository(Protocol):
     def fetch_all(self) -> tuple[LearningCourse, ...]:
         ...
 
-    def exists(self) -> bool:
-        ...
-
 
 class RegionalOrganizationRepository(Protocol):
     '''
@@ -21,7 +18,4 @@ class RegionalOrganizationRepository(Protocol):
     '''
 
     def fetch_all(self) -> tuple[RegionalOrganization, ...]:
-        ...
-
-    def exists(self) -> bool:
         ...
