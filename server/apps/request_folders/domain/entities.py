@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
 from typing import final
 
-from server.common.domain import define_entity, Entity, entity_field
+from server.common.domain import Entity
+from server.common.helpers import define_entity, define_field
 
 from .enum_types import DisabilityGroup, LearningRequestStatus, TrainingLevel
 from .value_objects import CourseId, LearningRequestId, OrganizationCode, OrganizationId, PersonId
@@ -61,11 +62,11 @@ class LearningRequestCart(Entity):
     id: LearningRequestId  # noqa: VNE003
     course: LearningCourse
     candidate: Person
-    created_at: datetime = entity_field(default=datetime.now(tz=timezone.utc))
-    updated_at: datetime | None = entity_field(default=None)
-    note: str = entity_field(default='')
-    status: LearningRequestStatus = entity_field(default=LearningRequestStatus.REQUEST)
-    relevance: bool = entity_field(default=True)
+    created_at: datetime = define_field(default=datetime.now(tz=timezone.utc))
+    updated_at: datetime | None = define_field(default=None)
+    note: str = define_field(default='')
+    status: LearningRequestStatus = define_field(default=LearningRequestStatus.REQUEST)
+    relevance: bool = define_field(default=True)
 
 
     def mark_as_irrelevant(self, reason: str | None=None) -> None:

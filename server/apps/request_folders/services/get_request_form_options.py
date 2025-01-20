@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from logging import getLogger
 from typing import final
 
@@ -8,6 +7,7 @@ from returns.pipeline import flow
 from returns.pointfree import bind
 from returns.result import Failure, Result, Success
 from server.common.exceptions import EmptyRepositoryError, InfrastructureLayerError
+from server.common.helpers import define_service
 
 from ..domain.dto import RequestFormOptions
 from ..domain.entities import LearningCourse, RegionalOrganization
@@ -20,7 +20,7 @@ _logger = getLogger(__name__)
 
 
 @final
-@dataclass(frozen=True, slots=True)
+@define_service
 class GetRequestFormOptionsService:
     course_repository: LearningCourseRepository
     organization_repository: RegionalOrganizationRepository

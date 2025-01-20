@@ -1,9 +1,9 @@
-from dataclasses import dataclass
 from logging import getLogger
 from typing import final
 
 from returns.result import Failure, Result, Success
 from server.common.exceptions import EmptyRepositoryError, InfrastructureLayerError
+from server.common.helpers import define_service
 
 from ..domain.dto import CourseFolder
 from ..domain.entities import LearningCourse
@@ -15,7 +15,7 @@ _logger = getLogger(__name__)
 
 
 @final
-@dataclass(frozen=True, slots=True)
+@define_service
 class GetCourseFoldersService:
     repository: LearningCourseRepository
 

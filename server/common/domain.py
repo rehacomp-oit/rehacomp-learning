@@ -1,28 +1,5 @@
 from abc import ABC
-from dataclasses import dataclass, field
-from functools import partial
-from typing import Any, dataclass_transform, final, TypeVar
-
-
-__all__ = (
-    'define_entity',
-    'EntityId',
-    'Entity',
-)
-
-
-_T = TypeVar('_T')
-
-entity_field = partial(field, compare=False, init=False, repr=False)
-
-
-@dataclass_transform()
-def define_entity(cls: type[_T]) -> type[_T]:
-    '''
-    Configures the standard dataclass by disabling the comparison methods and enabling slots.
-    '''
-
-    return dataclass(eq=False, repr=False, slots=True)(cls)
+from typing import Any, final
 
 
 @final
