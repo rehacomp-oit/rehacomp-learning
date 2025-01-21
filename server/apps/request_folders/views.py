@@ -1,10 +1,10 @@
-from dataclasses import dataclass
 from typing import final
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.utils.decorators import method_decorator
-from django.views.decorators.http import require_GET, require_http_methods
+from django.views import View
+from django.views.decorators.http import require_GET
 from returns.result import Failure, Success
 from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
@@ -13,40 +13,29 @@ from server.common.exceptions import ControllerError
 from .domain.protocols.usecases import GetCourseFoldersUsecase, GetRequestFormOptionsUsecase
 from .domain.results import GetCourseFoldersFailure, GetRequestFormOptionFailure
 from .forms import LearningRequestForm
+from .registry import course_folders_container, request_form_options_container
+
+
+@login_required
+@require_GET
+def show_folders_list(request: HtmxHttpRequest) -> HttpResponse:
+    success_page, not_found_page = 'folders_list.html', 'folders_not_found.html'
+    get_folders_list = course_folders_container.resolve(GetCourseFoldersUsecase)
+    match get_folders_list():
+        case Success(value):
+            return render(request, success_page, {'folders': value})
+        case Failure(GetCourseFoldersFailure.MISSING_DATA):
+            return render(request, not_found_page)
+        case Failure(_):
+            raise ControllerError('Error')
 
 
 @final
-@method_decorator((login_required, require_GET), name='__call__')
-@dataclass(frozen=True, slots=True)
-class GetFoldersListView:
-    get_folders_list: GetCourseFoldersUsecase
+class AddLearningRequestView(LoginRequiredMixin, View):
 
-    def __call__(self, request: HtmxHttpRequest) -> HttpResponse:
-        match self.get_folders_list():
-            case Success(value):
-                template_context = {'folders': value}
-                page_template = 'folders_list.html'
-                return render(request, page_template, template_context)
-            case Failure(GetCourseFoldersFailure.MISSING_DATA):
-                page_template = 'folders_not_found.html'
-                return render(request, page_template)
-            case Failure(_):
-                raise ControllerError('Error')
-
-
-@final
-@method_decorator((login_required, require_http_methods(('GET', 'POST')),), name='__call__')
-@dataclass(frozen=True, slots=True)
-class AddLearningRequestView:
-    get_request_form_options: GetRequestFormOptionsUsecase
-
-
-    def __call__(self, request: HtmxHttpRequest) -> HttpResponse:
-        return self._handle_GET(request)
-
-
-    def _handle_GET(self, request: HtmxHttpRequest) -> HttpResponse:
-        match self.get_request_form_options():
+    def get(self, request: HtmxHttpRequest) -> HttpResponse:
+        get_request_form_options = request_form_options_container.resolve(GetRequestFormOptionsUsecase)
+        match get_request_form_options():
             case Success(value):
                 form = LearningRequestForm.build_unbound_form(**value.to_dict())
                 return render(request, 'add_request.html', {'form': form})

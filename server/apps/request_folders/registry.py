@@ -1,5 +1,4 @@
 from punq import Container
-from server.common.protocols import HttpController
 
 from .domain.protocols.repositories import LearningCourseRepository, RegionalOrganizationRepository
 from .domain.protocols.translators import DisabilityGroupTranslator, TrainingLevelTranslator
@@ -7,19 +6,16 @@ from .domain.protocols.usecases import GetCourseFoldersUsecase, GetRequestFormOp
 from .infrastructure.repositories import LearningCourseDjangoRepository, RegionalOrganizationDjangoRepository
 from .infrastructure.translators import DisabilityGroupDjangoTranslator, TrainingLevelDjangoTranslator
 from .services import GetCourseFoldersService, GetRequestFormOptionsService
-from .views import AddLearningRequestView, GetFoldersListView
 
 
-folder_list_service_impl = Container()
-folder_list_service_impl.register(LearningCourseRepository, LearningCourseDjangoRepository)
-folder_list_service_impl.register(GetCourseFoldersUsecase, GetCourseFoldersService)
-folder_list_service_impl.register(HttpController, GetFoldersListView)
+course_folders_container = Container()
+course_folders_container.register(LearningCourseRepository, LearningCourseDjangoRepository)
+course_folders_container.register(GetCourseFoldersUsecase, GetCourseFoldersService)
 
 
-add_learning_request_impl = Container()
-add_learning_request_impl.register(LearningCourseRepository, LearningCourseDjangoRepository)
-add_learning_request_impl.register(RegionalOrganizationRepository, RegionalOrganizationDjangoRepository)
-add_learning_request_impl.register(DisabilityGroupTranslator, DisabilityGroupDjangoTranslator)
-add_learning_request_impl.register(TrainingLevelTranslator, TrainingLevelDjangoTranslator)
-add_learning_request_impl.register(GetRequestFormOptionsUsecase, GetRequestFormOptionsService)
-add_learning_request_impl.register(HttpController, AddLearningRequestView)
+request_form_options_container = Container()
+request_form_options_container.register(LearningCourseRepository, LearningCourseDjangoRepository)
+request_form_options_container.register(RegionalOrganizationRepository, RegionalOrganizationDjangoRepository)
+request_form_options_container.register(DisabilityGroupTranslator, DisabilityGroupDjangoTranslator)
+request_form_options_container.register(TrainingLevelTranslator, TrainingLevelDjangoTranslator)
+request_form_options_container.register(GetRequestFormOptionsUsecase, GetRequestFormOptionsService)
