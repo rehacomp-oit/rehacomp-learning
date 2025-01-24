@@ -3,13 +3,13 @@ from typing import TypeAlias
 
 from returns.result import Result
 
-from ..dto import CourseFolder, RequestFormOptions
+from ..dto import CourseDTO, RequestFormOptions
 from ..results import GetCourseFoldersFailure, GetRequestFormOptionFailure
 
 
-GetCourseFoldersUsecase: TypeAlias = Callable[  # noqa: ECE001
+GetCourseListUsecase: TypeAlias = Callable[  # noqa: ECE001
     [],
-    Result[tuple[CourseFolder, ...], GetCourseFoldersFailure]
+    Result[tuple[CourseDTO, ...], GetCourseFoldersFailure]
 ]
 
 GetRequestFormOptionsUsecase: TypeAlias = Callable[

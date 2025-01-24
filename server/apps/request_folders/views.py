@@ -10,17 +10,17 @@ from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
 from server.common.exceptions import ControllerError
 
-from .domain.protocols.usecases import GetCourseFoldersUsecase, GetRequestFormOptionsUsecase
+from .domain.protocols.usecases import GetCourseListUsecase, GetRequestFormOptionsUsecase
 from .domain.results import GetCourseFoldersFailure, GetRequestFormOptionFailure
 from .forms import LearningRequestForm
-from .registry import course_folders_container, request_form_options_container
+from .registry import course_list_container, request_form_options_container
 
 
 @login_required
 @require_GET
 def show_folders_list(request: HtmxHttpRequest) -> HttpResponse:
     success_page, not_found_page = 'folders_list.html', 'folders_not_found.html'
-    get_folders_list = course_folders_container.resolve(GetCourseFoldersUsecase)
+    get_folders_list = course_list_container.resolve(GetCourseListUsecase)
     match get_folders_list():
         case Success(value):
             return render(request, success_page, {'folders': value})

@@ -2,15 +2,15 @@ from punq import Container
 
 from .domain.protocols.repositories import LearningCourseRepository, RegionalOrganizationRepository
 from .domain.protocols.translators import DisabilityGroupTranslator, TrainingLevelTranslator
-from .domain.protocols.usecases import GetCourseFoldersUsecase, GetRequestFormOptionsUsecase
+from .domain.protocols.usecases import GetCourseListUsecase, GetRequestFormOptionsUsecase
 from .infrastructure.repositories import LearningCourseDjangoRepository, RegionalOrganizationDjangoRepository
 from .infrastructure.translators import DisabilityGroupDjangoTranslator, TrainingLevelDjangoTranslator
-from .services import GetCourseFoldersService, GetRequestFormOptionsService
+from .services import GetCourseListService, GetRequestFormOptionsService
 
 
-course_folders_container = Container()
-course_folders_container.register(LearningCourseRepository, LearningCourseDjangoRepository)
-course_folders_container.register(GetCourseFoldersUsecase, GetCourseFoldersService)
+course_list_container = Container()
+course_list_container.register(LearningCourseRepository, LearningCourseDjangoRepository)
+course_list_container.register(GetCourseListUsecase, GetCourseListService)
 
 
 request_form_options_container = Container()

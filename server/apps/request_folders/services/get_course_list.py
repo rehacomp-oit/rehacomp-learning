@@ -5,7 +5,7 @@ from returns.result import Failure, Result, Success
 from server.common.exceptions import EmptyRepositoryError, InfrastructureLayerError
 from server.common.helpers import define_service
 
-from ..domain.dto import CourseFolder
+from ..domain.dto import CourseDTO
 from ..domain.entities import LearningCourse
 from ..domain.protocols.repositories import LearningCourseRepository
 from ..domain.results import GetCourseFoldersFailure
@@ -16,15 +16,15 @@ _logger = getLogger(__name__)
 
 @final
 @define_service
-class GetCourseFoldersService:
+class GetCourseListService:
     repository: LearningCourseRepository
 
 
-    def __call__(self) -> Result[tuple[CourseFolder, ...], GetCourseFoldersFailure]:
-        return self._load_all_courses().bind(self._make_output)
+    def __call__(self) -> Result[tuple[CourseDTO, ...], GetCourseFoldersFailure]:
+        return self._load_data().bind(self._make_output)
 
 
-    def _load_all_courses(self) -> Result[tuple[LearningCourse, ...], GetCourseFoldersFailure]:
+    def _load_data(self) -> Result[tuple[LearningCourse, ...], GetCourseFoldersFailure]:
         try:
             courses = self.repository.fetch_all()
         except EmptyRepositoryError:
@@ -40,6 +40,6 @@ class GetCourseFoldersService:
     def _make_output(
         self,
         courses: tuple[LearningCourse, ...]
-    ) -> Success[tuple[CourseFolder, ...]]:
-        dto = tuple(CourseFolder(course.name, course.slug) for course in courses)
+    ) -> Success[tuple[CourseDTO, ...]]:
+        dto = tuple(CourseDTO(course.name, course.slug) for course in courses)
         return Success(dto)

@@ -4,7 +4,7 @@ from typing import Any, final, TypedDict
 
 @final
 @dataclass(frozen=True, slots=True)
-class CourseFolder:
+class CourseDTO:
     name: str
     reference: str
 

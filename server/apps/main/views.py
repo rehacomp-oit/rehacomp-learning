@@ -5,7 +5,6 @@ from server.common.django_tools import htmx_render as render
 from server.common.django_tools import HtmxHttpRequest
 
 
-# fake view because this do nothing.
 @login_required
 @require_GET
 def show_main_page(request: HtmxHttpRequest) -> HttpResponse:
