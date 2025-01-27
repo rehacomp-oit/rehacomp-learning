@@ -11,12 +11,13 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import TemplateView
 from health_check import urls as health_urls
 from server.apps.accounts import urls as accounts_urls
 from server.apps.main import urls as main_urls
 from server.apps.main.views import show_main_page
 from server.apps.request_folders import urls as request_folders_urls
+
+from .common.django.views import HumansView, RobotsView
 
 
 # Customizing the admin panel via a global admin site object
@@ -26,29 +27,18 @@ admin.site.index_title = _('Home page')
 admin.site.unregister(Group)
 
 
-# Serving text and xml static files:
-__robots_view = TemplateView.as_view(
-    template_name='txt/robots.txt',
-    content_type='text/plain',
-)
-
-__humans_view = TemplateView.as_view(
-    template_name='txt/humans.txt',
-    content_type='text/plain',
-)
-
-
 urlpatterns: tuple[Any, ...] = (
     path('accounts/', include(accounts_urls, namespace='accounts')),
     path('main/', include(main_urls, namespace='main')),
     path('request_folders/', include(request_folders_urls, namespace='request_folders')),
     path('health/', include(health_urls)),
     path('admin/', admin.site.urls),
-    path('robots.txt', __robots_view),
-    path('humans.txt', __humans_view),
+    path('robots.txt', RobotsView.as_view()),
+    path('humans.txt', HumansView.as_view()),
     # Explicit index view:
     path('', show_main_page, name='index'),
 )
+
 
 if settings.DEBUG:
     import debug_toolbar

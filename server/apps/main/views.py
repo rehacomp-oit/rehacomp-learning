@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.http import require_GET
-from server.common.django_tools import htmx_render as render
-from server.common.django_tools import HtmxHttpRequest
+from server.common.django.enhancements import htmx_render as render
+from server.common.django.enhancements import HtmxHttpRequest
 
 
 @login_required

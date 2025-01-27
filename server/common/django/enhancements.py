@@ -10,8 +10,8 @@ from django.template import loader
 from django_htmx.middleware import HtmxDetails
 
 
-GENERIC_BASE: Constant = 'main/_base.html'
-PARTIAL_BASE: Constant = 'main/_partial.html'
+GENERIC_BASE: Constant = 'common/html/_base.html'
+PARTIAL_BASE: Constant = 'common/html/_partial.html'
 
 
 @final

@@ -6,8 +6,8 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.decorators.http import require_GET
 from returns.result import Failure, Success
-from server.common.django_tools import htmx_render as render
-from server.common.django_tools import HtmxHttpRequest
+from server.common.django.enhancements import htmx_render as render
+from server.common.django.enhancements import HtmxHttpRequest
 from server.common.exceptions import ControllerError
 
 from .domain.protocols.usecases import GetCourseListUsecase, GetRequestFormOptionsUsecase
