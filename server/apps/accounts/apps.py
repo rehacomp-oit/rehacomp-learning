@@ -10,3 +10,7 @@ class AccountsConfig(AppConfig):
     name = 'server.apps.accounts'
     label = 'accounts'
     verbose_name = _('Accounts')
+
+
+    def ready(self) -> None:
+        import server.apps.accounts.infrastructure.models
