@@ -22,3 +22,6 @@ DATABASES = {
         },
     },
 }
+
+
+MIGRATION_MODULES = {'accounts': 'server.apps.accounts.infrastructure.migrations'}
