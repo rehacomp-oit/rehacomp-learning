@@ -1,8 +1,7 @@
 from abc import ABC
-from typing import Any, final
+from typing import Any
 
 
-@final
 class EntityId:
     '''
     Value object for domain identifiers.
