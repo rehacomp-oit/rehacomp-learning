@@ -1,9 +1,6 @@
-from typing import final, NewType
+from typing import final
 
 from server.common.domain import EntityId
-
-
-UserPassword = NewType('UserPassword', str)
 
 
 @final
