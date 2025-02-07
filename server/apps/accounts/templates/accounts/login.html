@@ -3,30 +3,23 @@
 
 
 {% block content %}
-  <main>
+  <main hx-boost="true" hx-target=".application-screan">
 
 
     <h1>Вход в систему</h1>
     <p>если ещё нет аккаунта, самое время
       <br>
-      <a href="{% url 'accounts:register' %}" hx-get="{% url 'accounts:register' %}" hx-target=".application-screan" hx-push-url="{% url 'accounts:register' %}">зарегистрироваться</a></p>
+      <a href="{% url 'accounts:register' %}">зарегистрироваться</a></p>
 
-    <form
-    hx-post="#"
-    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-    hx-target=".application-screan"
-  >
+    <form method="post">
+      {% csrf_token %}
       {{ form.non_field_errors }}
 
       <div class="fieldWrapper">
-        {{ form.username.errors }}
-        <label for="id_username">Имя пользователя:</label>
-        {{ form.username }}
+        {{ form.username.as_field_group }}
       </div>
       <div class="fieldWrapper">
-        {{ form.password.errors }}
-        <label for="id_password">Пароль:</label>
-        {{ form.password }}
+        {{ form.password.as_field_group }}
       </div>
 
       <button type="submit">Войти</button>

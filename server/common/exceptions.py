@@ -5,7 +5,7 @@ Common exception types for this project.
 from typing import final
 
 
-class BaseError(Exception):
+class BaseApplicationError(Exception):
     '''
     Base exception for this application.
 
@@ -14,7 +14,7 @@ class BaseError(Exception):
     pass
 
 
-class InfrastructureLayerError(BaseError):
+class InfrastructureLayerError(BaseApplicationError):
     '''
     Critical error in the application infrastructure layer.
     '''

@@ -13,8 +13,6 @@ SECRET_KEY = env_config('DJANGO_SECRET_KEY')
 INSTALLED_APPS: tuple[str, ...] = (
     # Internal apps go here:
     'server.apps.accounts',
-    'server.apps.main',
-    'server.apps.request_folders',
 
     # Default django apps:
     'django.contrib.admin',

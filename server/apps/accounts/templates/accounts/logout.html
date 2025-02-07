@@ -1,0 +1,22 @@
+{% extends base_template %}
+{% block subtitle %}Выход{% endblock subtitle %}
+
+
+{% block content %}
+  <nav>
+    <ul hx-boost="true" hx-target=".application-screan">
+      <li>
+        <a href="{% url 'accounts:register' %}">Зарегистрироваться</a>
+      </li>
+      <li>
+        <a href="{% url 'accounts:login' %}">Войти</a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <main>
+    <br>
+    <p>Вы успешно вышли из системы!</p>
+  </main>
+{% endblock %}

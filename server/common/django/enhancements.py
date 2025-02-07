@@ -7,6 +7,7 @@ from typing import Final as Constant
 
 from django.http import HttpRequest, HttpResponse
 from django.template import loader
+from django.template.response import SimpleTemplateResponse
 from django_htmx.middleware import HtmxDetails
 
 
@@ -37,6 +38,33 @@ class HtmxHttpRequest(HttpRequest):
     '''
 
     htmx: HtmxDetails
+
+
+@final
+class HtmxTemplateResponse(SimpleTemplateResponse):
+    rendering_attrs = SimpleTemplateResponse.rendering_attrs + ['_request',]
+
+    def __init__(
+        self,
+        request: HtmxHttpRequest,
+        template: str,
+        context: MutableMapping[str, Any] | None=None,
+        content_type: str | None=None,
+        status: int | None=None,
+        charset: str | None=None,
+        using: str | None=None,
+        headers: MutableMapping[str, Any] | None=None,
+    ):
+        super().__init__(
+            template, context, content_type, status, charset, using, headers
+        )
+        self._request = request
+
+
+    def resolve_context(self, context: MutableMapping[str, Any] | None=None) -> MutableMapping[str, Any]:
+        rendering_context = context or {}
+        rendering_context['base_template'] = PARTIAL_BASE if self._request.htmx else GENERIC_BASE
+        return rendering_context
 
 
 def htmx_render(

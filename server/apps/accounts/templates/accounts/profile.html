@@ -1,0 +1,32 @@
+{% extends base_template %}
+{% block subtitle %}Главная{% endblock subtitle %}
+
+
+{% block content %}
+  <h1>Личный кабинет</h1>
+  <form
+  hx-boost="true" hx-target=".application-screan"
+  class="logout-form" method="post"
+  action="{% url 'accounts:logout' %}"
+  >
+  {% csrf_token %}
+    <button type="submit">Выход</button>
+  </form>
+
+  <nav aria-label="Главное меню" class="navigation">
+    <ul class="menu-items" hx-boost="true" hx-target=".application-screan">
+      <li class="menu-item">
+        <a href="{% url 'request_folders:folders' %}">Заявки</a>
+      </li>
+      <li class="menu-item">
+        <a href="">Группы</a>
+      </li>
+    </ul>
+  </nav>
+<br> <br>
+
+
+  <main>
+    <p>будущая страница профиля</p>
+  </main>
+{% endblock content %}

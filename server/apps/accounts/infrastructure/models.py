@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import Any, final
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db.models import BooleanField, CharField, DateTimeField
+from django.db.models import BooleanField, CharField, DateTimeField, EmailField
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
-from ..domain.constants import EMAIL_ADDRESS_LENGTH, REAL_USER_NAME_LENGTH
+from ..domain.constants import MAX_REAL_USER_NAME_LENGTH
 
 
 @final
@@ -55,19 +55,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     Email address is used as the user name.
     '''
 
-    email = CharField(
+    email = EmailField(
         verbose_name=_('email address'),
-        max_length=EMAIL_ADDRESS_LENGTH,
         unique=True
     )
     first_name = CharField(
         verbose_name=_('first name'),
-        max_length=REAL_USER_NAME_LENGTH,
+        max_length=MAX_REAL_USER_NAME_LENGTH,
         blank=True
     )
     last_name = CharField(
         verbose_name=_('last name'),
-        max_length=REAL_USER_NAME_LENGTH,
+        max_length=MAX_REAL_USER_NAME_LENGTH,
         blank=True
     )
     is_active = BooleanField(

@@ -8,7 +8,11 @@
   <title>{% block subtitle %}{% endblock subtitle %} - обучение</title>
 
   <!-- Setup htmx configuration -->
-  <meta name="htmx-config" content='{"historyCacheSize": 15, "selfRequestsOnly": true, "includeIndicatorStyles": false}'>
+  <meta name="htmx-config" content='{
+    "historyCacheSize": 15,
+    "selfRequestsOnly": true,
+    "includeIndicatorStyles": false
+  }'>
 
   <script src="{% static 'common/js/htmx.min.js' %}" defer></script>
 </head>
@@ -18,15 +22,6 @@
 <body>
   <header class="header" role="banner">
     <p>Будущая Шапка</p>
-
-    {% if messages %}
-    <div class="messages" role="region">
-      {% for message in messages %}
-      <p{% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">{{ message }}</p>
-      {% endfor %}
-    </div>
-    {% endif %}
-
   </header>
   <br>
 

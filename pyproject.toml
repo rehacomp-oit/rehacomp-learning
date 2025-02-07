@@ -30,6 +30,7 @@ punq = "^0.7.0"
 ulid-py = "^1.1.0"
 returns = "^0.24.0"
 structlog = "^24.4.0"
+classes = "^0.4.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -55,6 +56,7 @@ django-migration-linter = "^5.1.0"
 django-extra-checks = "^0.16.1"
 django-query-counter = "^0.4.0"
 nplusone = "^1.0.0"
+pytest-mock = "^3.14.0"
 
 
 [build-system]

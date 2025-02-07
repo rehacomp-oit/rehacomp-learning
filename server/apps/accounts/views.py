@@ -1,69 +1,65 @@
-from typing import Final, TypeAlias
+from typing import final
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET
+from django.views.generic import FormView
 from server.common.django.enhancements import htmx_render as render
-from server.common.django.enhancements import HtmxHttpRequest
+from server.common.django.enhancements import HtmxHttpRequest, HtmxTemplateResponse
 
-from .forms import LoginForm, RegisterForm
-from .logic.exceptions import AccountAlreadyExists, MismatchedPasswords, UncorrectPassword
-from .logic.implemented import signup_implementation
-
-
-LOGIN_SUCCESS_URL_NAME: Final = 'main:home'
-LOGIN_PAGE_TEMPLATE_NAME: Final = 'accounts/login.html'
-REGISTER_SUCCESS_URL_NAME: Final = 'accounts:login'
-REGISTRATION_PAGE_TEMPLATE_NAME: Final = 'accounts/register.html'
-
-ViewResponse: TypeAlias = HttpResponse | HttpResponseRedirect
+from .application.dependency_injection import register_employee_container
+from .application.exceptions import EmployeeAlreadyExists, InvalidPassword, MismatchedPasswords
+from .application.protocols import RegisterEmployeeUsecase
+from .forms import SignupForm
 
 
-@require_http_methods(('GET', 'POST',))
-def login_user(request: HtmxHttpRequest) -> ViewResponse:
-    if request.method == 'GET':
-        form = LoginForm()
-        return render(request, LOGIN_PAGE_TEMPLATE_NAME, {'form': form})
-
-    form = LoginForm(request.POST)
-    if not form.is_valid():
-        return render(request, LOGIN_PAGE_TEMPLATE_NAME, {'form': form})
-
-    user = authenticate(request, **form.cleaned_data)
-    if user is None:
-        return render(request, LOGIN_PAGE_TEMPLATE_NAME, {'form': form})
-
-    login(request, user)
-    return redirect(LOGIN_SUCCESS_URL_NAME)
+@final
+class SignupView(FormView):
+    template_name = 'accounts/register.html'
+    response_class = HtmxTemplateResponse
+    form_class = SignupForm
+    success_url = reverse_lazy('accounts:login')
 
 
-def logout_user(request: HtmxHttpRequest) -> HttpResponseRedirect:
-    logout(request)
-    return redirect(REGISTER_SUCCESS_URL_NAME)
+    def form_valid(self, form: SignupForm) -> HttpResponseRedirect:
+        register_user = register_employee_container.resolve(RegisterEmployeeUsecase)
+
+        try:
+            account = register_user(form.output)
+        except MismatchedPasswords as error:
+            form.add_error('password2', _(error.reason))
+            return self.form_invalid(form)
+        except InvalidPassword:
+            return self.form_invalid(form)
+        except EmployeeAlreadyExists as error:
+            form.add_error('email', _(error.reason))
+            return self.form_invalid(form)
+        else:
+            return super().form_valid(form)
 
 
-@require_http_methods(('GET', 'POST',))
-def register_user(request: HtmxHttpRequest) -> ViewResponse:
-    if request.method == 'GET':
-        form = RegisterForm()
-        return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})
+@final
+class SignInView(LoginView):
+    template_name = 'accounts/login.html'
+    response_class = HtmxTemplateResponse
+    next_page = reverse_lazy('accounts:profile')
 
-    form = RegisterForm(request.POST)
-    if not form.is_valid():
-        return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})
 
-    try:
-        signup = signup_implementation.resolve('service')
-        signup(form.cleaned_data)
-    except MismatchedPasswords:
-        form.add_error('password2', _('The entered passwords didn\'t match.'))
-        return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})
-    except UncorrectPassword:
-        return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})
-    except AccountAlreadyExists:
-        form.add_error('username', 'Такой пользователь уже существует')
-        return render(request, REGISTRATION_PAGE_TEMPLATE_NAME, {'form': form})
-    else:
-        return redirect(REGISTER_SUCCESS_URL_NAME)
+@final
+class LogOutUserView(LogoutView):
+    template_name = 'accounts/logout.html'
+    response_class = HtmxTemplateResponse
+
+
+@login_required
+@require_GET
+def show_profile_page(request: HtmxHttpRequest) -> HttpResponse:
+    '''
+Main (or index) view.
+    Returns rendered default page to the user.
+    '''
+    template = 'accounts/profile.html'
+    return render(request, template)
