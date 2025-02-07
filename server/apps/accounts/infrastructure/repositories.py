@@ -1,7 +1,7 @@
 from typing import final
 
 from django.contrib.auth import get_user_model
-from django.db import Error as DBError
+from django.db import DatabaseError
 from django.db.models import Q
 from server.apps.accounts.domain.entities import Employee
 from server.apps.accounts.domain.value_objects import EmployeeEmail, EmployeeHashedPassword
@@ -33,8 +33,8 @@ class DjangoEmployeeRepository:
         user.password = hashed_password
         try:
             user.save()
-        except DBError as exc:
-            raise RepositoryError('Failed to persiste employee') from exc
+        except DatabaseError as exc:
+            raise RepositoryError('Failed to create employee') from exc
 
         return orm_to_domain(user)
 
@@ -50,5 +50,5 @@ class DjangoEmployeeRepository:
         filter_condition = Q(email=email) | Q(email__iexact=email)
         try:
             return _UserModel.objects.filter(filter_condition).exists()
-        except DBError as exc:
+        except DatabaseError as exc:
             raise RepositoryError('Failed to check employee existence') from exc

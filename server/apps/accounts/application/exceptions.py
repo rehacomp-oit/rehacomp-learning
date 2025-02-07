@@ -19,6 +19,7 @@ class InvalidPassword(Exception):
     def __init__(self, validation_messages: list[str]) -> None:
         super().__init__(validation_messages)
         self.validation_messages = validation_messages
+        self.field = 'password2'
 
 
 @final
@@ -29,3 +30,9 @@ class EmployeeAlreadyExists(Exception):
         message = 'The employee with such an email already exists!'
         super().__init__(message)
         self.reason = message
+        self.field = 'email'
+
+
+@final
+class CriticalRegistrationFailure(Exception):
+    pass
