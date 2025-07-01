@@ -30,6 +30,7 @@ punq = "^0.7.0"
 ulid-py = "^1.1.0"
 returns = "^0.24.0"
 structlog = "^24.4.0"
+django-stubs-ext = "^5.1"
 classes = "^0.4.1"
 
 
@@ -43,6 +44,7 @@ flake8-import-order = "^0.18.2"
 flake8-quotes = "^3.4.0"
 flake8-variables-names = "^0.0.6"
 mypy = "^1.14.1"
+django-stubs = { version = ">=5.1,<5.2", extras = ["compatible-mypy"] }
 pytest = "^8.3.4"
 pytest-django = "^4.9.0"
 pytest-randomly = "^3.16.0"
@@ -57,6 +59,7 @@ django-extra-checks = "^0.16.1"
 django-query-counter = "^0.4.0"
 nplusone = "^1.0.0"
 pytest-mock = "^3.14.0"
+pympler = "^1.1"
 
 
 [build-system]

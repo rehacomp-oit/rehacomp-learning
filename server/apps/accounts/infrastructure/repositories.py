@@ -1,54 +1,72 @@
-from typing import final
+from __future__ import annotations
+
+from typing import final, TYPE_CHECKING
 
 from django.contrib.auth import get_user_model
-from django.db import DatabaseError
+from django.db import IntegrityError
 from django.db.models import Q
-from server.apps.accounts.domain.entities import Employee
-from server.apps.accounts.domain.value_objects import EmployeeEmail, EmployeeHashedPassword
-from server.apps.accounts.exceptions import RepositoryError
+from server.apps.accounts.domain import DuplicateUserError, User, UserHashedPassword
 
-from .mappers import domain_to_orm, orm_to_domain
-
-
-_UserModel = get_user_model()
+if TYPE_CHECKING:
+    from .orm_models import User as UserModel
 
 
 @final
-class DjangoEmployeeRepository:
+class DjangoUserRepository:
     '''
-    Concrete repository implementation for Employee entity using Django ORM.
+    Concrete repository implementation for User entity using Django ORM.
     '''
-    __slots__ = ()
+    __slots__ = ('__model')
+
+    def __init__(self) -> None:
+        self.__model: type[UserModel] = get_user_model()
 
 
-    def add(self, employee: Employee, hashed_password: EmployeeHashedPassword) -> Employee:
+    def add(
+        self,
+        new_user: User
+    ) -> User:
         '''
         See repository protocol.
 
-        Persists a new Employee in the database using Django ORM.
+        Persists a new user in the database using Django ORM.
         Converts the domain entity to ORM model and stores it.
-        Raises RepositoryError if a database error occurs.
         '''
-        user = domain_to_orm(employee)
-        user.password = hashed_password
+
+        user = self._to_orm(new_user)
         try:
             user.save()
-        except DatabaseError as exc:
-            raise RepositoryError('Failed to create employee') from exc
+            return self._to_domain(user)
+        except IntegrityError as exc:
+            raise DuplicateUserError from exc
 
-        return orm_to_domain(user)
 
-
-    def exists_by_email(self, email: EmployeeEmail) -> bool:
+    def exists_by_email(self, email: str) -> bool:
         '''
         See repository protocol.
 
-        Checks the database for presence of an employee with the specified email using Django ORM.
+        Checks the database for presence of an user with the specified email using Django ORM.
         Returns True if found, otherwise False.
-        Raises RepositoryError on database errors.
         '''
+
         filter_condition = Q(email=email) | Q(email__iexact=email)
-        try:
-            return _UserModel.objects.filter(filter_condition).exists()
-        except DatabaseError as exc:
-            raise RepositoryError('Failed to check employee existence') from exc
+        return self.__model.objects.filter(filter_condition).exists()
+
+
+    def _to_orm(self, entity: User) -> UserModel:
+        return self.__model(
+            first_name=entity.first_name,
+            last_name=entity.last_name,
+            email=entity.email,
+            password=entity.hashed_password
+        )
+
+
+    def _to_domain(self, model: UserModel) -> User:
+        return User.create(
+            first_name=model.first_name,
+            last_name=model.last_name,
+            email=model.email,
+            hashed_password=UserHashedPassword(model.password),
+            user_id=model.id
+        )

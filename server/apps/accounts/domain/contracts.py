@@ -1,44 +1,32 @@
 from typing import Protocol
 
-from .entities import Employee
-from .value_objects import EmployeeEmail, EmployeeHashedPassword
+from .entities import User
+from .types import UserHashedPassword, UserRawPassword
 
 
-class EmployeeRepository(Protocol):
+class UserRepository(Protocol):
     '''
-    Repository interface for managing Employee entities.
-
-    All methods may raise RepositoryError on critical infrastructure failures.
+    Repository interface for managing User account entities.
     '''
 
-    def add(self, employee: Employee, hashed_password: EmployeeHashedPassword) -> Employee:
+    def add(
+        self,
+        new_user: User
+    ) -> User:
         '''
-        Persists a new Employee in the repository.
-
-        Args:
-            employee: The Employee entity to be stored.
-            hashed_password: The Employee's hashed password value object.
-
-        Returns:
-            The stored Employee entity (could be updated with repository-generated data).
-
-        Raises:
-            RepositoryError: If the repository operation fails.
+        Persists a new User account in the repository.
         '''
         ...
 
 
-    def exists_by_email(self, email: EmployeeEmail) -> bool:
-        '''
-        Checks whether an Employee with the given email exists in the repository.
+    def exists_by_email(self, email: str) -> bool:
+        ...
 
-        Args:
-            email: Email to lookup.
 
-        Returns:
-            True if an Employee with this email exists, False otherwise.
+class UserPasswordManager(Protocol):
+    def validate_password_strength(self, password: str) -> None:
+        ...
 
-        Raises:
-            RepositoryError: If the repository operation fails.
-        '''
+
+    def hash_password(self, source: UserRawPassword) -> UserHashedPassword:
         ...

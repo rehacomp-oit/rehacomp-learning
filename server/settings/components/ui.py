@@ -2,15 +2,13 @@
 User interface configuration for the application: static files and templates
 '''
 
-from server.settings.components import PROJECT_PACKAGE_DIR
-
-
 TEMPLATES = ({
     'APP_DIRS': True,
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': (PROJECT_PACKAGE_DIR.joinpath('common', 'django', 'templates'),),
+    'DIRS': (),
     'OPTIONS': {
         'context_processors': (
+            'server.core.context_processors.base_template',
             'django.template.context_processors.debug',
             'django.template.context_processors.request',
             'django.contrib.auth.context_processors.auth',
@@ -22,7 +20,7 @@ TEMPLATES = ({
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (PROJECT_PACKAGE_DIR.joinpath('common', 'django', 'static'),)
+STATICFILES_DIRS = ()
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

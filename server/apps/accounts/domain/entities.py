@@ -1,30 +1,28 @@
 from dataclasses import dataclass
-from datetime import datetime
 from typing import final, Self
 
-from server.common.helpers import EntityMixin
+from server.core.helpers import EntityMixin
 
-from .exceptions import InvalidEmployee
-from .value_objects import EmployeeEmail, EmployeeId, EmployeePersonName
+from .exceptions import UserCreationError
+from .types import UserHashedPassword, UserId
+from .validators import validate_email, validate_first_name, validate_last_name
 
 
 @final
 @dataclass(eq=False, init=False, match_args=False, repr=False, slots=True)
-class Employee(EntityMixin):
+class User(EntityMixin):
     '''
-    Domain entity representing a company employee.
+    Domain entity representing a user account.
 
     Note:
-        Use classmethod `create` for constructing new valid domain objects.
         Core domain invariants are enforced at object creation.
     '''
 
-    first_name: EmployeePersonName
-    last_name: EmployeePersonName
-    email: EmployeeEmail
-    date_joined: datetime
-    # None for employees not yet persisted in storage
-    id: EmployeeId | None = None  # noqa:VNE003
+    id: UserId | None  # noqa:VNE003
+    first_name: str
+    last_name: str
+    email: str
+    hashed_password: UserHashedPassword
 
 
     @property
@@ -41,54 +39,17 @@ class Employee(EntityMixin):
         first_name: str,
         last_name: str,
         email: str,
-        date_joined: datetime
+        hashed_password: UserHashedPassword,
+        user_id: int | None = None
     ) -> Self:
-        '''
-        Factory method for creating a new Employee entity.
-
-        All invariants are checked, and domain-specific exceptions are raised.
-
-        Args:
-            first_name: Employee first name.
-            last_name: Employee last name.
-            email: Employee email address.
-            date_joined: When the employee joined.
-
-        Returns:
-            Employee: A new Employee instance.
-
-        Raises:
-            InvalidEmployee: If any attribute fails domain validation.
-        '''
+        obj = cls()
+        obj.id = UserId(user_id) if user_id else None
         try:
-            first_name_VO = EmployeePersonName(first_name)
-            last_name_VO = EmployeePersonName(last_name)
-            email_VO = EmployeeEmail(email)
+            obj.first_name = validate_first_name(first_name)
+            obj.last_name = validate_last_name(last_name)
+            obj.email = validate_email(email)
         except ValueError as exc:
-            raise InvalidEmployee(str(exc))
+            raise UserCreationError(str(exc))
 
-        if date_joined > datetime.now():
-            raise InvalidEmployee('Employee join date cannot be in the future')
-
-        obj = super().__new__(cls)
-        obj.first_name = first_name_VO
-        obj.last_name = last_name_VO
-        obj.email = email_VO
-        obj.date_joined = date_joined
-        return obj
-
-
-    @classmethod
-    def frompersistence(
-        cls,
-        id: int,  # noqa:VNE003
-        firstname: str,
-        lastname: str,
-        email: str,
-        datejoined: datetime
-    ) -> Self:
-        obj = super().__new__(cls)
-        obj.id, obj.email = id, email
-        obj.first_name, obj.last_name = firstname, lastname
-        obj.date_joined = datejoined
+        obj.hashed_password = hashed_password
         return obj

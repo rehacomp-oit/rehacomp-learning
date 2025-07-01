@@ -35,6 +35,14 @@ INSTALLED_APPS: tuple[str, ...] = (
     'health_check.db',
     'health_check.cache',
     'health_check.storage',
+
+    # Common project infrastructure
+    'server.core',
+)
+
+
+DI_BOOTSTRAP_MODULES = (
+    'server.apps.accounts.bootstrap',
 )
 
 
@@ -78,6 +86,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Django authentication system
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = reverse_lazy('accounts:login')
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
+LOGOUT_REDIRECT_URL = reverse_lazy('accounts:login')
+
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesBackend',
     'django.contrib.auth.backends.ModelBackend',

@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import final
 
-from server.apps.accounts.domain.value_objects import EmployeeHashedPassword, EmployeeRawPassword
+from server.apps.accounts.domain import UserHashedPassword, UserRawPassword
 
 
 @final
 @dataclass(frozen=True, slots=True)
-class RegisterEmployeeCommand:
+class RegisterUserCommand:
     '''
     Structure of the raw source data obtained from signup form.
     '''
@@ -18,15 +18,22 @@ class RegisterEmployeeCommand:
     password2: str
 
 
-@final
-@dataclass(frozen=True, slots=True)
-class PasswordValidatedCarrier:
-    command: RegisterEmployeeCommand
-    password: EmployeeRawPassword
+# State objects
 
 
 @final
 @dataclass(frozen=True, slots=True)
-class HashedPasswordCarrier:
-    command: RegisterEmployeeCommand
-    password: EmployeeHashedPassword
+class ValidatedInputCarrier:
+    first_name: str
+    last_name: str
+    email: str
+    password: UserRawPassword
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class PreparedCredentialsCarrier:
+    first_name: str
+    last_name: str
+    email: str
+    hashed_password: UserHashedPassword
